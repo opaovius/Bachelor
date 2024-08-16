@@ -1,5 +1,6 @@
 package app;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Bloom {
@@ -12,7 +13,7 @@ public class Bloom {
 		this.pathGenom = pathGenom;
 	}
 	
-	public void magic() {
+	public void run() {
 		
 		
 		Parser<StringBuilder> genomParser = new Parser<>(pathGenom);
@@ -23,9 +24,19 @@ public class Bloom {
 		genParser.setParser(new GenFastaParser());
 		List<String> genes = genParser.output();
 		
-		HashFunction<Integer> hash = new HashFunction<Integer>("TODO");
-		hash.setHashFunction(new DummyHashFunction());
-		System.out.println(hash.output());
+		LinkedList<Double> places = new LinkedList<>();
+		int kmerSize = 66;
+		
+		for(int x = 0; x < genom.length() - kmerSize; x++) {
+			
+			HashFunction<Double> hash = new HashFunction<Double>(genom.substring(x, x + kmerSize));
+			hash.setHashFunction(new DummyHashFunction());
+			places.add(hash.output());
+		}
+		
+		PlaceWriter.write(places);
+		
+		
 	}
 
 	
