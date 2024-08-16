@@ -4,9 +4,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		String genom = "ACGTAACGGT";
-		
-		Bloom b = new Bloom(genom);
+		Bloom b = new Bloom("src/Genom.fa","src/Gen.fa");
 		
 		b.magic();
 	}
