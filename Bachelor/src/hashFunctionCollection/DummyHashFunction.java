@@ -1,4 +1,4 @@
-package app;
+package hashFunctionCollection;
 
 public class DummyHashFunction implements IHashFunction<Double>{
 

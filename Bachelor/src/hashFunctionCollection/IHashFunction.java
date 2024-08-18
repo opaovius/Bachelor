@@ -1,4 +1,4 @@
-package app;
+package hashFunctionCollection;
 
 public interface IHashFunction<T> {
 	

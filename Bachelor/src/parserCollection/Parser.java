@@ -1,4 +1,4 @@
-package app;
+package parserCollection;
 
 public class Parser<T> {
 	

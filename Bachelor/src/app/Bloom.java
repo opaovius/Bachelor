@@ -3,6 +3,12 @@ package app;
 import java.util.LinkedList;
 import java.util.List;
 
+import hashFunctionCollection.DummyHashFunction;
+import hashFunctionCollection.HashFunction;
+import parserCollection.GenFastaParser;
+import parserCollection.GenomFastaParser;
+import parserCollection.Parser;
+
 public class Bloom {
 	
 	String pathGenom;
@@ -34,7 +40,7 @@ public class Bloom {
 			places.add(hash.output());
 		}
 		
-		PlaceWriter.write(places);
+		
 		
 		
 	}
