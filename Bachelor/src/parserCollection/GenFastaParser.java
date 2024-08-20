@@ -18,7 +18,7 @@ public class GenFastaParser implements IParser<List<String>>{
 				Scanner myScanner = new Scanner(f);
 			
 				// erste Zeile skippen
-				myScanner.next();
+				myScanner.nextLine();
 				
 				String currStr = "";
 				StringBuilder builder = new StringBuilder();
@@ -26,7 +26,6 @@ public class GenFastaParser implements IParser<List<String>>{
 				// Hinzufuegen der Gensequenzen zur LinkedList. Wenn '>' das erste Zeichen ist,
 				// wird der String gespeichert in der Liste und ein neuer Begonnen.
 				while(myScanner.hasNext()) {
-					
 					currStr = myScanner.nextLine();
 					
 					if(currStr.charAt(0) == '>') {

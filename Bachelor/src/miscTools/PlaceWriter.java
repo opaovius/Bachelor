@@ -11,15 +11,18 @@ public class PlaceWriter {
 		
 		try {
 			 BufferedWriter writer = new BufferedWriter(new FileWriter("PlacesAnalyse.csv"));
-			 System.out.println("hi");
+			 
 			 writer.write("Index,Number");
 			 writer.write("\n");
 			 
 			 int count = 1;
 			 
 			 for(int x = 0; x < places.size(); x++) {
+				 //String i = String.valueOf(places.get(x).intValue());
+				 
 				 writer.write(count + "," + places.get(x).intValue());
 				 writer.write("\n");
+				 count++;
 			 }
 			 
 			 writer.close();

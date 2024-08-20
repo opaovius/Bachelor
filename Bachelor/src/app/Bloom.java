@@ -1,10 +1,13 @@
 package app;
 
+import java.util.BitSet;
 import java.util.LinkedList;
 import java.util.List;
 
 import hashFunctionCollection.DummyHashFunction;
 import hashFunctionCollection.HashFunction;
+import miscTools.PlaceCounter;
+import miscTools.PlaceWriter;
 import parserCollection.GenFastaParser;
 import parserCollection.GenomFastaParser;
 import parserCollection.Parser;
@@ -31,7 +34,7 @@ public class Bloom {
 		List<String> genes = genParser.output();
 		
 		LinkedList<Double> places = new LinkedList<>();
-		int kmerSize = 66;
+		int kmerSize = 5;
 		
 		for(int x = 0; x < genom.length() - kmerSize; x++) {
 			
@@ -40,8 +43,17 @@ public class Bloom {
 			places.add(hash.output());
 		}
 		
+		System.out.println("places size: " + places.size());
 		
+		BitSet bitVector = new BitSet();
 		
+		for(Double d : places) {
+			bitVector.set(d.intValue());
+		}
+		
+		//Anaylse
+		PlaceCounter.count(places);
+		PlaceWriter.write(places);
 		
 	}
 

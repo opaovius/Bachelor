@@ -4,9 +4,9 @@ public class DummyHashFunction implements IHashFunction<Double>{
 
 	public Double toHash(String s) {
 		
-		double k = 5678;
-		double A = 0.6829;
-		double M = 2000;
+		double k = 0;
+		double A = (Math.sqrt(5) - 1) / 2; //Goldener Schnitt
+		double M = 512; //2^x soll am besten sein
         
 		for(int x = 0; x < s.length(); x++) {
 			k = k + s.codePointAt(x);
