@@ -51,7 +51,10 @@ public class Bloom {
 			bitVector.set(d.intValue());
 		}
 		
+		
 		//Anaylse
+		System.out.println("Vektorgroesse: " + bitVector.size() + "\n"
+				+ "Besetzte Bits: " + bitVector.cardinality());
 		PlaceCounter.count(places);
 		PlaceWriter.write(places);
 		
