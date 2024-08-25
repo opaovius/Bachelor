@@ -2,7 +2,8 @@ package hashFunctionCollection;
 
 public class DummyHashFunction implements IHashFunction<Double>{
 
-	public Double toHash(String s) {
+	// wird nicht genutzt, ist nur eine dummyfunktion
+	public Double toHash(String s, long dummy1, long dummy2) {
 		
 		double k = 0;
 		double A = (Math.sqrt(5) - 1) / 2; //Goldener Schnitt

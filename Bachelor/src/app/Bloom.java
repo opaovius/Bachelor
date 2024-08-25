@@ -4,8 +4,8 @@ import java.util.BitSet;
 import java.util.LinkedList;
 import java.util.List;
 
-import hashFunctionCollection.DummyHashFunction;
 import hashFunctionCollection.HashFunction;
+import hashFunctionCollection.PolynomialHashFunction;
 import miscTools.PlaceCounter;
 import miscTools.PlaceWriter;
 import parserCollection.GenFastaParser;
@@ -24,6 +24,8 @@ public class Bloom {
 	
 	public void run() {
 		
+		long size = Long.MAX_VALUE;
+		long parameter = 5;
 		
 		Parser<StringBuilder> genomParser = new Parser<>(pathGenom);
 		genomParser.setParser(new GenomFastaParser());
@@ -33,21 +35,29 @@ public class Bloom {
 		genParser.setParser(new GenFastaParser());
 		List<String> genes = genParser.output();
 		
-		LinkedList<Double> places = new LinkedList<>();
+		LinkedList<Long> places = new LinkedList<>();
 		int kmerSize = 5;
 		
 		for(int x = 0; x < genom.length() - kmerSize; x++) {
 			
-			HashFunction<Double> hash = new HashFunction<Double>(genom.substring(x, x + kmerSize));
-			hash.setHashFunction(new DummyHashFunction());
-			places.add(hash.output());
+			HashFunction<Long> hash1 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, parameter);
+			HashFunction<Long> hash2 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 7);
+			HashFunction<Long> hash3 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 11);
+			hash1.setHashFunction(new PolynomialHashFunction());
+			hash2.setHashFunction(new PolynomialHashFunction());
+			hash3.setHashFunction(new PolynomialHashFunction());
+			places.add(hash1.output());
+			places.add(hash2.output());
+			places.add(hash3.output());
 		}
+		
 		
 		System.out.println("places size: " + places.size());
 		
 		BitSet bitVector = new BitSet();
 		
-		for(Double d : places) {
+		for(Long d : places) {
+			//System.out.println(d);
 			bitVector.set(d.intValue());
 		}
 		

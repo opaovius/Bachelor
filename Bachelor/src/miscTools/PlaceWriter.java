@@ -7,7 +7,7 @@ import java.util.List;
 
 public class PlaceWriter {
 	
-	public static void write(List<Double> places) {
+	public static void write(List<Long> places) {
 		
 		try {
 			 BufferedWriter writer = new BufferedWriter(new FileWriter("PlacesAnalyse.csv"));

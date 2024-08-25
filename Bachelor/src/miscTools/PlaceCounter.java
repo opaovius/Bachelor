@@ -4,16 +4,16 @@ import java.util.List;
 
 public class PlaceCounter {
 	
-	public static void count(List<Double> places) {
+	public static void count(List<Long> places) {
 		
 		int size = 5000;
 		
-		Double[] array = new Double[size];
+		Long[] array = new Long[size];
 		
 		System.out.println("Check");
 		
 		for(int x = 0; x < size; x++) {
-			array[x] = 0.0;
+			array[x] = 0L;
 		}
 		System.out.println("Check2");
 		for(int x = 0; x < size; x++) {
@@ -24,7 +24,7 @@ public class PlaceCounter {
 			}
 		}
 		
-		double max = 0;
+		long max = 0;
 		System.out.println("Check3");
 		for(int x = 0; x < size; x++) {
 			if(array[x] > max) {

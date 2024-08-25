@@ -13,6 +13,10 @@ public class Parser<T> {
 		this.parser = parser;
 	}
 	
+	public void setPath(String path) {
+		this.path = path;
+	}
+	
 	public T output() {
 		
 		T out = parser.readFile(path);
