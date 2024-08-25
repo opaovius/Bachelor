@@ -6,6 +6,7 @@ import java.util.List;
 
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.PolynomialHashFunction;
+import miscTools.DNARandomizer;
 import miscTools.PlaceCounter;
 import miscTools.PlaceWriter;
 import parserCollection.GenFastaParser;
@@ -24,8 +25,8 @@ public class Bloom {
 	
 	public void run() {
 		
-		long size = Long.MAX_VALUE;
-		long parameter = 5;
+		long size = 100000;
+		long parameter = 3;
 		
 		Parser<StringBuilder> genomParser = new Parser<>(pathGenom);
 		genomParser.setParser(new GenomFastaParser());
@@ -36,19 +37,22 @@ public class Bloom {
 		List<String> genes = genParser.output();
 		
 		LinkedList<Long> places = new LinkedList<>();
-		int kmerSize = 5;
+		int kmerSize = 25;
 		
 		for(int x = 0; x < genom.length() - kmerSize; x++) {
 			
-			HashFunction<Long> hash1 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, parameter);
-			HashFunction<Long> hash2 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 7);
-			HashFunction<Long> hash3 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 11);
+			HashFunction<Long> hash1 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 3);
+			HashFunction<Long> hash2 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 5);
+			HashFunction<Long> hash3 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 7);
+			HashFunction<Long> hash4 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 11);
 			hash1.setHashFunction(new PolynomialHashFunction());
 			hash2.setHashFunction(new PolynomialHashFunction());
 			hash3.setHashFunction(new PolynomialHashFunction());
+			hash4.setHashFunction(new PolynomialHashFunction());
 			places.add(hash1.output());
 			places.add(hash2.output());
 			places.add(hash3.output());
+			places.add(hash4.output());
 		}
 		
 		
@@ -67,6 +71,7 @@ public class Bloom {
 				+ "Besetzte Bits: " + bitVector.cardinality());
 		PlaceCounter.count(places);
 		PlaceWriter.write(places);
+		//DNARandomizer.createDNA(10000);
 		
 	}
 

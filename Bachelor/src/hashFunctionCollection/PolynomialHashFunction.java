@@ -15,6 +15,8 @@ public class PolynomialHashFunction implements IHashFunction<Long>{
 		
 		hash = hash % size;
 		
+		//if(hash < 0) System.out.println(hash);
+		
 		return hash;
 	}
 	

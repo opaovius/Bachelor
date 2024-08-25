@@ -10,7 +10,7 @@ public class PlaceWriter {
 	public static void write(List<Long> places) {
 		
 		try {
-			 BufferedWriter writer = new BufferedWriter(new FileWriter("PlacesAnalyse.csv"));
+			 BufferedWriter writer = new BufferedWriter(new FileWriter("src/PlacesAnalyse.csv"));
 			 
 			 writer.write("Index,Number");
 			 writer.write("\n");
