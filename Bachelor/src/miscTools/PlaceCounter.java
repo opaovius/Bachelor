@@ -1,10 +1,11 @@
 package miscTools;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public class PlaceCounter {
 	
-	public static void count(List<Long> places) {
+	public static void count(List<BigInteger> places) {
 		
 		int size = 5000;
 		
@@ -17,8 +18,8 @@ public class PlaceCounter {
 		}
 		System.out.println("Check2");
 		for(int x = 0; x < size; x++) {
-			for(double d : places) {
-				if(x == d) {
+			for(BigInteger d : places) {
+				if(x == d.intValue()) {
 					array[x]++;
 				}
 			}

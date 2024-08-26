@@ -3,11 +3,12 @@ package miscTools;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.List;
 
 public class PlaceWriter {
 	
-	public static void write(List<Long> places) {
+	public static void write(List<BigInteger> places) {
 		
 		try {
 			 BufferedWriter writer = new BufferedWriter(new FileWriter("src/PlacesAnalyse.csv"));

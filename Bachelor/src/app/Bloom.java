@@ -1,12 +1,11 @@
 package app;
 
+import java.math.BigInteger;
 import java.util.BitSet;
 import java.util.LinkedList;
 import java.util.List;
-
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.PolynomialHashFunction;
-import miscTools.DNARandomizer;
 import miscTools.PlaceCounter;
 import miscTools.PlaceWriter;
 import parserCollection.GenFastaParser;
@@ -25,7 +24,7 @@ public class Bloom {
 	
 	public void run() {
 		
-		long size = 100000;
+		BigInteger size = BigInteger.valueOf(100000);
 		long parameter = 3;
 		
 		Parser<StringBuilder> genomParser = new Parser<>(pathGenom);
@@ -36,15 +35,16 @@ public class Bloom {
 		genParser.setParser(new GenFastaParser());
 		List<String> genes = genParser.output();
 		
-		LinkedList<Long> places = new LinkedList<>();
-		int kmerSize = 25;
+		LinkedList<BigInteger> places = new LinkedList<>();
+		int kmerSize = 11;
+		
 		
 		for(int x = 0; x < genom.length() - kmerSize; x++) {
 			
-			HashFunction<Long> hash1 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 3);
-			HashFunction<Long> hash2 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 5);
-			HashFunction<Long> hash3 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 7);
-			HashFunction<Long> hash4 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 11);
+			HashFunction<BigInteger> hash1 = new HashFunction<BigInteger>(genom.substring(x, x + kmerSize), size, BigInteger.valueOf(2));
+			HashFunction<BigInteger> hash2 = new HashFunction<BigInteger>(genom.substring(x, x + kmerSize), size, BigInteger.valueOf(5));
+			HashFunction<BigInteger> hash3 = new HashFunction<BigInteger>(genom.substring(x, x + kmerSize), size, BigInteger.valueOf(7));
+			HashFunction<BigInteger> hash4 = new HashFunction<BigInteger>(genom.substring(x, x + kmerSize), size, BigInteger.valueOf(11));
 			hash1.setHashFunction(new PolynomialHashFunction());
 			hash2.setHashFunction(new PolynomialHashFunction());
 			hash3.setHashFunction(new PolynomialHashFunction());
@@ -53,18 +53,20 @@ public class Bloom {
 			places.add(hash2.output());
 			places.add(hash3.output());
 			places.add(hash4.output());
+			
+			
 		}
 		
 		
 		System.out.println("places size: " + places.size());
 		
 		BitSet bitVector = new BitSet();
-		
-		for(Long d : places) {
+		/*
+		for(BigInteger d : places) {
 			//System.out.println(d);
-			bitVector.set(d.intValue());
+			bitVector.set(d.);
 		}
-		
+		*/
 		
 		//Anaylse
 		System.out.println("Vektorgroesse: " + bitVector.size() + "\n"
@@ -74,7 +76,5 @@ public class Bloom {
 		//DNARandomizer.createDNA(10000);
 		
 	}
-
-	
 
 }

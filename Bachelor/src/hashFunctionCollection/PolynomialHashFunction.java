@@ -1,23 +1,28 @@
 package hashFunctionCollection;
 
-public class PolynomialHashFunction implements IHashFunction<Long>{
+import java.math.BigInteger;
 
-	public Long toHash(String s, long size, long base) {
+public class PolynomialHashFunction implements IHashFunction<BigInteger>{
+
+	public BigInteger toHash(String s, BigInteger size, BigInteger base) {
 		
-		long hash = 0;
+		BigInteger hash = BigInteger.valueOf(0);
+		BigInteger curr;
+		BigInteger fac;
 		
 		for(int x = 0; x <s.length(); x++) {
 			
-			Double curr = s.charAt(x)*Math.pow(base, x);
+			curr = BigInteger.valueOf(s.charAt(x));
+			fac = base.pow(x);
+			curr = curr.multiply(fac);
+			hash = hash.add(curr);
 			
-			hash = hash + curr.longValue();
 		}
 		
-		hash = hash % size;
-		
-		//if(hash < 0) System.out.println(hash);
+		hash = hash.mod(size);
 		
 		return hash;
 	}
 	
 }
+
