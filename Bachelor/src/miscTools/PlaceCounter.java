@@ -7,7 +7,7 @@ public class PlaceCounter {
 	
 	public static void count(List<BigInteger> places) {
 		
-		int size = 5000;
+		int size = 10000;
 		
 		Long[] array = new Long[size];
 		

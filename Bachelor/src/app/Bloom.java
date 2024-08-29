@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.PolynomialHashFunction;
+import miscTools.DNARandomizer;
 import miscTools.PlaceCounter;
 import miscTools.PlaceWriter;
 import parserCollection.GenFastaParser;
@@ -36,7 +37,7 @@ public class Bloom {
 		List<String> genes = genParser.output();
 		
 		LinkedList<BigInteger> places = new LinkedList<>();
-		int kmerSize = 11;
+		int kmerSize = 10;
 		
 		
 		for(int x = 0; x < genom.length() - kmerSize; x++) {
@@ -60,20 +61,54 @@ public class Bloom {
 		
 		System.out.println("places size: " + places.size());
 		
-		BitSet bitVector = new BitSet();
-		/*
+		BitSet bitVector = new BitSet(size.intValue());
+		
 		for(BigInteger d : places) {
 			//System.out.println(d);
-			bitVector.set(d.);
+			bitVector.set(d.intValueExact());
 		}
-		*/
+		
+		int count = 1;
+		
+		for(String gen: genes) {
+			
+			HashFunction<BigInteger> hash1 = new HashFunction<BigInteger>(gen, size, BigInteger.valueOf(2));
+			HashFunction<BigInteger> hash2 = new HashFunction<BigInteger>(gen, size, BigInteger.valueOf(5));
+			HashFunction<BigInteger> hash3 = new HashFunction<BigInteger>(gen, size, BigInteger.valueOf(7));
+			HashFunction<BigInteger> hash4 = new HashFunction<BigInteger>(gen, size, BigInteger.valueOf(11));
+			hash1.setHashFunction(new PolynomialHashFunction());
+			hash2.setHashFunction(new PolynomialHashFunction());
+			hash3.setHashFunction(new PolynomialHashFunction());
+			hash4.setHashFunction(new PolynomialHashFunction());
+			
+			//System.out.println(gen);
+			
+			if(!bitVector.get(hash1.output().intValueExact())) {
+				System.out.println("Gen " + count + " not inside");
+			}
+			else if(!bitVector.get(hash2.output().intValueExact())) {
+				System.out.println("Gen " + count + " not inside");
+			}
+			else if(!bitVector.get(hash3.output().intValueExact())) {
+				System.out.println("Gen " + count + " not inside");
+			}
+			else if(!bitVector.get(hash4.output().intValueExact())) {
+				System.out.println("Gen " + count + " not inside");
+			}
+			else {
+				System.out.println("Gen " + count + " likly inside");
+			}
+			
+			count++;
+		}
+		
 		
 		//Anaylse
 		System.out.println("Vektorgroesse: " + bitVector.size() + "\n"
 				+ "Besetzte Bits: " + bitVector.cardinality());
-		PlaceCounter.count(places);
-		PlaceWriter.write(places);
-		//DNARandomizer.createDNA(10000);
+		//PlaceCounter.count(places);
+		//PlaceWriter.write(places);
+		//DNARandomizer.createDNA(10000,10,100);
 		
 	}
 
