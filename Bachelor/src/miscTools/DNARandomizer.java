@@ -60,12 +60,48 @@ public class DNARandomizer {
 				return;
 			}
 			
-			for(int x = 1; x <= genCount; x++) {
+			for(int x = 1; x <= genCount/2; x++) {
 				Random rand = new Random();
 				int start = rand.nextInt(genomSize-kmerSize);
 				
 				writer2.write(">Gen " + x + "\n"
 						+ DNA.substring(start, start + kmerSize) + "\n");
+			}
+			
+			for(int x = genCount/2 + 1; x <= genCount; x++) {
+				
+				Random rand = new Random();
+				StringBuilder genDNA = new StringBuilder();
+				
+				for(int y = 0; y < kmerSize; y++) {
+				
+					int letter = rand.nextInt(3);
+					
+					
+					switch(letter) {
+					case 0:
+						genDNA.append('A');
+						break;
+					case 1:
+						genDNA.append('C');
+						break;
+					case 2:
+						genDNA.append('G');
+						break;
+					case 3:
+						genDNA.append('T');
+						break;
+					default:
+						genDNA.append('X');
+					}
+					
+				}
+				
+				writer2.write(">Gen " + x + "\n"
+						+ genDNA + "\n");
+				
+				
+				
 			}
 			
 			writer2.close();

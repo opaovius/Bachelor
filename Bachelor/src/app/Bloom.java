@@ -68,7 +68,7 @@ public class Bloom {
 			bitVector.set(d.intValueExact());
 		}
 		
-		int count = 1;
+		//int count = 1;
 		
 		for(String gen: genes) {
 			
@@ -82,7 +82,7 @@ public class Bloom {
 			hash4.setHashFunction(new PolynomialHashFunction());
 			
 			//System.out.println(gen);
-			
+			/*
 			if(!bitVector.get(hash1.output().intValueExact())) {
 				System.out.println("Gen " + count + " not inside");
 			}
@@ -100,6 +100,7 @@ public class Bloom {
 			}
 			
 			count++;
+			*/
 		}
 		
 		
@@ -108,7 +109,6 @@ public class Bloom {
 				+ "Besetzte Bits: " + bitVector.cardinality());
 		//PlaceCounter.count(places);
 		//PlaceWriter.write(places);
-		//DNARandomizer.createDNA(10000,10,100);
 		
 	}
 

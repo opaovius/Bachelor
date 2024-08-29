@@ -35,13 +35,8 @@ public class GenFastaParser implements IParser<List<String>>{
 					else {
 						builder.append(currStr);
 					}
-					
 				}
-				
-				// Letztes Gen hinzufuegen, da es am Ende der Datei kein '>' gibt.
-				builder.append(currStr);
 				genes.add(builder.toString());
-				
 				myScanner.close();
 			
 			} catch(FileNotFoundException e) {
