@@ -52,7 +52,7 @@ public class DNARandomizer {
 			writer.close();
 			
 			//GenDatei
-			BufferedWriter writer2 = new BufferedWriter(new FileWriter("src/testFiles/GenRandomKS" + kmerSize + "GC" + genCount + ".fa"));
+			BufferedWriter writer2 = new BufferedWriter(new FileWriter("src/testFiles/GenRandomGenom" + genomSize + "KS" + kmerSize + "GC" + genCount + ".fa"));
 		
 			if(kmerSize > genomSize) {
 				System.out.println("Genom zu klein fuer kmer");

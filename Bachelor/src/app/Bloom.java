@@ -59,7 +59,7 @@ public class Bloom {
 		}
 		
 		
-		System.out.println("places size: " + places.size());
+		//System.out.println("places size: " + places.size());
 		
 		BitSet bitVector = new BitSet(size.intValue());
 		
@@ -105,11 +105,19 @@ public class Bloom {
 		
 		
 		//Anaylse
-		System.out.println("Vektorgroesse: " + bitVector.size() + "\n"
-				+ "Besetzte Bits: " + bitVector.cardinality());
+		//System.out.println("Vektorgroesse: " + bitVector.size() + "\n"
+		//		+ "Besetzte Bits: " + bitVector.cardinality());
 		//PlaceCounter.count(places);
 		//PlaceWriter.write(places);
 		
+	}
+	
+	public void setPathGenom(String pathGenom) {
+		this.pathGenom = pathGenom;
+	}
+	
+	public void setPathGenes(String pathGenes) {
+		this.pathGenes = pathGenes;
 	}
 
 }
