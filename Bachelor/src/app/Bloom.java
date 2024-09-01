@@ -36,10 +36,10 @@ public class Bloom {
 		genParser.setParser(new GenFastaParser());
 		List<String> genes = genParser.output();
 		
-		LinkedList<BigInteger> places = new LinkedList<>();
 		int kmerSize = 10;
+		BitSet bitVector = new BitSet(size.intValue());
 		
-		
+		//System.out.println("check genom");
 		for(int x = 0; x < genom.length() - kmerSize; x++) {
 			
 			HashFunction<BigInteger> hash1 = new HashFunction<BigInteger>(genom.substring(x, x + kmerSize), size, BigInteger.valueOf(2));
@@ -50,10 +50,10 @@ public class Bloom {
 			hash2.setHashFunction(new PolynomialHashFunction());
 			hash3.setHashFunction(new PolynomialHashFunction());
 			hash4.setHashFunction(new PolynomialHashFunction());
-			places.add(hash1.output());
-			places.add(hash2.output());
-			places.add(hash3.output());
-			places.add(hash4.output());
+			bitVector.set(hash1.output().intValueExact());
+			bitVector.set(hash2.output().intValueExact());
+			bitVector.set(hash3.output().intValueExact());
+			bitVector.set(hash4.output().intValueExact());
 			
 			
 		}
@@ -61,15 +61,10 @@ public class Bloom {
 		
 		//System.out.println("places size: " + places.size());
 		
-		BitSet bitVector = new BitSet(size.intValue());
 		
-		for(BigInteger d : places) {
-			//System.out.println(d);
-			bitVector.set(d.intValueExact());
-		}
 		
 		//int count = 1;
-		
+		//System.out.println("check gen");
 		for(String gen: genes) {
 			
 			HashFunction<BigInteger> hash1 = new HashFunction<BigInteger>(gen, size, BigInteger.valueOf(2));
