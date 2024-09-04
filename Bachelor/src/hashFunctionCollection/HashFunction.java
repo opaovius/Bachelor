@@ -1,15 +1,13 @@
 package hashFunctionCollection;
 
-import java.math.BigInteger;
-
 public class HashFunction<T> {
 
 	String kmer;
-	BigInteger size;
-	BigInteger parameter;
+	long size;
+	long parameter;
 	IHashFunction<T> hash = null;
 	
-	public HashFunction(String kmer, BigInteger size, BigInteger parameter) {
+	public HashFunction(String kmer, long size, long parameter) {
 		this.kmer = kmer;
 		this.size = size;
 		this.parameter = parameter;

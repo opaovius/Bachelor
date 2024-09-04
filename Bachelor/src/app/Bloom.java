@@ -1,11 +1,10 @@
 package app;
 
-import java.math.BigInteger;
 import java.util.BitSet;
 import java.util.LinkedList;
 import java.util.List;
 import hashFunctionCollection.HashFunction;
-import hashFunctionCollection.PolynomialHashFunction;
+import hashFunctionCollection.PolynomiaHashFunction;
 import miscTools.DNARandomizer;
 import miscTools.PlaceCounter;
 import miscTools.PlaceWriter;
@@ -25,7 +24,7 @@ public class Bloom {
 	
 	public void run() {
 		
-		BigInteger size = BigInteger.valueOf(100000);
+		Long size = 100000L;
 		long parameter = 3;
 		
 		Parser<StringBuilder> genomParser = new Parser<>(pathGenom);
@@ -42,18 +41,18 @@ public class Bloom {
 		//System.out.println("check genom");
 		for(int x = 0; x < genom.length() - kmerSize; x++) {
 			
-			HashFunction<BigInteger> hash1 = new HashFunction<BigInteger>(genom.substring(x, x + kmerSize), size, BigInteger.valueOf(2));
-			HashFunction<BigInteger> hash2 = new HashFunction<BigInteger>(genom.substring(x, x + kmerSize), size, BigInteger.valueOf(5));
-			HashFunction<BigInteger> hash3 = new HashFunction<BigInteger>(genom.substring(x, x + kmerSize), size, BigInteger.valueOf(7));
-			HashFunction<BigInteger> hash4 = new HashFunction<BigInteger>(genom.substring(x, x + kmerSize), size, BigInteger.valueOf(11));
-			hash1.setHashFunction(new PolynomialHashFunction());
-			hash2.setHashFunction(new PolynomialHashFunction());
-			hash3.setHashFunction(new PolynomialHashFunction());
-			hash4.setHashFunction(new PolynomialHashFunction());
-			bitVector.set(hash1.output().intValueExact());
-			bitVector.set(hash2.output().intValueExact());
-			bitVector.set(hash3.output().intValueExact());
-			bitVector.set(hash4.output().intValueExact());
+			HashFunction<Long> hash1 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 2);
+			HashFunction<Long> hash2 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 5);
+			HashFunction<Long> hash3 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 7);
+			HashFunction<Long> hash4 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 11);
+			hash1.setHashFunction(new PolynomiaHashFunction());
+			hash2.setHashFunction(new PolynomiaHashFunction());
+			hash3.setHashFunction(new PolynomiaHashFunction());
+			hash4.setHashFunction(new PolynomiaHashFunction());
+			bitVector.set(hash1.output().intValue());
+			bitVector.set(hash2.output().intValue());
+			bitVector.set(hash3.output().intValue());
+			bitVector.set(hash4.output().intValue());
 			
 			
 		}
@@ -67,14 +66,14 @@ public class Bloom {
 		//System.out.println("check gen");
 		for(String gen: genes) {
 			
-			HashFunction<BigInteger> hash1 = new HashFunction<BigInteger>(gen, size, BigInteger.valueOf(2));
-			HashFunction<BigInteger> hash2 = new HashFunction<BigInteger>(gen, size, BigInteger.valueOf(5));
-			HashFunction<BigInteger> hash3 = new HashFunction<BigInteger>(gen, size, BigInteger.valueOf(7));
-			HashFunction<BigInteger> hash4 = new HashFunction<BigInteger>(gen, size, BigInteger.valueOf(11));
-			hash1.setHashFunction(new PolynomialHashFunction());
-			hash2.setHashFunction(new PolynomialHashFunction());
-			hash3.setHashFunction(new PolynomialHashFunction());
-			hash4.setHashFunction(new PolynomialHashFunction());
+			HashFunction<Long> hash1 = new HashFunction<Long>(gen, size, 2);
+			HashFunction<Long> hash2 = new HashFunction<Long>(gen, size, 5);
+			HashFunction<Long> hash3 = new HashFunction<Long>(gen, size, 7);
+			HashFunction<Long> hash4 = new HashFunction<Long>(gen, size, 11);
+			hash1.setHashFunction(new PolynomiaHashFunction());
+			hash2.setHashFunction(new PolynomiaHashFunction());
+			hash3.setHashFunction(new PolynomiaHashFunction());
+			hash4.setHashFunction(new PolynomiaHashFunction());
 			
 			//System.out.println(gen);
 			/*

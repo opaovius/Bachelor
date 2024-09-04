@@ -13,7 +13,7 @@ public class TimeWriter {
 			BufferedWriter writer = new BufferedWriter( new FileWriter("src/testFiles/time.csv"));
 			StringBuilder builder = new StringBuilder();
 			
-			writer.write("Versuch,10_000,100_000,1_000_000,10_000_000,100_000_000\n");
+			writer.write("Versuch,10_000,100_000,1_000_000\n");
 			
 			for(int x = 0; x < testCount; x++) {
 				

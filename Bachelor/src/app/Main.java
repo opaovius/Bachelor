@@ -91,23 +91,6 @@ public class Main {
 		
 		testList.add(genom10_000_000Gen100);
 		
-		System.out.println();
-		System.out.println("Genom100_000_000");
-		
-		List<Long> genom100_000_000Gen100 = new ArrayList<>();
-		b.setPathGenom("src/testFiles/GenomRandom" + 10_000_000 + ".fa");
-		b.setPathGenes("src/testFiles/GenRandomGenom" + 10_000_000 + "KS10GC100.fa");
-		
-		for(int test = 0; test < testCount; test++) {
-			long start = System.currentTimeMillis();
-			b.run();
-			genom100_000_000Gen100.add(System.currentTimeMillis() - start);
-			System.out.print("\rFortschritt: " + test + "%");
-		}
-		System.out.print("\rFertig!");
-		
-		testList.add(genom100_000_000Gen100);
-		
 		
 		TimeWriter.writeTime(testList, testCount);
 		
