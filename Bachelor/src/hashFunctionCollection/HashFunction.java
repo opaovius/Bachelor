@@ -2,13 +2,11 @@ package hashFunctionCollection;
 
 public class HashFunction<T> {
 
-	String kmer;
 	long size;
 	long parameter;
 	IHashFunction<T> hash = null;
 	
-	public HashFunction(String kmer, long size, long parameter) {
-		this.kmer = kmer;
+	public HashFunction(long size, long parameter) {
 		this.size = size;
 		this.parameter = parameter;
 	}
@@ -17,8 +15,8 @@ public class HashFunction<T> {
 		this.hash = hash;
 	}
 	
-	public T output() {
-		T out = hash.toHash(kmer, size, parameter);
+	public T output(String genom, int start, int end) {
+		T out = hash.toHash(genom,start, end, size, parameter);
 		return out;
 	}
 	

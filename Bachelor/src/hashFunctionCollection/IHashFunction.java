@@ -2,6 +2,6 @@ package hashFunctionCollection;
 
 public interface IHashFunction<T> {
 	
-	public T toHash(String s, long size, long parameter);
+	public T toHash(String s, int start, int end, long size, long parameter);
 
 }

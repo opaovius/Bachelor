@@ -16,6 +16,7 @@ public class Bloom {
 	
 	String pathGenom;
 	String pathGenes;
+
 	
 	public Bloom(String pathGenom, String pathGenes) {
 		this.pathGenes = pathGenes;
@@ -38,23 +39,24 @@ public class Bloom {
 		int kmerSize = 10;
 		BitSet bitVector = new BitSet(size.intValue());
 		
+		HashFunction<Long> hash1 = new HashFunction<Long>(size, 2);
+		HashFunction<Long> hash2 = new HashFunction<Long>(size, 5);
+		HashFunction<Long> hash3 = new HashFunction<Long>(size, 7);
+		HashFunction<Long> hash4 = new HashFunction<Long>(size, 11);
+		hash1.setHashFunction(new PolynomiaHashFunction());
+		hash2.setHashFunction(new PolynomiaHashFunction());
+		hash3.setHashFunction(new PolynomiaHashFunction());
+		hash4.setHashFunction(new PolynomiaHashFunction());
+		String genomString = genom.toString();
+		
+		
+		
 		//System.out.println("check genom");
 		for(int x = 0; x < genom.length() - kmerSize; x++) {
-			
-			HashFunction<Long> hash1 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 2);
-			HashFunction<Long> hash2 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 5);
-			HashFunction<Long> hash3 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 7);
-			HashFunction<Long> hash4 = new HashFunction<Long>(genom.substring(x, x + kmerSize), size, 11);
-			hash1.setHashFunction(new PolynomiaHashFunction());
-			hash2.setHashFunction(new PolynomiaHashFunction());
-			hash3.setHashFunction(new PolynomiaHashFunction());
-			hash4.setHashFunction(new PolynomiaHashFunction());
-			bitVector.set(hash1.output().intValue());
-			bitVector.set(hash2.output().intValue());
-			bitVector.set(hash3.output().intValue());
-			bitVector.set(hash4.output().intValue());
-			
-			
+			bitVector.set(hash1.output(genomString, x, x + kmerSize).intValue());
+			bitVector.set(hash2.output(genomString, x, x + kmerSize).intValue());
+			bitVector.set(hash3.output(genomString, x, x + kmerSize).intValue());
+			bitVector.set(hash4.output(genomString, x, x + kmerSize).intValue());
 		}
 		
 		
@@ -62,39 +64,30 @@ public class Bloom {
 		
 		
 		
-		//int count = 1;
+		int count = 1;
 		//System.out.println("check gen");
 		for(String gen: genes) {
 			
-			HashFunction<Long> hash1 = new HashFunction<Long>(gen, size, 2);
-			HashFunction<Long> hash2 = new HashFunction<Long>(gen, size, 5);
-			HashFunction<Long> hash3 = new HashFunction<Long>(gen, size, 7);
-			HashFunction<Long> hash4 = new HashFunction<Long>(gen, size, 11);
-			hash1.setHashFunction(new PolynomiaHashFunction());
-			hash2.setHashFunction(new PolynomiaHashFunction());
-			hash3.setHashFunction(new PolynomiaHashFunction());
-			hash4.setHashFunction(new PolynomiaHashFunction());
-			
 			//System.out.println(gen);
-			/*
-			if(!bitVector.get(hash1.output().intValueExact())) {
-				System.out.println("Gen " + count + " not inside");
+			
+			if(!bitVector.get(hash1.output(gen, 0, kmerSize).intValue())) {
+				//System.out.println("Gen " + count + " not inside");
 			}
-			else if(!bitVector.get(hash2.output().intValueExact())) {
-				System.out.println("Gen " + count + " not inside");
+			else if(!bitVector.get(hash2.output(genomString, 0, kmerSize).intValue())) {
+				//System.out.println("Gen " + count + " not inside");
 			}
-			else if(!bitVector.get(hash3.output().intValueExact())) {
-				System.out.println("Gen " + count + " not inside");
+			else if(!bitVector.get(hash3.output(genomString, 0, kmerSize).intValue())) {
+				//System.out.println("Gen " + count + " not inside");
 			}
-			else if(!bitVector.get(hash4.output().intValueExact())) {
-				System.out.println("Gen " + count + " not inside");
+			else if(!bitVector.get(hash4.output(genomString, 0, kmerSize).intValue())) {
+				//System.out.println("Gen " + count + " not inside");
 			}
 			else {
-				System.out.println("Gen " + count + " likly inside");
+				//System.out.println("Gen " + count + " likly inside");
 			}
 			
 			count++;
-			*/
+			
 		}
 		
 		

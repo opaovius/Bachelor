@@ -2,20 +2,21 @@ package hashFunctionCollection;
 
 public class PolynomiaHashFunction implements IHashFunction<Long>{
 
-	public Long toHash(String s, long size, long base) {
+	public Long toHash(String s,int start, int end, long size, long base) {
 
 		long hash = 0;
-		Double curr = 0.0;
+		long curr = 0;
+		int power = 0;
 
-		for(int x = 0; x <s.length(); x++) {
+		for(int x = start; x < end; x++) {
 
-			curr = s.charAt(x)*Math.pow(base, x);
-
-			hash = hash + curr.longValue();
+			curr = s.charAt(x)*powLong(base, power);
+			power++;
+			hash = hash + curr;
 		}
 
 		hash = hash % size;
-
+		
 		return hash;
 	}
 	
