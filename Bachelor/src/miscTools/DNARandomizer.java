@@ -6,6 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
+import parserCollection.GenomFastaParser;
+import parserCollection.Parser;
+
 public class DNARandomizer {
 	
 	public static void createDNA(int genomSize, int kmerSize, int genCount) {
@@ -113,6 +116,62 @@ public class DNARandomizer {
 		
 		System.out.println("DNA-Datei geschrieben!");
 		
+	}
+	
+	public static void createCustomGenes(int kmerSize, int genCount, String pathGenom) {
+
+		Parser<StringBuilder> genomParser = new Parser<>(pathGenom);
+		genomParser.setParser(new GenomFastaParser());
+		StringBuilder genom = genomParser.output();
+		int genomSize = genom.length();
+
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(
+					"src/testFiles/GenRandomGenom" + genomSize + "KS" + kmerSize + "GC" + genCount + ".fa"));
+
+			for (int x = 1; x <= genCount / 2; x++) {
+				Random rand = new Random();
+				int start = rand.nextInt(genomSize - kmerSize);
+
+				writer.write(">Gen " + x + "\n" + genom.substring(start, start + kmerSize) + "\n");
+			}
+
+			for (int x = genCount / 2 + 1; x <= genCount; x++) {
+
+				Random rand = new Random();
+				StringBuilder genDNA = new StringBuilder();
+
+				for (int y = 0; y < kmerSize; y++) {
+
+					int letter = rand.nextInt(3);
+
+					switch (letter) {
+					case 0:
+						genDNA.append('A');
+						break;
+					case 1:
+						genDNA.append('C');
+						break;
+					case 2:
+						genDNA.append('G');
+						break;
+					case 3:
+						genDNA.append('T');
+						break;
+					default:
+						genDNA.append('X');
+					}
+
+				}
+				
+				writer.write(">Gen " + x + "\n"
+						+ genDNA + "\n");
+
+			}
+			writer.close();
+		} catch (IOException e) {
+			System.out.println("custom Gen IO-Error");
+		}
 	}
 
 }

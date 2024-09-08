@@ -3,6 +3,8 @@ package app;
 import java.util.ArrayList;
 import java.util.List;
 
+import hashFunctionCollection.HashFunction;
+import hashFunctionCollection.PolynomiaHashFunction;
 import miscTools.DNARandomizer;
 import miscTools.TimeWriter;
 
@@ -11,8 +13,10 @@ public class Main {
 	public static void main(String[] args) {
 		
 		//DNARandomizer.createDNA(10_000,10,100);
+		//DNARandomizer.createCustomGenes(10, 1000, "src/testFiles/GenomRandom" + 10_000_000 + ".fa");
 		
 		Bloom b = new Bloom("src/testFiles/GenomRandom10000.fa","src/testFiles/GenRandomGenom" + 10_000 +"KS10GC100.fa");
+		
 		//substring -> index
 		//hashfunktion im konstruktor, string in output()
 		//testen mit großen daten,laufzeit
@@ -20,7 +24,7 @@ public class Main {
 		
 		//b.run();
 		
-		int testCount = 100;
+		int testCount = 2;
 		List<List<Long>> testList = new ArrayList<>();
 		
 		List<Long> genom10_000Gen100 = new ArrayList<>();
