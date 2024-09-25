@@ -26,7 +26,9 @@ public class Bloom {
 	public void run() {
 		
 		Long size = 100000L;
-		long parameter = 3;
+		long[] primeNumbs = {2,5,7,11};
+		int kmerSize = 10;
+		long[][] primeArray = initPrime(primeNumbs,kmerSize);
 		
 		Parser<StringBuilder> genomParser = new Parser<>(pathGenom);
 		genomParser.setParser(new GenomFastaParser());
@@ -36,13 +38,12 @@ public class Bloom {
 		genParser.setParser(new GenFastaParser());
 		List<String> genes = genParser.output();
 		
-		int kmerSize = 10;
 		BitSet bitVector = new BitSet(size.intValue());
 		
-		HashFunction<Long> hash1 = new HashFunction<Long>(size, 2);
-		HashFunction<Long> hash2 = new HashFunction<Long>(size, 5);
-		HashFunction<Long> hash3 = new HashFunction<Long>(size, 7);
-		HashFunction<Long> hash4 = new HashFunction<Long>(size, 11);
+		HashFunction<Long> hash1 = new HashFunction<Long>(size, 0, primeArray);
+		HashFunction<Long> hash2 = new HashFunction<Long>(size, 1, primeArray);
+		HashFunction<Long> hash3 = new HashFunction<Long>(size, 2, primeArray);
+		HashFunction<Long> hash4 = new HashFunction<Long>(size, 3, primeArray);
 		hash1.setHashFunction(new PolynomiaHashFunction());
 		hash2.setHashFunction(new PolynomiaHashFunction());
 		hash3.setHashFunction(new PolynomiaHashFunction());
@@ -97,6 +98,39 @@ public class Bloom {
 		//PlaceCounter.count(places);
 		//PlaceWriter.write(places);
 		
+	}
+	
+	public long[][] initPrime(long[] primeNumbs, int kmerSize) {
+		
+		//[Primezahlen][Primzahl hoch Index]
+		long[][] inits = new long[primeNumbs.length][kmerSize];
+		
+		for(int x = 0; x < primeNumbs.length; x++) {
+			for(int y = 0; y < kmerSize; y++) {
+				inits[x][y] = powLong(primeNumbs[x],y);
+			}
+		}
+		
+		return inits;
+	}
+	
+	private Long powLong(long base, long power) {
+		long result = base;
+		
+		if(power == 1) {
+			return result;
+		}
+		
+		if(power == 0) {
+			return 1L;
+		}
+		
+		for(int x = 1; x < power; x++) {
+			result = result*base;
+		}
+		
+		
+		return result;
 	}
 	
 	public void setPathGenom(String pathGenom) {

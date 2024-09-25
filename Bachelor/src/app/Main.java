@@ -17,12 +17,13 @@ public class Main {
 		
 		Bloom b = new Bloom("src/testFiles/GenomRandom" + 100_000 + ".fa","src/testFiles/GenRandomGenom" + 100_000 +"KS10GC100.fa");
 		
-		//substring -> index
-		//hashfunktion im konstruktor, string in output()
-		//testen mit großen daten,laufzeit
-		//long - bigint test
+		//Mehrere Genome als input
+		//je genom ein bitset
+		//Gene der laenge 100 bis 150
+		//Gen kmer ab 0 stopp
+		//Hashfunktionkonflikt testen
 		
-		//b.run();
+		b.run();
 		/*
 		int testCount = 100;
 		List<List<Long>> testList = new ArrayList<>();
@@ -102,7 +103,7 @@ public class Main {
 		*/
 		//GenCountTests
 		
-		
+		/*
 		int testCount = 100;
 		List<List<Long>> testList = new ArrayList<>();
 		
@@ -216,7 +217,7 @@ public class Main {
 		
 		TimeWriter.writeTime(testList, testCount);
 		
-		
+		*/
 	}
 
 }
