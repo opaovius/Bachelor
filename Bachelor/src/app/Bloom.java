@@ -1,5 +1,6 @@
 package app;
 
+import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,16 +31,6 @@ public class Bloom {
 		int kmerSize = 10;
 		long[][] primeArray = initPrime(primeNumbs,kmerSize);
 		
-		Parser<StringBuilder> genomParser = new Parser<>(pathGenom);
-		genomParser.setParser(new GenomFastaParser());
-		StringBuilder genom = genomParser.output();
-		
-		Parser<List<String>> genParser = new Parser<>(pathGenes);
-		genParser.setParser(new GenFastaParser());
-		List<String> genes = genParser.output();
-		
-		BitSet bitVector = new BitSet(size.intValue());
-		
 		HashFunction<Long> hash1 = new HashFunction<Long>(size, 0, primeArray);
 		HashFunction<Long> hash2 = new HashFunction<Long>(size, 1, primeArray);
 		HashFunction<Long> hash3 = new HashFunction<Long>(size, 2, primeArray);
@@ -48,49 +39,20 @@ public class Bloom {
 		hash2.setHashFunction(new PolynomiaHashFunction());
 		hash3.setHashFunction(new PolynomiaHashFunction());
 		hash4.setHashFunction(new PolynomiaHashFunction());
-		String genomString = genom.toString();
+		List<HashFunction<Long>> hashFs = new ArrayList<>();
+		hashFs.add(hash1);
+		hashFs.add(hash2);
+		hashFs.add(hash3);
+		hashFs.add(hash4);
 		
+		List<BitSetObject> BSOList = new ArrayList<>();
 		
+		//for(String s : paths)
+		BSOList.add(createVector(hashFs, pathGenom, kmerSize, size));
 		
-		//System.out.println("check genom");
-		for(int x = 0; x < genom.length() - kmerSize; x++) {
-			bitVector.set(hash1.output(genomString, x, x + kmerSize).intValue());
-			bitVector.set(hash2.output(genomString, x, x + kmerSize).intValue());
-			bitVector.set(hash3.output(genomString, x, x + kmerSize).intValue());
-			bitVector.set(hash4.output(genomString, x, x + kmerSize).intValue());
-		}
 		
 		
 		//System.out.println("places size: " + places.size());
-		
-		
-		
-		int count = 1;
-		//System.out.println("check gen");
-		for(String gen: genes) {
-			
-			//System.out.println(gen);
-			
-			if(!bitVector.get(hash1.output(gen, 0, kmerSize).intValue())) {
-				//System.out.println("Gen " + count + " not inside");
-			}
-			else if(!bitVector.get(hash2.output(genomString, 0, kmerSize).intValue())) {
-				//System.out.println("Gen " + count + " not inside");
-			}
-			else if(!bitVector.get(hash3.output(genomString, 0, kmerSize).intValue())) {
-				//System.out.println("Gen " + count + " not inside");
-			}
-			else if(!bitVector.get(hash4.output(genomString, 0, kmerSize).intValue())) {
-				//System.out.println("Gen " + count + " not inside");
-			}
-			else {
-				//System.out.println("Gen " + count + " likly inside");
-			}
-			
-			count++;
-			
-		}
-		
 		
 		//Anaylse
 		//System.out.println("Vektorgroesse: " + bitVector.size() + "\n"
@@ -100,8 +62,46 @@ public class Bloom {
 		
 	}
 	
-	public long[][] initPrime(long[] primeNumbs, int kmerSize) {
+	public BitSetObject createVector(List<HashFunction<Long>> hashFs, String pathGenom, int kmerSize, Long size) {
 		
+		Parser<StringBuilder> genomParser = new Parser<>(pathGenom);
+		genomParser.setParser(new GenomFastaParser());
+		StringBuilder genom = genomParser.output();
+		BitSet bitVector = new BitSet(size.intValue());
+		String genomString = genom.toString();
+
+		// System.out.println("check genom");
+		for (int x = 0; x < genom.length() - kmerSize; x++) {
+			for(HashFunction<Long> hf : hashFs) {
+				bitVector.set(hf.output(genomString, x, x + kmerSize).intValue());
+			}
+		}
+
+		BitSetObject BSO = new BitSetObject("test",bitVector);
+		
+		return BSO;
+	}
+	
+	public void checkForGenes(String pathGen, List<BitSetObject> BSOList, List<HashFunction<Long>> hashFs, int kmerSize) {
+		
+		Parser<List<String>> genParser = new Parser<>(pathGenes);
+		genParser.setParser(new GenFastaParser());
+		List<String> genes = genParser.output();
+
+		// System.out.println("check gen");
+		for (String gen : genes) {
+			for(HashFunction<Long> HF: hashFs) {
+			
+				if(!BSOList.get(0).vector.get(HF.output(gen, 0, kmerSize).intValue())) {
+					//System.out.println("Gen " + count + " not inside");
+				}
+				
+			}	
+		}
+	}
+
+	public long[][] initPrime(long[] primeNumbs, int kmerSize) {
+
 		//[Primezahlen][Primzahl hoch Index]
 		long[][] inits = new long[primeNumbs.length][kmerSize];
 		
