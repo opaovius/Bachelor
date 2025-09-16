@@ -5,11 +5,9 @@ import java.util.BitSet;
 import java.util.LinkedList;
 import java.util.List;
 import hashFunctionCollection.HashFunction;
-import hashFunctionCollection.PolynomiaHashFunction;
-import miscTools.DNARandomizer;
+import hashFunctionCollection.PolynomialHashFunction;
 import miscTools.PlaceCounter;
 import miscTools.PlaceWriter;
-import parserCollection.GenFastaParser;
 import parserCollection.GenomFastaParser;
 import parserCollection.Parser;
 
@@ -26,20 +24,20 @@ public class Bloom {
 	
 	public void run() {
 		
-		Long size = 100000L;
+		int size = 100000;
 		long[] primeNumbs = {2,5,7,11};
 		int kmerSize = 10;
 		long[][] primeArray = initPrime(primeNumbs,kmerSize);
 		
-		HashFunction<Long> hash1 = new HashFunction<Long>(size, 0, primeArray);
+		HashFunction<Integer> hash1 = new HashFunction<>(size, 0, primeArray);
 		//HashFunction<Long> hash2 = new HashFunction<Long>(size, 1, primeArray);
 		//HashFunction<Long> hash3 = new HashFunction<Long>(size, 2, primeArray);
 		//HashFunction<Long> hash4 = new HashFunction<Long>(size, 3, primeArray);
-		hash1.setHashFunction(new PolynomiaHashFunction());
+		hash1.setHashFunction(new PolynomialHashFunction());
 		//hash2.setHashFunction(new PolynomiaHashFunction());
 		//hash3.setHashFunction(new PolynomiaHashFunction());
 		//hash4.setHashFunction(new PolynomiaHashFunction());
-		List<HashFunction<Long>> hashFs = new ArrayList<>();
+		List<HashFunction<Integer>> hashFs = new ArrayList<>();
 		hashFs.add(hash1);
 		//hashFs.add(hash2);
 		//hashFs.add(hash3);
@@ -62,19 +60,19 @@ public class Bloom {
 		
 	}
 	
-	public BitSetObject createVector(List<HashFunction<Long>> hashFs, String pathGenom, int kmerSize, Long size) {
+	public BitSetObject createVector(List<HashFunction<Integer>> hashFs, String pathGenom, int kmerSize, int size) {
 		
 		Parser<StringBuilder> genomParser = new Parser<>(pathGenom);
 		genomParser.setParser(new GenomFastaParser());
 		StringBuilder genom = genomParser.output();
-		BitSet bitVector = new BitSet(size.intValue());
+		BitSet bitVector = new BitSet(size);
 		String genomString = genom.toString();
 		LinkedList<Integer> places = new LinkedList<>();
 		
 		
 		// System.out.println("check genom");
 		for (int x = 0; x < genom.length() - kmerSize; x++) {
-			for(HashFunction<Long> hf : hashFs) {
+			for(HashFunction<Integer> hf : hashFs) {
 				
 				long place = hf.output(genomString, x, x + kmerSize);
 				places.add((int)place);

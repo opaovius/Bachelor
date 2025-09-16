@@ -1,8 +1,9 @@
 package hashFunctionCollection;
 
-public class PolynomiaHashFunction implements IHashFunction<Long>{
+public class PolynomialHashFunction extends HashFunctionAdapter{
 
-	public Long toHash(String s,int start, int end, long size, int base ,long[][] primeArray) {
+	@Override
+	public Integer toHash(String s,int start, int end, long size, int base ,long[][] primeArray) {
 
 		long hash = 0;
 		long curr = 0;
@@ -17,7 +18,7 @@ public class PolynomiaHashFunction implements IHashFunction<Long>{
 
 		hash = hash % size;
 		
-		return hash;
+		return (int) hash;
 	}
 	
 }

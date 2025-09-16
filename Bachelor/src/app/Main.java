@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hashFunctionCollection.HashFunction;
-import hashFunctionCollection.PolynomiaHashFunction;
+import hashFunctionCollection.PolynomialHashFunction;
 import miscTools.DNARandomizer;
 import miscTools.TimeWriter;
 

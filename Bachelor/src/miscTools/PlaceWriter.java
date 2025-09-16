@@ -1,7 +1,5 @@
 package miscTools;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -23,22 +21,6 @@ public class PlaceWriter {
 			sb.append(i + "\n");
 		}
 		
-		long start = System.currentTimeMillis();
-		/*
-		try {
-			 BufferedWriter writer = new BufferedWriter(new FileWriter("src/testFiles/PlacesAnalyse.csv"));
-			 
-			 writer.write(sb.toString());
-			 
-			 writer.close();
-		}catch(IOException e) {
-			System.out.println("IO-Error");
-		}
-		
-		System.out.println("normal: " + (System.currentTimeMillis() - start));
-		
-		start = System.currentTimeMillis();
-		*/
 		try(FileChannel channel = FileChannel.open(Paths.get("src/testFiles/PlacesAnalyse.csv"),
 													StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)){
 			
@@ -49,8 +31,6 @@ public class PlaceWriter {
 		}catch(IOException e) {
 			System.out.println("IO-Error");
 		}
-		
-		System.out.println("FileChannel: " + (System.currentTimeMillis() - start));
 		
 	}
 
