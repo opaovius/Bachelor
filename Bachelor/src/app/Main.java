@@ -12,25 +12,29 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		//DNARandomizer.createDNA(10_000,10,100);
-		//DNARandomizer.createCustomGenes(10, 10_000_000, "src/testFiles/GenomRandom" + 100_000 + ".fa");
+		//Hier neue Gen Datei erstellen fuer Einzellauf
+		//DNARandomizer.createDNA(10_000_000,10,10000);
+		//DNARandomizer.createCustomGenes(10, 100, "src/testFiles/GenomRandom" + 10_000_000 + ".fa");
 		
-		Bloom b = new Bloom("src/testFiles/GenomRandom" + 100_000 + ".fa","src/testFiles/GenRandomGenom" + 100_000 +"KS10GC100.fa");
+		Bloom b = new Bloom("src/testFiles/VacciniaGenom.fa","src/testFiles/VacciniaGene.fa");
+		
+		System.out.println("done!");
 		
 		//Mehrere Genome als input
 		//je genom ein bitset
 		//Gene der laenge 100 bis 150
-		//Gen kmer ab 0 stopp
+		//Gen kmer ab 0 stopp -> also wenn erste hashfunktion 0 ausgibt, kann man beim derzeitigen gen aufhoeren
 		//Hashfunktionkonflikt testen
 		
 		b.run();
+		System.out.println("done!");
 		/*
 		int testCount = 100;
 		List<List<Long>> testList = new ArrayList<>();
 		
 		List<Long> genom10_000Gen100 = new ArrayList<>();
 		
-		System.out.println("Genom10_000");
+		System.out.println("Vaccinia");
 		
 		for(int test = 0; test < testCount; test++) {
 			long start = System.currentTimeMillis();
@@ -39,9 +43,10 @@ public class Main {
 			System.out.print("\rFortschritt: " + test + "%");
 		}
 		System.out.print("\rFertig!");
+		System.out.println();
 		
 		testList.add(genom10_000Gen100);
-		
+		/*
 		System.out.println();
 		System.out.println("Genom100_000");
 		
@@ -78,6 +83,7 @@ public class Main {
 		
 		testList.add(genom1_000_000Gen100);
 		
+		
 		System.out.println();
 		System.out.println("Genom10_000_000");
 		
@@ -94,8 +100,10 @@ public class Main {
 			System.out.print("\rFortschritt: " + test + "%");
 		}
 		System.out.print("\rFertig!");
+		System.out.println();
 		
 		testList.add(genom10_000_000Gen100);
+		
 		
 		
 		TimeWriter.writeTime(testList, testCount);

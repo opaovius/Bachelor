@@ -32,18 +32,18 @@ public class Bloom {
 		long[][] primeArray = initPrime(primeNumbs,kmerSize);
 		
 		HashFunction<Long> hash1 = new HashFunction<Long>(size, 0, primeArray);
-		HashFunction<Long> hash2 = new HashFunction<Long>(size, 1, primeArray);
-		HashFunction<Long> hash3 = new HashFunction<Long>(size, 2, primeArray);
-		HashFunction<Long> hash4 = new HashFunction<Long>(size, 3, primeArray);
+		//HashFunction<Long> hash2 = new HashFunction<Long>(size, 1, primeArray);
+		//HashFunction<Long> hash3 = new HashFunction<Long>(size, 2, primeArray);
+		//HashFunction<Long> hash4 = new HashFunction<Long>(size, 3, primeArray);
 		hash1.setHashFunction(new PolynomiaHashFunction());
-		hash2.setHashFunction(new PolynomiaHashFunction());
-		hash3.setHashFunction(new PolynomiaHashFunction());
-		hash4.setHashFunction(new PolynomiaHashFunction());
+		//hash2.setHashFunction(new PolynomiaHashFunction());
+		//hash3.setHashFunction(new PolynomiaHashFunction());
+		//hash4.setHashFunction(new PolynomiaHashFunction());
 		List<HashFunction<Long>> hashFs = new ArrayList<>();
 		hashFs.add(hash1);
-		hashFs.add(hash2);
-		hashFs.add(hash3);
-		hashFs.add(hash4);
+		//hashFs.add(hash2);
+		//hashFs.add(hash3);
+		//hashFs.add(hash4);
 		
 		List<BitSetObject> BSOList = new ArrayList<>();
 		
@@ -69,19 +69,34 @@ public class Bloom {
 		StringBuilder genom = genomParser.output();
 		BitSet bitVector = new BitSet(size.intValue());
 		String genomString = genom.toString();
-
+		LinkedList<Integer> places = new LinkedList<>();
+		
+		
 		// System.out.println("check genom");
 		for (int x = 0; x < genom.length() - kmerSize; x++) {
 			for(HashFunction<Long> hf : hashFs) {
-				bitVector.set(hf.output(genomString, x, x + kmerSize).intValue());
+				
+				long place = hf.output(genomString, x, x + kmerSize);
+				places.add((int)place);
+				
+				bitVector.set((int) place);
 			}
 		}
 
 		BitSetObject BSO = new BitSetObject("test",bitVector);
 		
+		//Anaylse
+			System.out.println("Vektorgroesse: " + bitVector.size() + "\n"
+					+ "Besetzte Bits: " + bitVector.cardinality());
+			PlaceCounter.count(places);
+			PlaceWriter.write(places);
+			System.out.println("Place done!");
+		
+		
 		return BSO;
 	}
 	
+	/*
 	public void checkForGenes(String pathGen, List<BitSetObject> BSOList, List<HashFunction<Long>> hashFs, int kmerSize) {
 		
 		Parser<List<String>> genParser = new Parser<>(pathGenes);
@@ -99,6 +114,7 @@ public class Bloom {
 			}	
 		}
 	}
+	*/
 
 	public long[][] initPrime(long[] primeNumbs, int kmerSize) {
 

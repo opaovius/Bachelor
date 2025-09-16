@@ -1,42 +1,33 @@
 package miscTools;
 
-import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
 
 public class PlaceCounter {
 	
-	public static void count(List<BigInteger> places) {
+	public static void count(List<Integer> places) {
 		
-		int size = 10000;
+		int max = 0;
 		
-		Long[] array = new Long[size];
+		HashMap<Integer,Integer> map = new HashMap<>();
 		
-		System.out.println("Check");
-		
-		for(int x = 0; x < size; x++) {
-			array[x] = 0L;
-		}
-		System.out.println("Check2");
-		for(int x = 0; x < size; x++) {
-			for(BigInteger d : places) {
-				if(x == d.intValue()) {
-					array[x]++;
-				}
+		for(int p : places) {
+			if(!map.containsKey(p)) {
+				map.put(p, 1);
+			}
+			else {
+				int temp = map.get(p);
+				map.put(p, temp+1);
 			}
 		}
 		
-		long max = 0;
-		System.out.println("Check3");
-		for(int x = 0; x < size; x++) {
-			if(array[x] > max) {
-				max = array[x];
+		for(int v: map.values()) {
+			if(max < v) {
+				max = v;
 			}
 		}
 		
 		System.out.println("Maximum: " + max);
-		
-		
-		
 	}
 
 }
