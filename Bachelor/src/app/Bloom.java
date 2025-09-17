@@ -29,19 +29,16 @@ public class Bloom {
 		int kmerSize = 10;
 		long[][] primeArray = initPrime(primeNumbs,kmerSize);
 		
+		
 		HashFunction<Integer> hash1 = new HashFunction<>(size, 0, primeArray);
-		//HashFunction<Long> hash2 = new HashFunction<Long>(size, 1, primeArray);
-		//HashFunction<Long> hash3 = new HashFunction<Long>(size, 2, primeArray);
-		//HashFunction<Long> hash4 = new HashFunction<Long>(size, 3, primeArray);
+		
 		hash1.setHashFunction(new PolynomialHashFunction());
-		//hash2.setHashFunction(new PolynomiaHashFunction());
-		//hash3.setHashFunction(new PolynomiaHashFunction());
-		//hash4.setHashFunction(new PolynomiaHashFunction());
+		
 		List<HashFunction<Integer>> hashFs = new ArrayList<>();
+		
 		hashFs.add(hash1);
-		//hashFs.add(hash2);
-		//hashFs.add(hash3);
-		//hashFs.add(hash4);
+		
+		
 		
 		List<BitSetObject> BSOList = new ArrayList<>();
 		
