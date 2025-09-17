@@ -18,8 +18,6 @@ public class Main {
 		
 		Bloom b = new Bloom("src/testFiles/VacciniaGenom.fa","src/testFiles/VacciniaGene.fa");
 		
-		System.out.println("done!");
-		
 		//Mehrere Genome als input
 		//je genom ein bitset
 		//Gene der laenge 100 bis 150

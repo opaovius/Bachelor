@@ -1,11 +1,14 @@
 package hashFunctionCollection;
 
+import java.util.BitSet;
+
 public class HashFunction<T> {
 
 	int size;
 	int parameter;
 	long[][] primeArray;
 	IHashFunction<T> hash = null;
+	BitSet set;
 	
 	public HashFunction(int size, int parameter, long[][] primeArray) {
 		this.size = size;
@@ -13,13 +16,17 @@ public class HashFunction<T> {
 		this.primeArray = primeArray;
 	}
 	
-	public HashFunction(int size, int parameter) {
+	public HashFunction(int size, BitSet set) {
 		this.size = size;
-		this.parameter = parameter;
+		this.set = set;
 	}
 	
 	public void setHashFunction(IHashFunction<T> hash) {
 		this.hash = hash;
+	}
+	
+	public IHashFunction<T> getHashFunction(){
+		return hash;
 	}
 	
 	public T output(String genom, int start, int end) {
@@ -29,7 +36,7 @@ public class HashFunction<T> {
 			return out;
 		}
 		
-		T out = hash.toHash(genom, start, end, size);
+		T out = hash.toHash(genom, start, end, size, set);
 		
 		return out;
 
