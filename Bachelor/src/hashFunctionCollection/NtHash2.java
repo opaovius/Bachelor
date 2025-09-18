@@ -5,14 +5,14 @@ import java.util.BitSet;
 public class NtHash2 extends HashFunctionAdapter{
 	
 	@Override
-	public Integer toHash(String s, int start, int end, int size, BitSet set) {
+	public BitSet toHash(String s, int size, BitSet set) {
 		
 		
 		
 		
 		
 		
-		return 0;
+		return new BitSet();
 	}
 
 }

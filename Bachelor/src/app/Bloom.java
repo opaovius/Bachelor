@@ -33,14 +33,14 @@ public class Bloom {
 		BitSet ntSet = new BitSet();
 		
 		//Erstellen der verschiedenen HashFunktionen
-		HashFunction<Integer> hash1 = new HashFunction<>(size, 0, primeArray);
-		HashFunction<Integer> hashNt = new HashFunction<>(size, ntSet);
+		HashFunction<BitSet> hash1 = new HashFunction<>(kmerSize,size, 0, primeArray);
+		HashFunction<BitSet> hashNt = new HashFunction<>(size, ntSet);
 		
 		hash1.setHashFunction(new PolynomialHashFunction());
 		hashNt.setHashFunction(new NtHash2());
 		
 		//Zusammenfassen in einer Liste
-		List<HashFunction<Integer>> hashFs = new ArrayList<>();
+		List<HashFunction<BitSet>> hashFs = new ArrayList<>();
 		
 		hashFs.add(hash1);
 		hashFs.add(hashNt);
@@ -48,7 +48,7 @@ public class Bloom {
 		List<BitSetObject> BSOList = new ArrayList<>();
 		
 		//Erstellen des BitSets
-		BSOList.add(createVector(hashFs, pathGenom, kmerSize, size));
+		BSOList.add(createVector(hashFs, pathGenom, kmerSize, size, primeArray));
 		
 		
 		
@@ -63,29 +63,23 @@ public class Bloom {
 		
 	}
 	
-	public BitSetObject createVector(List<HashFunction<Integer>> hashFs, String pathGenom, int kmerSize, int size) {
+	public BitSetObject createVector(List<HashFunction<BitSet>> hashFs, String pathGenom, int kmerSize, int size, long[][] primeArray) {
 		
 		Parser<StringBuilder> genomParser = new Parser<>(pathGenom);
 		genomParser.setParser(new GenomFastaParser());
 		StringBuilder genom = genomParser.output();
 		BitSet bitVector = new BitSet(size);
 		String genomString = genom.toString();
-		LinkedList<Integer> places = new LinkedList<>();
 		
 		
 		// System.out.println("check genom");
-		for (HashFunction<Integer> hf : hashFs) {
+		for (HashFunction<BitSet> hf : hashFs) {
 			
 			//Durchlauf fuer Polynomialhashfunktionen
 			if(hf.getHashFunction().getClass() == PolynomialHashFunction.class ) {
 				
-				for(int x = 0; x < genom.length() - kmerSize; x++) {
-						
-					long place = hf.output(genomString, x, x + kmerSize);
-					places.add((int)place);
-					
-					bitVector.set((int) place);
-				}
+				bitVector = hf.output(genomString);
+				
 			}
 			
 			//Durchlauf fuer NtHash2
@@ -118,12 +112,6 @@ public class Bloom {
 		}
 
 		BitSetObject BSO = new BitSetObject("test",bitVector);
-		
-		// Anaylse
-		System.out.println("Vektorgroesse: " + bitVector.size() + "\n" + "Besetzte Bits: " + bitVector.cardinality());
-		PlaceCounter.count(places);
-		PlaceWriter.write(places);
-		System.out.println("Place done!");
 
 		return BSO;
 	}

@@ -6,13 +6,15 @@ public class HashFunction<T> {
 
 	int size;
 	int parameter;
+	int kmersize;
 	long[][] primeArray;
 	IHashFunction<T> hash = null;
 	BitSet set;
 	
-	public HashFunction(int size, int parameter, long[][] primeArray) {
+	public HashFunction(int size, int kmersize, int parameter, long[][] primeArray) {
 		this.size = size;
 		this.parameter = parameter;
+		this.kmersize = kmersize;
 		this.primeArray = primeArray;
 	}
 	
@@ -29,14 +31,14 @@ public class HashFunction<T> {
 		return hash;
 	}
 	
-	public T output(String genom, int start, int end) {
+	public T output(String genom) {
 		
 		if(primeArray.length != 0) {
-			T out = hash.toHash(genom, start, end, size, parameter, primeArray);
+			T out = hash.toHash(genom, kmersize, size, parameter, primeArray);
 			return out;
 		}
 		
-		T out = hash.toHash(genom, start, end, size, set);
+		T out = hash.toHash(genom, size, set);
 		
 		return out;
 
