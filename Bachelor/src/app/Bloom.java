@@ -26,15 +26,9 @@ public class Bloom {
 	
 	public void run() {
 		
-		int size = 100000;
-		long[] primeNumbs = {2,5,7,11};
-		int kmerSize = 10;
-		long[][] primeArray = initPrime(primeNumbs,kmerSize);
-		BitSet ntSet = new BitSet();
-		
 		//Erstellen der verschiedenen HashFunktionen
-		HashFunction<BitSet> hash1 = new HashFunction<>(kmerSize,size, 0, primeArray);
-		HashFunction<BitSet> hashNt = new HashFunction<>(size, ntSet);
+		HashFunction<BitSet> hash1 = new HashFunction<>();
+		HashFunction<BitSet> hashNt = new HashFunction<>();
 		
 		hash1.setHashFunction(new PolynomialHashFunction());
 		hashNt.setHashFunction(new NtHash2());
@@ -48,7 +42,7 @@ public class Bloom {
 		List<BitSetObject> BSOList = new ArrayList<>();
 		
 		//Erstellen des BitSets
-		BSOList.add(createVector(hashFs, pathGenom, kmerSize, size, primeArray));
+		BSOList.add(createVector(hashFs, pathGenom));
 		
 		
 		
@@ -63,12 +57,12 @@ public class Bloom {
 		
 	}
 	
-	public BitSetObject createVector(List<HashFunction<BitSet>> hashFs, String pathGenom, int kmerSize, int size, long[][] primeArray) {
+	public BitSetObject createVector(List<HashFunction<BitSet>> hashFs, String pathGenom) {
 		
 		Parser<StringBuilder> genomParser = new Parser<>(pathGenom);
 		genomParser.setParser(new GenomFastaParser());
 		StringBuilder genom = genomParser.output();
-		BitSet bitVector = new BitSet(size);
+		BitSet bitVector = new BitSet();
 		String genomString = genom.toString();
 		
 		
@@ -85,28 +79,10 @@ public class Bloom {
 			//Durchlauf fuer NtHash2
 			if(hf.getHashFunction().getClass() == NtHash2.class) {
 				
-				BitSet currKmer = new BitSet(32);
 				
 				//signed ntHash2
 				//Strenge Verwendung von 16 k-meren
-				for(int x = 0; x < genom.length() - 16; x++) {
-					
-					if(x == 0) {
-						currKmer.set(31);
-						
-						long[] arr = currKmer.toLongArray();
-						long value = 0L;
-						
-						if(arr.length > 0) {
-							value = arr[0];
-						}
-						
-						System.out.println("Value: " + (value));
-						System.out.println("Long Max: " + Long.MAX_VALUE);
-						System.out.println("Math pow: " + (long) Math.pow(2, 31));
-					}
-					
-				}
+				bitVector = hf.output(genomString);
 			}
 			
 		}
@@ -134,41 +110,7 @@ public class Bloom {
 			}	
 		}
 	}
-	*/
-
-	public long[][] initPrime(long[] primeNumbs, int kmerSize) {
-
-		//[Primezahlen][Primzahl hoch Index]
-		long[][] inits = new long[primeNumbs.length][kmerSize];
-		
-		for(int x = 0; x < primeNumbs.length; x++) {
-			for(int y = 0; y < kmerSize; y++) {
-				inits[x][y] = powLong(primeNumbs[x],y);
-			}
-		}
-		
-		return inits;
-	}
-	
-	private Long powLong(long base, long power) {
-		long result = base;
-		
-		if(power == 1) {
-			return result;
-		}
-		
-		if(power == 0) {
-			return 1L;
-		}
-		
-		for(int x = 1; x < power; x++) {
-			result = result*base;
-		}
-		
-		
-		return result;
-	}
-	
+	*/	
 	public void setPathGenom(String pathGenom) {
 		this.pathGenom = pathGenom;
 	}
