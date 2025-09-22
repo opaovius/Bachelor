@@ -6,6 +6,7 @@ import java.util.List;
 
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.NtHash2;
+import hashFunctionCollection.NtHashClassic;
 import hashFunctionCollection.PolynomialHashFunction;
 import parserCollection.GenomFastaParser;
 import parserCollection.Parser;
@@ -26,15 +27,18 @@ public class Bloom {
 		//Erstellen der verschiedenen HashFunktionen
 		HashFunction<BitSet> hash1 = new HashFunction<>();
 		HashFunction<BitSet> hashNt = new HashFunction<>();
+		HashFunction<BitSet> hashNtClassic = new HashFunction<>();
 		
 		hash1.setHashFunction(new PolynomialHashFunction());
 		hashNt.setHashFunction(new NtHash2());
+		hashNtClassic.setHashFunction(new NtHashClassic());
 		
 		//Zusammenfassen in einer Liste
 		List<HashFunction<BitSet>> hashFs = new ArrayList<>();
 		
 		hashFs.add(hash1);
 		hashFs.add(hashNt);
+		hashFs.add(hashNtClassic);
 		
 		List<BitSetObject> BSOList = new ArrayList<>();
 		
