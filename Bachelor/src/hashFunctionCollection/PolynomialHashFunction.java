@@ -8,7 +8,6 @@ import miscTools.PlaceWriter;
 
 public class PolynomialHashFunction implements IHashFunction<BitSet>{
 
-	@Override
 	public BitSet toHash(String genom) {
 
 		BitSet bitVector = new BitSet();
@@ -28,13 +27,14 @@ public class PolynomialHashFunction implements IHashFunction<BitSet>{
 			
 		}
 
+		/*
 		// Anaylse
 		System.out.println("Vektorgroesse: " + bitVector.size() + "\n" + "Besetzte Bits: " + bitVector.cardinality());
 		PlaceCounter.count(places);
 		PlaceWriter.write(places);
 		System.out.println("Place done!");
-
-		return new BitSet();
+		*/
+		return bitVector;
 	}
 	
 	private int cycle(String s,int start, int end, int size, int base ,long[][] primeArray) {
