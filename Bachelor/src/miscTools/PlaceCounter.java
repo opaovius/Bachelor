@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PlaceCounter {
 	
-	public static void countInt(List<Integer> places) {
+	public static int countInt(List<Integer> places) {
 		
 		int max = 0;
 		
@@ -28,9 +28,12 @@ public class PlaceCounter {
 		}
 		
 		System.out.println("Maximum: " + max);
+		IO.println("Map Size: " + map.size());
+		
+		return map.size();
 	}
 	
-	public static void countLong(List<Long> places) {
+	public static int countLong(List<Long> places) {
 		
 		int max = 0;
 		
@@ -54,6 +57,8 @@ public class PlaceCounter {
 		
 		System.out.println("Maximum: " + max);
 		IO.println("Map Size: " + map.size());
+		
+		return map.size();
 	}
 
 }

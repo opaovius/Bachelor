@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PlaceWriter {
 	
-	public static void write(List<Long> places) {
+	public static void writeLong(List<Long> places) {
 		
 		System.out.println("writing...");
 		
@@ -19,6 +19,30 @@ public class PlaceWriter {
 		
 		for(Long i: places) {
 			sb.append(Long.toUnsignedString(i) + "\n");
+		}
+		
+		try(FileChannel channel = FileChannel.open(Paths.get("src/testFiles/PlacesAnalyse.csv"),
+													StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)){
+			
+			ByteBuffer buffer = ByteBuffer.wrap(sb.toString().getBytes());
+			channel.write(buffer);
+			channel.force(true);
+			
+		}catch(IOException e) {
+			System.out.println("IO-Error");
+		}
+		
+	}
+	public static void writeInt(List<Integer> places) {
+		
+		System.out.println("writing...");
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Number\n");
+		
+		for(int i: places) {
+			sb.append(i + "\n");
 		}
 		
 		try(FileChannel channel = FileChannel.open(Paths.get("src/testFiles/PlacesAnalyse.csv"),

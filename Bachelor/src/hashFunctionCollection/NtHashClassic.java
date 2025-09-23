@@ -1,7 +1,7 @@
 package hashFunctionCollection;
 
+import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.LinkedList;
 import java.util.Random;
 
 import miscTools.PlaceCounter;
@@ -16,37 +16,72 @@ public class NtHashClassic implements IHashFunction<BitSet>{
 				       9121647437843735232L,
 				       -1261775892281119362L,
 				       -4075723973616114068L};
-		int i = 1;
-		int kmerSize = 32;
+		//Index fuer derzeitiges k-mer. 1, da init() kmer mit Index i =  0 erzeugt 
+		int index = 1;
+		int kmerSize = 64;
 		
-		LinkedList<Long> places = new LinkedList<>();
+		ArrayList<Long> places = new ArrayList<>();
+		ArrayList<Integer> doubleHashValue = new ArrayList<>();
 		
 		//Erzeugen des ersten kmers
 		long kmer = init(seed,genom.substring(0, kmerSize));
+		
+		IO.println("-----------------------------");
+		IO.println("Analyse NtHashClassic");
 		
 		
 		//alle k-mere erzeugen
 		for(int counter = kmerSize; counter < genom.length() - kmerSize; counter++) {
 			
-			kmer = cycle(kmer,genom,seed,kmerSize,i);
-			i++;
+			kmer = cycle(kmer,genom,seed,kmerSize,index);
+			index++;
 			places.add(kmer);
-			//Anzeigen fuer k-mer Anzahl, Vaci -> 194_647
+			//Anzeigen fuer k-mer Anzahl
 			//IO.println("counter: " + (counter - kmerSize + 1));
+			if(counter == genom.length() - kmerSize-1) {
+				IO.println("k-mer Anzahl: " + index);
+			}
 		}
 		
 		// Anaylse
-		IO.println("-----------------------------");
-		IO.println("Analyse NtHashClassic");
-		//System.out.println("Vektorgroesse: " + bitVector.size() + "\n" + "Besetzte Bits: " + bitVector.cardinality());
-		PlaceCounter.countLong(places);
-		PlaceWriter.write(places);
+		int notUnique = index - PlaceCounter.countLong(places);
+		IO.println("Stellen mehrfach: " + notUnique);
+		IO.println("Rate: " + (Math.round((100.0 / index * notUnique) * 100.0) / 100.0) + "%");
 		System.out.println("Place done!");
 		IO.println("-----------------------------");
-	
+
 		
+		long max = 0;
 		
+		IO.println("NtHashClassic mit double Hash");
+		//Start Double Hash
+		for(int counter = 0; counter < places.size(); counter++) {
+			
+			//Rotation es urspruenglichen Wertes um 32 nach rechts
+			//Danach XOR mit golden Ratio (angegeben in Hexadezimal)
+			Long temp = (Long.rotateRight(places.get(counter), 32) ^ 0x9e3779b97f4a7c15L);
+			
+			//klassisches double Hashing
+			//h = (h_1 + i * h_2) mod size
+			//Hierbei wird als modulo eine Bitmaske eingesetzt
+			doubleHashValue.add((int)((places.get(counter) + counter * temp) & (Math.powExact(2, 30) - 1)));
+			
+			
+			//Analyse fuer hoechsten Wert
+			if(max < (int)((places.get(counter) + counter * temp) & (Math.powExact(2, 30) - 1))) {
+				max = (int)((places.get(counter) + counter * temp) & (Math.powExact(2, 30) - 1));
+			}
+			
+		}
 		
+		//Analyse
+		int notUniqueInt = ((int) places.size()) - PlaceCounter.countInt(doubleHashValue);
+		IO.println("Stellen mehrfach: " + notUniqueInt);
+		IO.println("Rate: " + (Math.round((100.0 / index * notUniqueInt) * 100.0) / 100.0) + "%");
+		IO.println("Maximaler Wert: " + max);
+		PlaceWriter.writeInt(doubleHashValue);
+		System.out.println("Place done!");
+		IO.println("-----------------------------");
 		
 		
 		return new BitSet();

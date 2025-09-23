@@ -24,14 +24,15 @@ public class Main {
 		
 		b.setPathGenom("src/testFiles/EColiGenom.fa");
 		
-		b.run();
 		
+		b.run();
+		/*
 		IO.println("Ebola");
 		
 		b.setPathGenom("src/testFiles/EbolaGenom.fa");
 		
 		b.run();
-		
+		*/
 		System.out.println("done!");
 		
 	}
