@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PlaceWriter {
 	
-	public static void write(List<Integer> places) {
+	public static void write(List<Long> places) {
 		
 		System.out.println("writing...");
 		
@@ -17,8 +17,8 @@ public class PlaceWriter {
 		
 		sb.append("Number\n");
 		
-		for(Integer i: places) {
-			sb.append(i + "\n");
+		for(Long i: places) {
+			sb.append(Long.toUnsignedString(i) + "\n");
 		}
 		
 		try(FileChannel channel = FileChannel.open(Paths.get("src/testFiles/PlacesAnalyse.csv"),

@@ -1,17 +1,13 @@
 package hashFunctionCollection;
 
 import java.util.BitSet;
-import java.util.LinkedList;
-
-import miscTools.PlaceCounter;
-import miscTools.PlaceWriter;
 
 public class PolynomialHashFunction implements IHashFunction<BitSet>{
 
 	public BitSet toHash(String genom) {
 
 		BitSet bitVector = new BitSet();
-		LinkedList<Integer> places = new LinkedList<>();
+		//LinkedList<Integer> places = new LinkedList<>();
 		long[] primeNumbs = {2,5,7,11};
 		int kmerSize = 10;
 		int size = 100000;
@@ -23,7 +19,7 @@ public class PolynomialHashFunction implements IHashFunction<BitSet>{
 			long place = cycle(genom, x, x + kmerSize, size,  base, primeArray);
 			
 			bitVector.set((int) place);
-			places.add((int)place);
+			//places.add((int)place);
 			
 		}
 

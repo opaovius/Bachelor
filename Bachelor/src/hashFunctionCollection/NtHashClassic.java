@@ -1,7 +1,11 @@
 package hashFunctionCollection;
 
 import java.util.BitSet;
+import java.util.LinkedList;
 import java.util.Random;
+
+import miscTools.PlaceCounter;
+import miscTools.PlaceWriter;
 
 public class NtHashClassic implements IHashFunction<BitSet>{
 	
@@ -13,78 +17,97 @@ public class NtHashClassic implements IHashFunction<BitSet>{
 				       -1261775892281119362L,
 				       -4075723973616114068L};
 		int i = 1;
+		int kmerSize = 32;
+		
+		LinkedList<Long> places = new LinkedList<>();
 		
 		//Erzeugen des ersten kmers
-		long kmer = init(seed,genom.substring(0, 64));
+		long kmer = init(seed,genom.substring(0, kmerSize));
 		
-		for(int counter = 64; counter < genom.length() - 64; counter++) {
+		
+		//alle k-mere erzeugen
+		for(int counter = kmerSize; counter < genom.length() - kmerSize; counter++) {
 			
-			//Einmal links rotieren
-			kmer = Long.rotateLeft(kmer, 1);
-			
-			long kmerTemp = 0L;
-			char nucleotidTemp = genom.charAt(i - 1);
-			
-			switch (nucleotidTemp) {
-			case 'A':
-				kmerTemp = seed[0];
-				break;
-			case 'C':
-				kmerTemp = seed[1];
-				break;
-			case 'G':
-				kmerTemp = seed[2];
-				break;
-			case 'T':
-				kmerTemp = seed[3];
-				break;
-			default:
-				kmerTemp = 0L;
-				IO.println("Fehler bei NtHashClassic: nucleo - 1");
-				break;
-
-			}
-			// sinnlos????
-			//kmer = Long.rotateLeft(kmerTemp, 64);
-			
-			kmer = kmer ^ kmerTemp;
-			
-			nucleotidTemp = genom.charAt(i + 64 - 1);
-			
-			switch (nucleotidTemp) {
-			case 'A':
-				kmerTemp = seed[0];
-				break;
-			case 'C':
-				kmerTemp = seed[1];
-				break;
-			case 'G':
-				kmerTemp = seed[2];
-				break;
-			case 'T':
-				kmerTemp = seed[3];
-				break;
-			default:
-				kmerTemp = 0L;
-				IO.println("Fehler bei NtHashClassic: nucleo - 1");
-				break;
-
-			}
-			
-			kmer = kmer ^ kmerTemp;
-			
+			kmer = cycle(kmer,genom,seed,kmerSize,i);
 			i++;
-
+			places.add(kmer);
+			//Anzeigen fuer k-mer Anzahl, Vaci -> 194_647
+			//IO.println("counter: " + (counter - kmerSize + 1));
 		}
 		
-		
-		IO.println(kmer);
+		// Anaylse
+		IO.println("-----------------------------");
+		IO.println("Analyse NtHashClassic");
+		//System.out.println("Vektorgroesse: " + bitVector.size() + "\n" + "Besetzte Bits: " + bitVector.cardinality());
+		PlaceCounter.countLong(places);
+		PlaceWriter.write(places);
+		System.out.println("Place done!");
+		IO.println("-----------------------------");
+	
 		
 		
 		
 		
 		
 		return new BitSet();
+	}
+	
+	private long cycle(long kmer, String genom, long[] seed, int kmerSize, int i) {
+		
+		//Einmal links rotieren
+		kmer = Long.rotateLeft(kmer, 1);
+		
+		long kmerTemp = 0L;
+		char nucleotidTemp = genom.charAt(i - 1);
+		
+		switch (nucleotidTemp) {
+		case 'A':
+			kmerTemp = seed[0];
+			break;
+		case 'C':
+			kmerTemp = seed[1];
+			break;
+		case 'G':
+			kmerTemp = seed[2];
+			break;
+		case 'T':
+			kmerTemp = seed[3];
+			break;
+		default:
+			kmerTemp = 0L;
+			IO.println("Fehler bei NtHashClassic: nucleo - 1");
+			IO.println(nucleotidTemp);
+			break;
+
+		}
+		
+		kmerTemp = Long.rotateLeft(kmerTemp, kmerSize);
+		
+		kmer = kmer ^ kmerTemp;
+		
+		nucleotidTemp = genom.charAt(i + kmerSize - 1);
+		
+		switch (nucleotidTemp) {
+		case 'A':
+			kmerTemp = seed[0];
+			break;
+		case 'C':
+			kmerTemp = seed[1];
+			break;
+		case 'G':
+			kmerTemp = seed[2];
+			break;
+		case 'T':
+			kmerTemp = seed[3];
+			break;
+		default:
+			kmerTemp = 0L;
+			break;
+
+		}
+		
+		return kmer ^ kmerTemp;
+		
 	}
 	
 	private long init(long[] seed, String kmerString) {
@@ -120,6 +143,7 @@ public class NtHashClassic implements IHashFunction<BitSet>{
 	}
 	
 	//genutzt zum erzeugen von zufaelligen 64Bit long werten
+	@SuppressWarnings("unused")
 	private void random() {
 		
 		BitSet random = new BitSet();
