@@ -50,8 +50,8 @@ public class NtHashClassic implements IHashFunction<BitSet>{
 		System.out.println("Place done!");
 		IO.println("-----------------------------");
 
-		
-		long max = 0;
+		long min = Integer.MAX_VALUE;
+		long max = Integer.MIN_VALUE;
 		
 		IO.println("NtHashClassic mit double Hash");
 		//Start Double Hash
@@ -67,9 +67,12 @@ public class NtHashClassic implements IHashFunction<BitSet>{
 			doubleHashValue.add((int)((places.get(counter) + counter * temp) & (Math.powExact(2, 30) - 1)));
 			
 			
-			//Analyse fuer hoechsten Wert
+			//Analyse fuer maximalen und minimalen Wert
 			if(max < (int)((places.get(counter) + counter * temp) & (Math.powExact(2, 30) - 1))) {
 				max = (int)((places.get(counter) + counter * temp) & (Math.powExact(2, 30) - 1));
+			}
+			if(min > (int)((places.get(counter) + counter * temp) & (Math.powExact(2, 30) - 1))) {
+				min = (int)((places.get(counter) + counter * temp) & (Math.powExact(2, 30) - 1));
 			}
 			
 		}
@@ -79,6 +82,7 @@ public class NtHashClassic implements IHashFunction<BitSet>{
 		IO.println("Stellen mehrfach: " + notUniqueInt);
 		IO.println("Rate: " + (Math.round((100.0 / index * notUniqueInt) * 100.0) / 100.0) + "%");
 		IO.println("Maximaler Wert: " + max);
+		IO.println("Minimaler Wert: " + min);
 		PlaceWriter.writeInt(doubleHashValue);
 		System.out.println("Place done!");
 		IO.println("-----------------------------");

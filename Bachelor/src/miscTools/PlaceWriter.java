@@ -27,6 +27,7 @@ public class PlaceWriter {
 			ByteBuffer buffer = ByteBuffer.wrap(sb.toString().getBytes());
 			channel.write(buffer);
 			channel.force(true);
+			channel.close();
 			
 		}catch(IOException e) {
 			System.out.println("IO-Error");
@@ -51,6 +52,7 @@ public class PlaceWriter {
 			ByteBuffer buffer = ByteBuffer.wrap(sb.toString().getBytes());
 			channel.write(buffer);
 			channel.force(true);
+			channel.close();
 			
 		}catch(IOException e) {
 			System.out.println("IO-Error");

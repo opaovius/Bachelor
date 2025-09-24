@@ -20,6 +20,7 @@ public class Main {
 		
 		b.run();
 		
+		/*
 		IO.println("EColi");
 		
 		b.setPathGenom("src/testFiles/EColiGenom.fa");
