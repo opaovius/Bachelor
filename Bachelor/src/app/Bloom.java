@@ -59,7 +59,7 @@ public class Bloom {
 		// System.out.println("check genom");
 		for (HashFunction<BitSet> hf : hashFs) {
 			
-			//bitVector = hf.output(genomString);
+			bitVector = hf.output(genomString);
 			
 		}
 

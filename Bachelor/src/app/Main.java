@@ -1,7 +1,5 @@
 package app;
 
-import miscTools.SeedTable;
-
 public class Main {
 
 	public static void main(String[] args) {
@@ -13,8 +11,6 @@ public class Main {
 		IO.println("Vaccinia");
 		
 		Bloom b = new Bloom("src/testFiles/VacciniaGenom.fa","src/testFiles/VacciniaGene.fa");
-		
-		SeedTable.create();
 		
 		//Mehrere Genome als input
 		//je genom ein bitset
