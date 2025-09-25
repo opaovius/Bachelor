@@ -2,7 +2,6 @@ package hashFunctionCollection;
 
 import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.Random;
 
 import miscTools.PlaceCounter;
 import miscTools.PlaceWriter;
@@ -180,25 +179,4 @@ public class NtHashClassic implements IHashFunction<BitSet>{
 		
 		return endKmer;
 	}
-	
-	//genutzt zum erzeugen von zufaelligen 64Bit long werten
-	@SuppressWarnings("unused")
-	private void random() {
-		
-		BitSet random = new BitSet();
-		Random coin = new Random();
-		
-		for(int counter = 0; counter < 64; counter++) {
-			if(coin.nextBoolean()) {
-				random.set(counter);
-			}
-		}
-		
-		long[] arr = random.toLongArray();
-		
-		IO.println(arr[0]);
-		IO.println(Long.MAX_VALUE);
-		
-	}
-
 }
