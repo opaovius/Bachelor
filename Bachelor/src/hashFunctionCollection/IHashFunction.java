@@ -1,6 +1,12 @@
 package hashFunctionCollection;
 
-public interface IHashFunction<T> {
+import java.util.BitSet;
+
+import app.Gen;
+
+public interface IHashFunction {
 	
-	public T toHash(String s);
+	public BitSet toHashGenom(String s);
+	
+	public int toHashGen(Gen g);
 }

@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
 
+import app.Gen;
 import miscTools.PlaceCounter;
 import miscTools.PlaceWriter;
 import miscTools.SeedTable;
 
-public class NtHashClassic implements IHashFunction<BitSet>{
+public class NtHashClassic implements IHashFunction{
 	
 	private HashMap<Character,Long> seed;
 	
@@ -16,7 +17,7 @@ public class NtHashClassic implements IHashFunction<BitSet>{
 		this.seed = SeedTable.load();
 	}
 	
-	public BitSet toHash(String genom) {
+	public BitSet toHashGenom(String genom) {
 		
 		//Index fuer derzeitiges k-mer. 1, da init() kmer mit Index i =  0 erzeugt 
 		int index = 1;
@@ -91,6 +92,22 @@ public class NtHashClassic implements IHashFunction<BitSet>{
 		
 		
 		return new BitSet();
+	}
+	
+	public int toHashGen(Gen gen) {
+		
+		int index = 1;
+		int kmerSize = 64;
+		
+		ArrayList<Long> places = new ArrayList<>();
+		ArrayList<Integer> doubleHashValue = new ArrayList<>();
+		
+		
+		long kmer = init(gen.sequence().substring(0, kmerSize));
+		
+		IO.println(kmer);
+		
+		return 0;
 	}
 	
 	private long cycle(long kmer, String genom, int kmerSize, int i) {

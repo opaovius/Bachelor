@@ -4,8 +4,8 @@ import java.util.BitSet;
 
 public class BitSetObject {
 	
-	String name;
-	BitSet vector;
+	private String name;
+	private BitSet vector;
 
 	public BitSetObject(String name, BitSet vector){
 		this.name = name;

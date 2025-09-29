@@ -1,20 +1,32 @@
 package hashFunctionCollection;
 
-public class HashFunction<T> {
+import java.util.BitSet;
 
-	IHashFunction<T> hash = null;
+import app.Gen;
+
+public class HashFunction {
+
+	IHashFunction hash = null;
 	
-	public void setHashFunction(IHashFunction<T> hash) {
+	public void setHashFunction(IHashFunction hash) {
 		this.hash = hash;
 	}
 	
-	public IHashFunction<T> getHashFunction(){
+	public IHashFunction getHashFunction(){
 		return hash;
 	}
 	
-	public T output(String genom) {
+	public BitSet outputGenom(String genom) {
 		
-		T out = hash.toHash(genom);
+		BitSet out = hash.toHashGenom(genom);
+		
+		return out;
+
+	}
+	
+	public int outputGen(Gen g) {
+		
+		int out = hash.toHashGen(g);
 		
 		return out;
 

@@ -3,17 +3,16 @@ package parserCollection;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import app.Gen;
 
-public class GenFastaParser implements IParser<List<Gen>>{
+public class GenFastaParser implements IParser<ArrayList<Gen>>{
 	
 	// Einlesen einer FASTA-Datei, welche die Gene enthaelt
-		public List<Gen> readFile(String path){
+		public ArrayList<Gen> readFile(String path){
 			
 			ArrayList<Gen> genList = new ArrayList<>();
 			
