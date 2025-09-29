@@ -8,6 +8,7 @@ import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.NtHash2;
 import hashFunctionCollection.NtHashClassic;
 import hashFunctionCollection.PolynomialHashFunction;
+import parserCollection.GenFastaParser;
 import parserCollection.GenomFastaParser;
 import parserCollection.Parser;
 
@@ -44,6 +45,10 @@ public class Bloom {
 		
 		//Erstellen des BitSets
 		BSOList.add(createVector(hashFs, pathGenom));
+		
+		Parser<List<Gen>> genParser = new Parser<>(pathGenes);
+		genParser.setParser(new GenFastaParser());
+		genParser.output();
 		
 	}
 	

@@ -10,7 +10,7 @@ public class Main {
 		
 		IO.println("Vaccinia");
 		
-		Bloom b = new Bloom("src/testFiles/VacciniaGenom.fa","src/testFiles/VacciniaGene.fa");
+		Bloom b = new Bloom("src/testFiles/EbolaGenom.fa","src/testFiles/EbolaGene.fa");
 		
 		//Mehrere Genome als input
 		//je genom ein bitset
