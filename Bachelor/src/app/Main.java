@@ -18,16 +18,16 @@ public class Main {
 		//Gen kmer ab 0 stopp -> also wenn erste hashfunktion 0 ausgibt, kann man beim derzeitigen gen aufhoeren
 		//Hashfunktionkonflikt testen
 		
-		//b.run();
+		b.run();
 		
-		/*
+		
 		IO.println("EColi");
 		
 		b.setPathGenom("src/testFiles/EColiGenom.fa");
 		
 		
 		b.run();
-		*/
+		
 		
 		IO.println("Ebola");
 		

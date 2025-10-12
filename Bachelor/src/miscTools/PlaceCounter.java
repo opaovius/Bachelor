@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PlaceCounter {
 	
-	public static int countInt(List<Integer> places) {
+	public static int countInt(int[] places) {
 		
 		int max = 0;
 		

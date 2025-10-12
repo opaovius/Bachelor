@@ -2,10 +2,11 @@ package app;
 
 import java.util.ArrayList;
 
+import hashFunctionCollection.BoundedInteger;
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.NtHash2;
 import hashFunctionCollection.NtHashClassic;
-import hashFunctionCollection.PolynomialHashFunction;
+import miscTools.TestPipeline;
 import parserCollection.GenFastaParser;
 import parserCollection.GenomFastaParser;
 import parserCollection.Parser;
@@ -23,13 +24,38 @@ public class Bloom {
 	
 	public void run() {
 		
-		//Zusammenfassen in einer Liste
+		//Erstellen der HashFunktionen
 		ArrayList<HashFunction> hashFs = createHashFunctions();
 		
-		ArrayList<BitSetObject> BSOList = new ArrayList<>();
+		//Laden des Geoms aus Datei
+		String genom = loadGenom(pathGenom);
+		
+		ArrayList<long[]> kmerListLong = new ArrayList<>();
+		
+		//Erzeugen des Long-Index-Werte
+		for(HashFunction hf : hashFs) {
+			kmerListLong.add(hf.output(genom));
+		}
+		
+		ArrayList<int[]> kmerListInt = new ArrayList<>();
+		
+		//Begrenzen auf gewuenschte Groesse + Umwandlung zu Integer
+		
+		int cap = BoundedInteger.calculateCap(genom.length());
+		
+		IO.println("cap: " + cap);
+		
+		for(long[] longArray : kmerListLong) {
+			kmerListInt.add(BoundedInteger.boundToInt(longArray,cap));
+		}
+		
+		//Testen
+		for(int[] ints : kmerListInt) {
+		 TestPipeline.test(ints);
+		}
 		
 		//Erstellen des BitSets
-		BSOList = createVector(hashFs, pathGenom);
+		//createVector(hashFs, genom);
 		
 		Parser<ArrayList<Gen>> genParser = new Parser<>(pathGenes);
 		genParser.setParser(new GenFastaParser());
@@ -40,22 +66,18 @@ public class Bloom {
 	}
 	
 	//Erstellt mittels Hashfunktionen eine Liste aus BitSetObjekten
-	private ArrayList<BitSetObject> createVector(ArrayList<HashFunction> hashFs, String pathGenom) {
+	private ArrayList<BitSetObject> createVector(ArrayList<HashFunction> hashFs, String genom) {
 		
-		Parser<StringBuilder> genomParser = new Parser<>(pathGenom);
-		genomParser.setParser(new GenomFastaParser());
-		StringBuilder genom = genomParser.output();
 		ArrayList<BitSetObject> bitVectors = new ArrayList<>();
-		String genomString = genom.toString();
 		
-		IO.println(genomString.length());
-		IO.println("Ziel: " + (genomString.length() - 64 + 1));
+		IO.println(genom.length());
+		IO.println("Ziel: " + (genom.length() - 64 + 1));
 		
 		// BitSets erstellen mittes der Hashfunktionen
 		// Am Ende am besten nur eine, aber jetzt mehrere zum austesten
 		for (HashFunction hf : hashFs) {
 			
-			hf.output(genomString);
+			hf.output(genom);
 			//bitVectors.add(new BitSetObject("PLACEHOLDER",  hf.output(genomString)));
 			
 		}
@@ -81,19 +103,24 @@ public class Bloom {
 		ArrayList<HashFunction> hashFs = new ArrayList<>();
 
 		// Erstellen der verschiedenen HashFunktionen
-		HashFunction hash1 = new HashFunction();
 		HashFunction hashNt = new HashFunction();
 		HashFunction hashNtClassic = new HashFunction();
 
-		hash1.setHashFunction(new PolynomialHashFunction());
 		hashNt.setHashFunction(new NtHash2());
 		hashNtClassic.setHashFunction(new NtHashClassic());
 
-		hashFs.add(hash1);
-		hashFs.add(hashNt);
 		hashFs.add(hashNtClassic);
 
 		return hashFs;
+	}
+	
+	private String loadGenom(String pathGenom) {
+		
+		Parser<StringBuilder> genomParser = new Parser<>(pathGenom);
+		genomParser.setParser(new GenomFastaParser());
+		StringBuilder genom = genomParser.output();
+		return genom.toString();
+		
 	}
 	
 	public void setPathGenom(String pathGenom) {

@@ -34,7 +34,7 @@ public class PlaceWriter {
 		}
 		
 	}
-	public static void writeInt(List<Integer> places) {
+	public static void writeInt(int[] places) {
 		
 		System.out.println("writing...");
 		
