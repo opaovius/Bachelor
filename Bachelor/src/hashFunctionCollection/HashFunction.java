@@ -1,9 +1,5 @@
 package hashFunctionCollection;
 
-import java.util.BitSet;
-
-import app.Gen;
-
 public class HashFunction {
 
 	IHashFunction hash = null;
@@ -16,19 +12,9 @@ public class HashFunction {
 		return hash;
 	}
 	
-	public BitSet outputGenom(String genom) {
+	public long[] output(String genom) {
 		
-		BitSet out = hash.toHashGenom(genom);
-		
-		return out;
-
-	}
-	
-	public int outputGen(Gen g) {
-		
-		int out = hash.toHashGen(g);
-		
-		return out;
+		return hash.toHash(genom);
 
 	}
 	

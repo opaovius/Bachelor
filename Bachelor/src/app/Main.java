@@ -10,7 +10,7 @@ public class Main {
 		
 		IO.println("Vaccinia");
 		
-		Bloom b = new Bloom("src/testFiles/EbolaGenom.fa","src/testFiles/EbolaGene.fa");
+		Bloom b = new Bloom("src/testFiles/VacciniaGenom.fa","src/testFiles/VacciniaGene.fa");
 		
 		//Mehrere Genome als input
 		//je genom ein bitset
@@ -18,7 +18,7 @@ public class Main {
 		//Gen kmer ab 0 stopp -> also wenn erste hashfunktion 0 ausgibt, kann man beim derzeitigen gen aufhoeren
 		//Hashfunktionkonflikt testen
 		
-		b.run();
+		//b.run();
 		
 		/*
 		IO.println("EColi");
@@ -27,13 +27,14 @@ public class Main {
 		
 		
 		b.run();
-		/*
+		*/
+		
 		IO.println("Ebola");
 		
 		b.setPathGenom("src/testFiles/EbolaGenom.fa");
 		
 		b.run();
-		*/
+		
 		System.out.println("done!");
 		
 	}

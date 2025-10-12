@@ -23,21 +23,8 @@ public class Bloom {
 	
 	public void run() {
 		
-		//Erstellen der verschiedenen HashFunktionen
-		HashFunction hash1 = new HashFunction();
-		HashFunction hashNt = new HashFunction();
-		HashFunction hashNtClassic = new HashFunction();
-		
-		hash1.setHashFunction(new PolynomialHashFunction());
-		hashNt.setHashFunction(new NtHash2());
-		hashNtClassic.setHashFunction(new NtHashClassic());
-		
 		//Zusammenfassen in einer Liste
-		ArrayList<HashFunction> hashFs = new ArrayList<>();
-		
-		hashFs.add(hash1);
-		hashFs.add(hashNt);
-		hashFs.add(hashNtClassic);
+		ArrayList<HashFunction> hashFs = createHashFunctions();
 		
 		ArrayList<BitSetObject> BSOList = new ArrayList<>();
 		
@@ -48,7 +35,7 @@ public class Bloom {
 		genParser.setParser(new GenFastaParser());
 		ArrayList<Gen> genList = genParser.output();
 		
-		checkGenes(hashFs,BSOList,genList);
+		//checkGenes(hashFs,BSOList,genList);
 		
 	}
 	
@@ -61,12 +48,15 @@ public class Bloom {
 		ArrayList<BitSetObject> bitVectors = new ArrayList<>();
 		String genomString = genom.toString();
 		
+		IO.println(genomString.length());
+		IO.println("Ziel: " + (genomString.length() - 64 + 1));
 		
 		// BitSets erstellen mittes der Hashfunktionen
 		// Am Ende am besten nur eine, aber jetzt mehrere zum austesten
 		for (HashFunction hf : hashFs) {
 			
-			bitVectors.add(new BitSetObject("PLACEHOLDER",  hf.outputGenom(genomString)));
+			hf.output(genomString);
+			//bitVectors.add(new BitSetObject("PLACEHOLDER",  hf.output(genomString)));
 			
 		}
 		
@@ -81,10 +71,29 @@ public class Bloom {
 			
 			if(g.sequence().length() >= 64) {
 			
-				hashFs.get(2).outputGen(g);
 			}
 		}
 		
+	}
+	
+	private ArrayList<HashFunction> createHashFunctions(){
+		
+		ArrayList<HashFunction> hashFs = new ArrayList<>();
+
+		// Erstellen der verschiedenen HashFunktionen
+		HashFunction hash1 = new HashFunction();
+		HashFunction hashNt = new HashFunction();
+		HashFunction hashNtClassic = new HashFunction();
+
+		hash1.setHashFunction(new PolynomialHashFunction());
+		hashNt.setHashFunction(new NtHash2());
+		hashNtClassic.setHashFunction(new NtHashClassic());
+
+		hashFs.add(hash1);
+		hashFs.add(hashNt);
+		hashFs.add(hashNtClassic);
+
+		return hashFs;
 	}
 	
 	public void setPathGenom(String pathGenom) {

@@ -2,11 +2,9 @@ package hashFunctionCollection;
 
 import java.util.BitSet;
 
-import app.Gen;
-
 public class PolynomialHashFunction implements IHashFunction{
 
-	public BitSet toHashGenom(String genom) {
+	public long[] toHash(String genom) {
 
 		BitSet bitVector = new BitSet();
 		//LinkedList<Integer> places = new LinkedList<>();
@@ -32,11 +30,7 @@ public class PolynomialHashFunction implements IHashFunction{
 		PlaceWriter.write(places);
 		System.out.println("Place done!");
 		*/
-		return bitVector;
-	}
-	
-	public int toHashGen(Gen gen) {
-		return 0;
+		return new long[2];
 	}
 	
 	private int cycle(String s,int start, int end, int size, int base ,long[][] primeArray) {
