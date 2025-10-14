@@ -1,19 +1,13 @@
 package hashFunctionCollection;
 
 public class BoundedInteger {
-	/**
-	 * 
-	 * @param longs long Array, welches zu int Umgewandelt wird
-	 * @param cap Der Begrenzte bereich ergibt sich 2^cap, also ist es ein vielfaches von 2
-	 * @return
-	 */
 	
 	public static int[] boundToInt(long[] longs , int cap) {
 		
 		int[] ints = new int[longs.length];
 		
 		for(int x = 0; x < longs.length; x++) {
-			ints[x] = (int) (longs[x] % Math.powExact(2, cap));
+			ints[x] = (int) (longs[x] % cap);
 		}
 		
 		return ints;
@@ -23,17 +17,12 @@ public class BoundedInteger {
 		
 		int x = 0;
 		
-		while(Math.powExact(2, x) < size) {
+		while(Math.powExact(2, x) < size && x <= 28) {
 			x++;
-			
-			if(Math.powExact(2, x) < 0) {
-				IO.println("Error: calculateCap Integer Overflow");
-				break;
-			}
 		}
 		
 		// +2 und nicht +1, damit weniger Ueberschneidungen da sind
-		return (x+2);
+		return Math.powExact(2, x);
 	}
 
 }

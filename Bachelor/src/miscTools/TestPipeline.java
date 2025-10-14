@@ -9,7 +9,7 @@ public class TestPipeline {
 		// Anaylse
 		int notUnique = kmers.length - PlaceCounter.countInt(kmers);
 		IO.println("Stellen mehrfach: " + notUnique);
-		IO.println("Rate: " + (Math.round((100.0 / kmers.length * notUnique) * 100.0) / 100.0) + "%");
+		IO.println("Rate: " + (Math.round((100.0 / kmers.length * notUnique) * 100000.0) / 100000.0) + "%");
 		System.out.println("Place done!");
 		IO.println("-----------------------------");
 		

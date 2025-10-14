@@ -8,7 +8,7 @@ public class Main {
 		//DNARandomizer.createDNA(10_000_000,10,10000);
 		//DNARandomizer.createCustomGenes(10, 100, "src/testFiles/GenomRandom" + 10_000_000 + ".fa");
 		
-		IO.println("Vaccinia");
+		//IO.println("Vaccinia");
 		
 		Bloom b = new Bloom("src/testFiles/VacciniaGenom.fa","src/testFiles/VacciniaGene.fa");
 		
@@ -18,6 +18,7 @@ public class Main {
 		//Gen kmer ab 0 stopp -> also wenn erste hashfunktion 0 ausgibt, kann man beim derzeitigen gen aufhoeren
 		//Hashfunktionkonflikt testen
 		
+		/*
 		b.run();
 		
 		
@@ -27,7 +28,7 @@ public class Main {
 		
 		
 		b.run();
-		
+		*/
 		
 		IO.println("Ebola");
 		

@@ -12,11 +12,10 @@ public class NtHashClassic implements IHashFunction{
 		this.seed = SeedTable.load();
 	}
 	
-	public long[] toHash(String genom) {
+	public long[] toHash(String genom, int kmerSize) {
 		
 		//Index fuer derzeitiges k-mer. 1, da init() kmer mit Index i =  0 erzeugt 
 		int index = 1;
-		int kmerSize = 64;
 		
 		//ArrayList<Long> places = new ArrayList<>();
 		long[] kmerArray = new long[genom.length() - kmerSize + 1];

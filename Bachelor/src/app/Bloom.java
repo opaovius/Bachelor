@@ -24,8 +24,10 @@ public class Bloom {
 	
 	public void run() {
 		
+		int kmerSize = 30;
+		
 		//Erstellen der HashFunktionen
-		ArrayList<HashFunction> hashFs = createHashFunctions();
+		ArrayList<HashFunction> hashFs = createHashFunctions(30);
 		
 		//Laden des Geoms aus Datei
 		String genom = loadGenom(pathGenom);
@@ -43,6 +45,8 @@ public class Bloom {
 		
 		int cap = BoundedInteger.calculateCap(genom.length());
 		
+		IO.println("Laenge: " + genom.length());
+		IO.println("kmere: " + (genom.length() - kmerSize + 1));
 		IO.println("cap: " + cap);
 		
 		for(long[] longArray : kmerListLong) {
@@ -98,7 +102,7 @@ public class Bloom {
 		
 	}
 	
-	private ArrayList<HashFunction> createHashFunctions(){
+	private ArrayList<HashFunction> createHashFunctions(int kmerSize){
 		
 		ArrayList<HashFunction> hashFs = new ArrayList<>();
 
@@ -106,10 +110,10 @@ public class Bloom {
 		HashFunction hashNt = new HashFunction();
 		HashFunction hashNtClassic = new HashFunction();
 
-		hashNt.setHashFunction(new NtHash2());
-		hashNtClassic.setHashFunction(new NtHashClassic());
+		hashNt.setHashFunction(new NtHash2(),kmerSize);
+		hashNtClassic.setHashFunction(new NtHashClassic(),kmerSize);
 
-		hashFs.add(hashNtClassic);
+		hashFs.add(hashNt);
 
 		return hashFs;
 	}

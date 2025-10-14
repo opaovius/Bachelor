@@ -4,12 +4,11 @@ import java.util.BitSet;
 
 public class PolynomialHashFunction implements IHashFunction{
 
-	public long[] toHash(String genom) {
+	public long[] toHash(String genom, int kmerSize) {
 
 		BitSet bitVector = new BitSet();
 		//LinkedList<Integer> places = new LinkedList<>();
 		long[] primeNumbs = {2,5,7,11};
-		int kmerSize = 10;
 		int size = 100000;
 		long[][] primeArray = initPrime(primeNumbs,kmerSize);
 		int base = 0;
@@ -22,14 +21,6 @@ public class PolynomialHashFunction implements IHashFunction{
 			//places.add((int)place);
 			
 		}
-
-		/*
-		// Anaylse
-		System.out.println("Vektorgroesse: " + bitVector.size() + "\n" + "Besetzte Bits: " + bitVector.cardinality());
-		PlaceCounter.count(places);
-		PlaceWriter.write(places);
-		System.out.println("Place done!");
-		*/
 		return new long[2];
 	}
 	
