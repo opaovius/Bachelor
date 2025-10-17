@@ -7,7 +7,7 @@ public class BoundedInteger {
 		int[] ints = new int[longs.length];
 		
 		for(int x = 0; x < longs.length; x++) {
-			ints[x] = (int) (longs[x] % cap);
+			ints[x] = (int) longs[x] & ((1 << cap) - 1);
 		}
 		
 		return ints;
@@ -22,7 +22,7 @@ public class BoundedInteger {
 		}
 		
 		// +2 und nicht +1, damit weniger Ueberschneidungen da sind
-		return Math.powExact(2, x);
+		return x+2;
 	}
 
 }

@@ -1,6 +1,7 @@
 package app;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 
 import hashFunctionCollection.BoundedInteger;
 import hashFunctionCollection.HashFunction;
@@ -56,8 +57,24 @@ public class Bloom {
 						
 			IO.println(hashFs.get(counter).getHashFunction().getClass());
 	
-			TestPipeline.test(ints,kmerListLong.get(counter),genom,kmerSize);
+			TestPipeline.test(ints,kmerListLong.get(counter),genom,kmerSize,hashFs,counter);
 			
+			counter++;
+		}
+		
+		counter = 0;
+		
+		while(counter < 2) {
+		
+			BitSet bit = new BitSet();
+			
+			int[] is = kmerListInt.get(counter);
+			
+			for(int i: is) {
+				bit.set(i);
+			}
+			
+			IO.println("OI BitSet Size: " + bit.size());
 			counter++;
 		}
 		
