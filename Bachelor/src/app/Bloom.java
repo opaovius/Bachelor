@@ -42,20 +42,23 @@ public class Bloom {
 		ArrayList<int[]> kmerListInt = new ArrayList<>();
 		
 		//Begrenzen auf gewuenschte Groesse + Umwandlung zu Integer
-		
 		int cap = BoundedInteger.calculateCap(genom.length());
-		
-		IO.println("Laenge: " + genom.length());
-		IO.println("kmere: " + (genom.length() - kmerSize + 1));
-		IO.println("cap: " + cap);
 		
 		for(long[] longArray : kmerListLong) {
 			kmerListInt.add(BoundedInteger.boundToInt(longArray,cap));
 		}
 		
 		//Testen
+		
+		int counter = 0;
+		
 		for(int[] ints : kmerListInt) {
-		 TestPipeline.test(ints);
+						
+			IO.println(hashFs.get(counter).getHashFunction().getClass());
+	
+			TestPipeline.test(ints,kmerListLong.get(counter),genom,kmerSize);
+			
+			counter++;
 		}
 		
 		//Erstellen des BitSets
@@ -114,7 +117,8 @@ public class Bloom {
 		hashNtClassic.setHashFunction(new NtHashClassic(),kmerSize);
 
 		hashFs.add(hashNt);
-
+		hashFs.add(hashNtClassic);
+		
 		return hashFs;
 	}
 	

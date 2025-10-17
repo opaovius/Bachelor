@@ -1,6 +1,8 @@
 package miscTools;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class PlaceCounter {
@@ -59,6 +61,42 @@ public class PlaceCounter {
 		IO.println("Map Size: " + map.size());
 		
 		return map.size();
+	}
+	
+	public static int countSameKmers(String genom, int kmerSize) {
+		
+		HashSet<String> kmerSet = new HashSet<>();
+		
+		for(int counter = 0; counter < genom.length() - kmerSize + 1; counter++) {
+			
+			if(kmerSet.contains(genom.substring(counter, counter+kmerSize))) {
+				//IO.println(genom.substring(counter, counter+kmerSize));
+			}
+			else {
+				kmerSet.add(genom.substring(counter, counter+kmerSize));
+			}
+		}
+		
+		return kmerSet.size();
+	}
+	
+	public static ArrayList<String> getUniqueStrings(String genom, int kmerSize){
+		
+		ArrayList<String> UniqueKmers = new ArrayList<>();
+		HashSet<String> kmerSet = new HashSet<>();
+		
+		for(int counter = 0; counter < genom.length() - kmerSize + 1; counter++) {
+			
+			String subS = genom.substring(counter, counter+kmerSize);
+			
+			if(!kmerSet.contains(subS)) {
+				UniqueKmers.add(subS);
+				kmerSet.add(subS);
+			}
+			
+		}
+		
+		return UniqueKmers;
 	}
 
 }
