@@ -3,12 +3,12 @@ package miscTools;
 import java.util.ArrayList;
 import java.util.BitSet;
 
-import hashFunctionCollection.BoundedInteger;
+import app.helper.BoundedInteger;
 import hashFunctionCollection.HashFunction;
 
 public class TestPipeline {
 	
-	public static void test(int[] kmersInt, long[] kmersLong, String genom , int kmerSize, ArrayList<HashFunction> hf, int counter) {
+	public static void test(int[] kmersInt, long[] kmersLong, String genom , int kmerSize, HashFunction hf, BitSet bitS) {
 		
 		//PlaceWriter.writeInt(kmers);
 		
@@ -22,7 +22,7 @@ public class TestPipeline {
 		
 		
 		for(String s : UniqueKmers) {
-			longs = hf.get(counter).output(s);
+			longs = hf.output(s);
 			longArr.add(longs[0]);
 		}
 		
@@ -61,6 +61,10 @@ public class TestPipeline {
 		IO.println("Rate Long: " + (Math.round((100.0 / longArr.size() * (longArr.size() - longArrUnique)) * 100000.0) / 100000.0) + "%");
 		IO.println("Rate Int: " + (Math.round((100.0 / intArr.size() * (intArr.size() - intArrUnique)) * 100000.0) / 100000.0) + "%");
 		IO.println("BitSet Size: " + bit.size());
+		IO.println("BitSet Vergleich: " + bitS.size());
+		IO.println("BitSet card: " + bit.cardinality());
+		IO.println("Card Vergleich: " + bitS.cardinality());
+		IO.println("Rate BitS: " + Math.round((100.0/bitS.size()*bitS.cardinality())* 100000.0 / 100000.0) + "%");
 		
 		System.out.println("Place done!");
 		IO.println("-----------------------------");

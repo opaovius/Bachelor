@@ -22,7 +22,7 @@ public class PlaceWriter {
 			sb.append(Long.toUnsignedString(i) + "\n");
 		}
 		
-		try(FileChannel channel = FileChannel.open(Paths.get("src/testFiles/PlacesAnalyse.csv"),
+		try(FileChannel channel = FileChannel.open(Paths.get("src/testFiles/AnalyseDir/PlacesAnalyse.csv"),
 													StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)){
 			
 			ByteBuffer buffer = ByteBuffer.wrap(sb.toString().getBytes());
@@ -48,7 +48,7 @@ public class PlaceWriter {
 			sb.append(i + "\n");
 		}
 		
-		try(FileChannel channel = FileChannel.open(Paths.get("src/testFiles/PlacesAnalyse.csv"),
+		try(FileChannel channel = FileChannel.open(Paths.get("src/testFiles/AnalyseDir/PlacesAnalyse.csv"),
 													StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)){
 			
 			ByteBuffer buffer = ByteBuffer.wrap(sb.toString().getBytes());
@@ -74,7 +74,7 @@ public class PlaceWriter {
 			sb.append(i + "\n");
 		}
 		
-		try(FileChannel channel = FileChannel.open(Paths.get("src/testFiles/PlacesAnalyse.csv"),
+		try(FileChannel channel = FileChannel.open(Paths.get("src/testFiles/AnalyseDir/PlacesAnalyse.csv"),
 													StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)){
 			
 			ByteBuffer buffer = ByteBuffer.wrap(sb.toString().getBytes());

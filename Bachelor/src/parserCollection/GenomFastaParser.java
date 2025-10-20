@@ -4,20 +4,23 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class GenomFastaParser implements IParser<StringBuilder>{
+import app.records.Genom;
+
+public class GenomFastaParser implements IParser<Genom>{
 	
 	// Einlesen einer FASTA-Datei, welche das Genom enthaelt
-		public StringBuilder readFile(String path) {
+		public Genom readFile(String path) {
 			
 			StringBuilder builder = new StringBuilder();
+			String name = "PH";
 			
 			try {
 				
 				File f = new File(path);
 				Scanner myScanner = new Scanner(f);
 				
-				// Erste Zeile ignorieren
-				myScanner.nextLine();
+				// Erste Zeile name
+				name = myScanner.nextLine();
 				
 				// Zeile fuer Zeile einlesen
 				while (myScanner.hasNext()) {
@@ -31,7 +34,7 @@ public class GenomFastaParser implements IParser<StringBuilder>{
 				System.out.println("File not found!");
 			}
 
-			return builder;
+			return new Genom(name,builder.toString());
 		}
 
 }

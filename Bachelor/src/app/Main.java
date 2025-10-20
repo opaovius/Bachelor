@@ -1,5 +1,7 @@
 package app;
 
+import miscTools.TimeWriter;
+
 public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
@@ -8,9 +10,11 @@ public class Main {
 		//DNARandomizer.createDNA(10_000_000,10,10000);
 		//DNARandomizer.createCustomGenes(10, 100, "src/testFiles/GenomRandom" + 10_000_000 + ".fa");
 		
+		int test = 1;
+		
 		//IO.println("Vaccinia");
 		
-		Bloom b = new Bloom("src/testFiles/VacciniaGenom.fa","src/testFiles/VacciniaGene.fa");
+		Bloom b = new Bloom("src/testFiles/GenomDir/VacciniaGenom.fa","src/testFiles/GenDir/VacciniaGene.fa");
 		
 		//b.run();
 		
@@ -19,19 +23,34 @@ public class Main {
 		
 		IO.println("EColi");
 		
-		b.setPathGenom("src/testFiles/EColiGenom.fa");
 		
+		b.setPathGenom("src/testFiles/GenomDir/EColiGenom.fa");
+		b.setPathGenes("src/testFiles/GenDir/EColiGene.fa");
 		
-		b.run();
+		long[] time = new long[100];
+		
+		for(int x = 0; x < test; x++) {
+			
+			long start = System.currentTimeMillis();
+			
+			b.run();
+			
+			time[x] = System.currentTimeMillis() - start;
+			
+			IO.print("Fortschritt: " + x + "%\r");
+		}
+		
+		TimeWriter.writeTime(time, 100);
+		
 		
 		/*
 		IO.println("Ebola");
 		
-		b.setPathGenom("src/testFiles/EbolaGenom.fa");
+		b.setPathGenom("src/testFiles/GenomDir/EbolaGenom.fa");
 		
 		b.run();
 		*/
-		System.out.println("done!");
+		System.out.print("done!                                \r");
 		
 	}
 

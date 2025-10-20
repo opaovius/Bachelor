@@ -1,4 +1,4 @@
-package miscTools;
+package app.helper;
 
 import java.io.BufferedWriter;
 import java.io.File;

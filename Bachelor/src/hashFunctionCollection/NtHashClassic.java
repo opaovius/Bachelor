@@ -2,7 +2,7 @@ package hashFunctionCollection;
 
 import java.util.HashMap;
 
-import miscTools.SeedTable;
+import app.helper.SeedTable;
 
 public class NtHashClassic implements IHashFunction{
 	

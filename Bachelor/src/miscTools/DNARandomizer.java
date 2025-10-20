@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
+import app.records.Genom;
 import parserCollection.GenomFastaParser;
 import parserCollection.Parser;
 
@@ -120,9 +121,9 @@ public class DNARandomizer {
 	
 	public static void createCustomGenes(int kmerSize, int genCount, String pathGenom) {
 
-		Parser<StringBuilder> genomParser = new Parser<>(pathGenom);
+		Parser<Genom> genomParser = new Parser<>(pathGenom);
 		genomParser.setParser(new GenomFastaParser());
-		StringBuilder genom = genomParser.output();
+		StringBuilder genom = new StringBuilder(genomParser.output().sequence());
 		int genomSize = genom.length();
 
 		try {
