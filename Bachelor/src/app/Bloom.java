@@ -49,8 +49,32 @@ public class Bloom {
 			kmerListInt.add(BoundedInteger.boundToInt(longArray,cap));
 		}
 		
+		ArrayList<BitSetObject> BSOList = new ArrayList<>();
+		
+		//Erstellen der BitSet Objekte
+		for(int[] ints: kmerListInt) {
+			
+			BitSet bitS = new BitSet(); 
+			
+			for(int i: ints) {
+				bitS.set(i);
+			}
+	
+			BSOList.add(new BitSetObject("PH",bitS));
+			IO.println("RT: " + Runtime.getRuntime().totalMemory());
+		}
+		
+		for(BitSetObject b: BSOList) {
+			IO.println(b.getVector().cardinality());
+			IO.println(b.getVector().size());
+			IO.println("----------------");
+		}
+		
+		
+		
 		//Testen
 		
+		/*
 		int counter = 0;
 		
 		for(int[] ints : kmerListInt) {
@@ -61,23 +85,7 @@ public class Bloom {
 			
 			counter++;
 		}
-		
-		counter = 0;
-		
-		while(counter < 2) {
-		
-			BitSet bit = new BitSet();
-			
-			int[] is = kmerListInt.get(counter);
-			
-			for(int i: is) {
-				bit.set(i);
-			}
-			
-			IO.println("OI BitSet Size: " + bit.size());
-			counter++;
-		}
-		
+		*/
 		//Erstellen des BitSets
 		//createVector(hashFs, genom);
 		
@@ -87,26 +95,6 @@ public class Bloom {
 		
 		//checkGenes(hashFs,BSOList,genList);
 		
-	}
-	
-	//Erstellt mittels Hashfunktionen eine Liste aus BitSetObjekten
-	private ArrayList<BitSetObject> createVector(ArrayList<HashFunction> hashFs, String genom) {
-		
-		ArrayList<BitSetObject> bitVectors = new ArrayList<>();
-		
-		IO.println(genom.length());
-		IO.println("Ziel: " + (genom.length() - 64 + 1));
-		
-		// BitSets erstellen mittes der Hashfunktionen
-		// Am Ende am besten nur eine, aber jetzt mehrere zum austesten
-		for (HashFunction hf : hashFs) {
-			
-			hf.output(genom);
-			//bitVectors.add(new BitSetObject("PLACEHOLDER",  hf.output(genomString)));
-			
-		}
-		
-		return bitVectors;
 	}
 	
 	//Testen, ob Gene enthalten

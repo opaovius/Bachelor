@@ -2,7 +2,7 @@ package app;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		
 		//Hier neue Gen Datei erstellen fuer Einzellauf
 		//DNARandomizer.createDNA(10_000_000,10,10000);
@@ -13,6 +13,8 @@ public class Main {
 		Bloom b = new Bloom("src/testFiles/VacciniaGenom.fa","src/testFiles/VacciniaGene.fa");
 		
 		//b.run();
+		
+		//TimeUnit.SECONDS.sleep(10);
 		
 		
 		IO.println("EColi");

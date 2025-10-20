@@ -15,7 +15,6 @@ public class TestPipeline {
 		// Anaylse
 		int kmerCount = genom.length() - kmerSize + 1;
 		int kmerOverlap = kmerCount - PlaceCounter.countSameKmers(genom,kmerSize);
-		int notUnique = 0;
 		ArrayList<String> UniqueKmers = PlaceCounter.getUniqueStrings(genom, kmerSize);
 		long[] longs = {};
 		ArrayList<Long> longArr = new ArrayList<>();
@@ -43,6 +42,8 @@ public class TestPipeline {
 		for(int i : intArr) {
 			bit.set(i);
 		}
+		
+		PlaceWriter.writeInt(intArr);
 		
 		
 		IO.println("Unique kmers: " + UniqueKmers.size());
