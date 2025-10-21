@@ -7,6 +7,7 @@ import app.helper.CreateBloom;
 import app.helper.LoadGenes;
 import app.records.BitSetObject;
 import app.records.Gen;
+import hashFunctionCollection.methods.NtHash2LookupTable;
 
 public class Bloom {
 	
@@ -30,7 +31,8 @@ public class Bloom {
 		ArrayList<Gen> genList = LoadGenes.load(pathGenes);
 		
 		//Nachpruefen, ob Gene enthalten sind
-		CheckGenes.check(BSO,genList,kmerSize);
+		//CheckGenes.check(BSO,genList,kmerSize);
+		
 	}
 	
 	

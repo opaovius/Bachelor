@@ -5,6 +5,7 @@ import java.util.BitSet;
 import app.records.BitSetObject;
 import app.records.Genom;
 import hashFunctionCollection.HashFunction;
+import hashFunctionCollection.methods.BoundedInteger;
 import hashFunctionCollection.methods.CreateHashFunction;
 import hashFunctionCollection.methods.ToHash;
 

@@ -10,13 +10,13 @@ public class CreateHashFunction {
 		
 
 		// Erstellen der verschiedenen HashFunktionen
-		HashFunction hashNt = new HashFunction();
+		HashFunction hashNt2 = new HashFunction();
 		HashFunction hashNtClassic = new HashFunction();
 
-		hashNt.setHashFunction(new NtHash2(),kmerSize);
+		hashNt2.setHashFunction(new NtHash2(),kmerSize);
 		hashNtClassic.setHashFunction(new NtHashClassic(),kmerSize);
 		
-		return hashNt;
+		return hashNt2;
 	}
 
 }

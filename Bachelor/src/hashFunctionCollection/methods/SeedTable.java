@@ -1,4 +1,4 @@
-package app.helper;
+package hashFunctionCollection.methods;
 
 import java.io.BufferedWriter;
 import java.io.File;

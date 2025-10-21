@@ -3,8 +3,8 @@ package miscTools;
 import java.util.ArrayList;
 import java.util.BitSet;
 
-import app.helper.BoundedInteger;
 import hashFunctionCollection.HashFunction;
+import hashFunctionCollection.methods.BoundedInteger;
 
 public class TestPipeline {
 	

@@ -1,6 +1,5 @@
 package hashFunctionCollection.methods;
 
-import app.helper.BoundedInteger;
 import app.records.Gen;
 import app.records.Genom;
 import hashFunctionCollection.HashFunction;

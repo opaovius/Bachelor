@@ -1,4 +1,4 @@
-package app.helper;
+package hashFunctionCollection.methods;
 
 public class BoundedInteger {
 	

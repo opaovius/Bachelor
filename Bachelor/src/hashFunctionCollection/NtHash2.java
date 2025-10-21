@@ -2,14 +2,17 @@ package hashFunctionCollection;
 
 import java.util.HashMap;
 
-import app.helper.SeedTable;
+import hashFunctionCollection.methods.NtHash2LookupTable;
+import hashFunctionCollection.methods.SeedTable;
 
 public class NtHash2 implements IHashFunction{
 	
 	HashMap<Character,Long> seed;
+	long[][] look;
 	
 	public NtHash2() {
 		this.seed = SeedTable.load();
+		this.look = NtHash2LookupTable.load();
 	}
 	
 	public long[] toHash(String genom,int kmerSize) {
@@ -76,4 +79,10 @@ public class NtHash2 implements IHashFunction{
 		
 		return ((curr << 1) & 0xFFFFFFFDFFFFFFFFL) | m;
 	}
+	
+	private long srolCycle(int c, int d, long[][] MS_Tab_31L, long[][] MS_Tab_33R) {
+		
+		return (MS_Tab_31L[c][d % 31] | MS_Tab_33R[c][d % 33]);
+	}
+	
 }
