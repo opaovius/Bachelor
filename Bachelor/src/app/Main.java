@@ -24,8 +24,8 @@ public class Main {
 		IO.println("EColi");
 		
 		
-		b.setPathGenom("src/testFiles/GenomDir/EColiGenom.fa");
-		b.setPathGenes("src/testFiles/GenDir/EColiGene.fa");
+		b.setGenom("src/testFiles/GenomDir/EColiGenom.fa");
+		b.setGenes("src/testFiles/GenDir/EColiGene.fa");
 		
 		long[] time = new long[100];
 		
@@ -40,7 +40,7 @@ public class Main {
 			IO.print("Fortschritt: " + x + "%\r");
 		}
 		
-		TimeWriter.writeTime(time, 100);
+		//TimeWriter.writeTime(time, 100);
 		
 		
 		/*

@@ -5,19 +5,20 @@ import java.util.ArrayList;
 import app.helper.CheckGenes;
 import app.helper.CreateBloom;
 import app.helper.LoadGenes;
+import app.helper.LoadGenom;
 import app.records.BitSetObject;
 import app.records.Gen;
-import hashFunctionCollection.methods.NtHash2LookupTable;
+import app.records.Genom;
 
 public class Bloom {
 	
-	private String pathGenom;
-	private String pathGenes;
+	Genom genom;
+	ArrayList<Gen> genes;
 
 	
 	public Bloom(String pathGenom, String pathGenes) {
-		this.pathGenes = pathGenes;
-		this.pathGenom = pathGenom;
+		this.genom = LoadGenom.load(pathGenom);
+		this.genes = LoadGenes.load(pathGenes);
 	}
 	
 	public void run() {
@@ -25,23 +26,20 @@ public class Bloom {
 		int kmerSize = 30;
 		
 		//Erstellen einer Liste aus BitSetObjekten
-		BitSetObject BSO = CreateBloom.create(pathGenom,kmerSize);
-		
-		//Laden der Gene als Liste
-		ArrayList<Gen> genList = LoadGenes.load(pathGenes);
+		BitSetObject BSO = CreateBloom.create(genom,kmerSize);
 		
 		//Nachpruefen, ob Gene enthalten sind
-		//CheckGenes.check(BSO,genList,kmerSize);
+		CheckGenes.check(BSO,genes,kmerSize);
 		
 	}
 	
 	
-	public void setPathGenom(String pathGenom) {
-		this.pathGenom = pathGenom;
+	public void setGenom(String pathGenom) {
+		this.genom = LoadGenom.load(pathGenom);
 	}
 	
-	public void setPathGenes(String pathGenes) {
-		this.pathGenes = pathGenes;
+	public void setGenes(String pathGenes) {
+		this.genes = LoadGenes.load(pathGenes);
 	}
 
 }

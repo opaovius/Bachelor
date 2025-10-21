@@ -39,6 +39,7 @@ public class NtHash2LookupTable {
 	//Laden der LookupTable
 	public static long[][] load(){
 		
+		//[5] ,da A,C,G,T,N und [30] ,da 30 mal srol(), basierend auf kmerSize
 		long[][] lookup = new long[5][30];
 		
 		try {

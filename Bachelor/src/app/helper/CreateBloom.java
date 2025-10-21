@@ -8,13 +8,11 @@ import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.methods.BoundedInteger;
 import hashFunctionCollection.methods.CreateHashFunction;
 import hashFunctionCollection.methods.ToHash;
+import miscTools.TestPipeline;
 
 public class CreateBloom {
 	
-	public static BitSetObject create(String pathGenom, int kmerSize){
-		
-		// Laden des Geoms aus Datei
-		Genom genom = LoadGenom.load(pathGenom);
+	public static BitSetObject create(Genom genom, int kmerSize){
 		
 		//Erstellen der HashFunktion
 		HashFunction hashFc = CreateHashFunction.create(kmerSize);
@@ -31,7 +29,7 @@ public class CreateBloom {
 		}
 		
 		//Testen [T]
-		//TestPipeline.test(kmerInt,kmerLong,genom.sequence(),kmerSize,hashFc,bitS);
+		//TestPipeline.test(kmerInt,genom.sequence(),kmerSize,hashFc,bitS);
 		
 		return new BitSetObject(genom.name(), bitS, cap);
 	}

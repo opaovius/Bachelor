@@ -19,10 +19,12 @@ public class NtHash2 implements IHashFunction{
 		
 		long[] kmerArray = new long[genom.length() - kmerSize + 1];
 		
+		//Erstes Kmer berechnen
 		kmerArray[0] = init(genom.substring(0, kmerSize));
 		
 		int index = 1;
 		
+		//Restliche Kmere berechnen
 		for(int counter = kmerSize; counter < genom.length(); counter++) {
 			
 			kmerArray[index] = cycle(kmerArray[index-1], genom, kmerSize , index);
@@ -36,11 +38,29 @@ public class NtHash2 implements IHashFunction{
 		
 		long endKmer = srol(kmer);
 		
-		long tempKmer = seed.get(genom.charAt(i - 1));
+		long tempKmer = 0L;
 		
-		//kmerSize mal srol anwenden
-		for(int k = 0; k < kmerSize; k++) {
-			tempKmer = srol(tempKmer);
+		//Wert aus der LookupTable auslesen
+		switch(genom.charAt(i-1)) {
+		case 'A': 
+			tempKmer = look[0][kmerSize-1];
+			break;
+		case 'C':
+			tempKmer = look[1][kmerSize-1];
+			break;
+		case 'G':
+			tempKmer = look[2][kmerSize-1];
+			break;
+		case 'T':
+			tempKmer = look[3][kmerSize-1];
+			break;
+		case 'N':
+			tempKmer = look[4][kmerSize-1];
+			break;
+		default:
+			IO.println("Fehler Bei NtHash2.cycle: Zeichen nicht im Lookup");
+			break;
+				
 		}
 		
 		//XOR
@@ -72,6 +92,7 @@ public class NtHash2 implements IHashFunction{
 		return endKmer;
 	}
 	
+	
 	private long srol(long curr) {
 		
 		//Bit 0 mit Bit 32 und Bit 33 mit Bit 63 tauschen und dann shiften
@@ -80,9 +101,5 @@ public class NtHash2 implements IHashFunction{
 		return ((curr << 1) & 0xFFFFFFFDFFFFFFFFL) | m;
 	}
 	
-	private long srolCycle(int c, int d, long[][] MS_Tab_31L, long[][] MS_Tab_33R) {
-		
-		return (MS_Tab_31L[c][d % 31] | MS_Tab_33R[c][d % 33]);
-	}
 	
 }

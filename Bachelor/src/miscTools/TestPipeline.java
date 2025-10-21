@@ -8,7 +8,7 @@ import hashFunctionCollection.methods.BoundedInteger;
 
 public class TestPipeline {
 	
-	public static void test(int[] kmersInt, long[] kmersLong, String genom , int kmerSize, HashFunction hf, BitSet bitS) {
+	public static void test(int[] kmersInt, String genom , int kmerSize, HashFunction hf, BitSet bitS) {
 		
 		//PlaceWriter.writeInt(kmers);
 		
@@ -48,7 +48,7 @@ public class TestPipeline {
 		
 		IO.println("Unique kmers: " + UniqueKmers.size());
 		IO.println("Gesamt Test: " + (UniqueKmers.size() + kmerOverlap));
-		IO.println("Differenz Long: " + (kmersLong.length - UniqueKmers.size()));
+		//IO.println("Differenz Long: " + (kmersLong.length - UniqueKmers.size()));
 		IO.println("Differenz Int: " + (kmersInt.length - UniqueKmers.size()));
 		IO.println("Anzahl Kmere Soll: " + kmerCount);
 		IO.println("Anzahl Kmere Ist: " + kmersInt.length);
