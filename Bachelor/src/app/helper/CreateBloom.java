@@ -8,7 +8,7 @@ import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.methods.BoundedInteger;
 import hashFunctionCollection.methods.CreateHashFunction;
 import hashFunctionCollection.methods.ToHash;
-import miscTools.TestPipeline;
+import miscTools.TestMethods.TestPipeline;
 
 public class CreateBloom {
 	

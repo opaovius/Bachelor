@@ -1,6 +1,6 @@
 package app;
 
-import miscTools.TimeWriter;
+import app.helper.DNAComplement;
 
 public class Main {
 

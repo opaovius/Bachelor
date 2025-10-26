@@ -1,4 +1,4 @@
-package miscTools;
+package miscTools.TestMethods;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -30,7 +30,6 @@ public class Bloom {
 		
 		//Nachpruefen, ob Gene enthalten sind
 		CheckGenes.check(BSO,genes,kmerSize);
-		
 	}
 	
 	

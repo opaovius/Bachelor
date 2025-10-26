@@ -1,5 +1,5 @@
 
-package miscTools;
+package miscTools.Generator;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

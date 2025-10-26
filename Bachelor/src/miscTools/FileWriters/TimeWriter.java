@@ -1,4 +1,4 @@
-package miscTools;
+package miscTools.FileWriters;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

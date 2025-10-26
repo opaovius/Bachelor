@@ -1,10 +1,11 @@
-package miscTools;
+package miscTools.TestMethods;
 
 import java.util.ArrayList;
 import java.util.BitSet;
 
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.methods.BoundedInteger;
+import miscTools.FileWriters.PlaceWriter;
 
 public class TestPipeline {
 	

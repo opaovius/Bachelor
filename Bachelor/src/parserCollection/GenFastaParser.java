@@ -49,29 +49,10 @@ public class GenFastaParser implements IParser<ArrayList<Gen>>{
 					
 					if(currStr.charAt(0) == '>') {
 						
-						//Fuer normales Gen ohne Join
+						//Fuer normales Gen
 						if(numberList.size() == 2) {
 							
-							genList.add(new Gen(genID
-									,builder.toString()
-									,Integer.parseInt(numberList.get(0))
-									,Integer.parseInt(numberList.get(1))));
-							
-						}
-						//Fuer Location=Join, also wenn ein Gen zweigeteilt ist
-						else if(numberList.size() == 4) {
-							
-							int seqEndOne = Integer.parseInt(numberList.get(1)) - Integer.parseInt(numberList.get(0));
-							
-							genList.add(new Gen(genID + "_part_1"
-									,builder.toString().substring(0, seqEndOne + 1)
-									,Integer.parseInt(numberList.get(0))
-									,Integer.parseInt(numberList.get(1))));
-							
-							genList.add(new Gen(genID + "_part_2"
-									,builder.toString().substring(seqEndOne + 1)
-									,Integer.parseInt(numberList.get(2))
-									,Integer.parseInt(numberList.get(3))));
+							genList.add(new Gen(genID,builder.toString()));
 							
 						}
 						else {

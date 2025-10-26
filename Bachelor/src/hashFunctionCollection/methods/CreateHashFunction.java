@@ -16,7 +16,7 @@ public class CreateHashFunction {
 		hashNt2.setHashFunction(new NtHash2(),kmerSize);
 		hashNtClassic.setHashFunction(new NtHashClassic(),kmerSize);
 		
-		return hashNt2;
+		return hashNtClassic;
 	}
 
 }

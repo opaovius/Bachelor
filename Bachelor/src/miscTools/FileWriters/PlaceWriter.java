@@ -1,4 +1,4 @@
-package miscTools;
+package miscTools.FileWriters;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
