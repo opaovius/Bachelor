@@ -25,7 +25,7 @@ public class Main {
 		
 		
 		b.setGenom("src/testFiles/GenomDir/EColiGenom.fa");
-		b.setGenes("src/testFiles/GenDir/EColiGenePermutated.fa");
+		b.setGenes("src/testFiles/GenDir/EColiGene.fa");
 		
 		long[] time = new long[100];
 		

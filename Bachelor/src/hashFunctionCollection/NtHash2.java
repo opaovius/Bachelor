@@ -79,11 +79,16 @@ public class NtHash2 implements IHashFunction{
 		
 		for(int counter = 0; counter < kmerString.length(); counter++) {
 			
+			/*
 			tempKmer = seed.get(kmerString.charAt(counter));
 			
 			for(int x = 0; x < kmerString.length() - 1 - counter; x++) {
 				tempKmer =  srol(tempKmer);
-			}
+			}*/
+			
+			char c = kmerString.charAt(counter);
+			
+			tempKmer = srol(c,counter);
 			
 			endKmer = endKmer ^ tempKmer;
 			
@@ -99,6 +104,36 @@ public class NtHash2 implements IHashFunction{
 		long m = ((curr & 0x8000000000000000L) >>> 30) | ((curr & 0x100000000L) >>> 32) ;
 		
 		return ((curr << 1) & 0xFFFFFFFDFFFFFFFFL) | m;
+	}
+	
+	private long srol(char c, int i) {
+		
+		long tempKmer = 0;
+
+		// Wert aus der LookupTable auslesen
+		switch (c) {
+		case 'A':
+			tempKmer = look[0][i];
+			break;
+		case 'C':
+			tempKmer = look[1][i];
+			break;
+		case 'G':
+			tempKmer = look[2][i];
+			break;
+		case 'T':
+			tempKmer = look[3][i];
+			break;
+		case 'N':
+			tempKmer = look[4][i];
+			break;
+		default:
+			IO.println("Fehler Bei NtHash2.srol: Zeichen nicht im Lookup");
+			break;
+
+		}
+		
+		return tempKmer;
 	}
 	
 	
