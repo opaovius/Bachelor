@@ -78,9 +78,9 @@ public class CheckGenes {
 			}
 		}
 		
-		ratio(found,notFound);
+		//ratio(found,notFound);
 		
-		GenCheckWriter.write(sb);
+		//GenCheckWriter.write(sb);
 		
 	}
 	

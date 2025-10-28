@@ -1,6 +1,6 @@
 package app;
 
-import app.helper.DNAComplement;
+import miscTools.FileWriters.TimeWriter;
 
 public class Main {
 
@@ -10,7 +10,7 @@ public class Main {
 		//DNARandomizer.createDNA(10_000_000,10,10000);
 		//DNARandomizer.createCustomGenes(10, 100, "src/testFiles/GenomRandom" + 10_000_000 + ".fa");
 		
-		int test = 1;
+		int test = 100;
 		
 		//IO.println("Vaccinia");
 		
@@ -40,7 +40,7 @@ public class Main {
 			IO.print("Fortschritt: " + x + "%\r");
 		}
 		
-		//TimeWriter.writeTime(time, 100);
+		TimeWriter.writeTime(time, 100);
 		
 		
 		/*

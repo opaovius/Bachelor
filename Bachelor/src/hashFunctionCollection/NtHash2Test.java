@@ -1,8 +1,8 @@
-package hashFunctionCollection.methods;
+package hashFunctionCollection;
 
 import java.util.ArrayList;
 
-import hashFunctionCollection.IHashFunction;
+import hashFunctionCollection.methods.NtHash2LookupTable;
 
 public class NtHash2Test implements IHashFunction{
 	
@@ -12,11 +12,10 @@ public class NtHash2Test implements IHashFunction{
 	
 	public NtHash2Test() {
 		this.look = NtHash2LookupTable.load();
+		parseSeed("1111110101101011100111011001111");
 	}
 	
 	public long[] toHash(String genom, int kmerSize) {
-	
-		parseSeed("1111110101101011100111011001111");
 		
 		long[] temp = baseHash(genom.substring(0,kmerSize),kmerSize);
 		

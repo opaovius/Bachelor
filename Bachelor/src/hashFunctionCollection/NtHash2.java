@@ -18,30 +18,31 @@ public class NtHash2 implements IHashFunction{
 	public long[] toHash(String genom,int kmerSize) {
 		
 		long[] kmerArray = new long[genom.length() - kmerSize + 1];
+		char[] seq = genom.toCharArray();
 		
 		//Erstes Kmer berechnen
-		kmerArray[0] = init(genom.substring(0, kmerSize));
+		kmerArray[0] = init(seq,kmerSize);
 		
 		int index = 1;
 		
 		//Restliche Kmere berechnen
 		for(int counter = kmerSize; counter < genom.length(); counter++) {
 			
-			kmerArray[index] = cycle(kmerArray[index-1], genom, kmerSize , index);
+			kmerArray[index] = cycle(kmerArray[index-1], seq, kmerSize , index);
 			index++;
 		}
 		
 		return kmerArray;
 	}
 	
-	private long cycle(long kmer, String genom, int kmerSize, int i) {
+	private long cycle(long kmer, char[] seq, int kmerSize, int i) {
 		
 		long endKmer = srol(kmer);
 		
 		long tempKmer = 0L;
 		
 		//Wert aus der LookupTable auslesen
-		switch(genom.charAt(i-1)) {
+		switch(seq[i-1]) {
 		case 'A': 
 			tempKmer = look[0][kmerSize-1];
 			break;
@@ -66,29 +67,51 @@ public class NtHash2 implements IHashFunction{
 		//XOR
 		endKmer = endKmer ^ tempKmer;
 		
-		tempKmer = seed.get(genom.charAt(i - 1 + kmerSize));
+		tempKmer = seed.get(seq[i - 1 + kmerSize]);
 		
 		//return mit XOR
 		return endKmer ^ tempKmer;
 	}
 	
-	private long init(String kmerString) {
+	private long init(char[] seq,int kmerSize) {
 		
 		long tempKmer = 0;
 		long endKmer = 0;
 		
-		for(int counter = 0; counter < kmerString.length(); counter++) {
+		for(int counter = 0; counter < kmerSize; counter++) {
+					
+			char c = seq[counter];
 			
-			/*
-			tempKmer = seed.get(kmerString.charAt(counter));
+			int index = kmerSize - 2 - counter;
+
+			if (index >= 0) {
+
+				switch (c) {
+				case 'A':
+					tempKmer = look[0][index];
+					break;
+				case 'C':
+					tempKmer = look[1][index];
+					break;
+				case 'G':
+					tempKmer = look[2][index];
+					break;
+				case 'T':
+					tempKmer = look[3][index];
+					break;
+				case 'N':
+					tempKmer = look[4][index];
+					break;
+				default:
+					IO.println("Fehler Bei NtHash2.srol: Zeichen nicht im Lookup");
+					break;
+
+				}
+			}
+			else {
+				tempKmer = seed.get(c);
+			}
 			
-			for(int x = 0; x < kmerString.length() - 1 - counter; x++) {
-				tempKmer =  srol(tempKmer);
-			}*/
-			
-			char c = kmerString.charAt(counter);
-			
-			tempKmer = srol(c,counter);
 			
 			endKmer = endKmer ^ tempKmer;
 			
@@ -105,36 +128,5 @@ public class NtHash2 implements IHashFunction{
 		
 		return ((curr << 1) & 0xFFFFFFFDFFFFFFFFL) | m;
 	}
-	
-	private long srol(char c, int i) {
-		
-		long tempKmer = 0;
-
-		// Wert aus der LookupTable auslesen
-		switch (c) {
-		case 'A':
-			tempKmer = look[0][i];
-			break;
-		case 'C':
-			tempKmer = look[1][i];
-			break;
-		case 'G':
-			tempKmer = look[2][i];
-			break;
-		case 'T':
-			tempKmer = look[3][i];
-			break;
-		case 'N':
-			tempKmer = look[4][i];
-			break;
-		default:
-			IO.println("Fehler Bei NtHash2.srol: Zeichen nicht im Lookup");
-			break;
-
-		}
-		
-		return tempKmer;
-	}
-	
 	
 }
