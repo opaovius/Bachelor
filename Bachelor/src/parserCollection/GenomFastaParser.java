@@ -34,7 +34,7 @@ public class GenomFastaParser implements IParser<Genom>{
 				System.out.println("File not found!");
 			}
 
-			return new Genom(name,builder.toString());
+			return new Genom(name,builder.toString().toCharArray());
 		}
 
 }

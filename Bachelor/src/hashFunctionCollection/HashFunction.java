@@ -14,7 +14,7 @@ public class HashFunction {
 		return hash;
 	}
 	
-	public long[] output(String genom) {
+	public long[] output(char[] genom) {
 		
 		return hash.toHash(genom,kmerSize);
 

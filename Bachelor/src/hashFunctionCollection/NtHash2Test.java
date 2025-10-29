@@ -15,7 +15,9 @@ public class NtHash2Test implements IHashFunction{
 		parseSeed("1111110101101011100111011001111");
 	}
 	
-	public long[] toHash(String genom, int kmerSize) {
+	public long[] toHash(char[] genomi, int kmerSize) {
+		
+		String genom = "";
 		
 		long[] temp = baseHash(genom.substring(0,kmerSize),kmerSize);
 		

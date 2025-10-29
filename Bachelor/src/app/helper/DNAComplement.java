@@ -8,13 +8,13 @@ public class DNAComplement {
 	 * @return
 	 */
 	
-	public static String complement(String sequence) {
+	public static char[] complement(char[] sequence) {
 		
-		StringBuilder sb = new StringBuilder(sequence.length());
+		StringBuilder sb = new StringBuilder(sequence.length);
 		
-		for(int x = sequence.length()-1; x >= 0; x--) {
+		for(int x = sequence.length-1; x >= 0; x--) {
 			
-			switch(sequence.charAt(x)) {
+			switch(sequence[x]) {
 			case 'A':
 				sb.append('T');
 				break;
@@ -39,7 +39,7 @@ public class DNAComplement {
 		
 		
 		
-		return sb.toString();
+		return sb.toString().toCharArray();
 	}
 
 }

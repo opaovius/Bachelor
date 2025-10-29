@@ -15,10 +15,9 @@ public class NtHash2 implements IHashFunction{
 		this.look = NtHash2LookupTable.load();
 	}
 	
-	public long[] toHash(String genom,int kmerSize) {
+	public long[] toHash(char[] seq,int kmerSize) {
 		
-		long[] kmerArray = new long[genom.length() - kmerSize + 1];
-		char[] seq = genom.toCharArray();
+		long[] kmerArray = new long[seq.length - kmerSize + 1];
 		
 		//Erstes Kmer berechnen
 		kmerArray[0] = init(seq,kmerSize);
@@ -26,7 +25,7 @@ public class NtHash2 implements IHashFunction{
 		int index = 1;
 		
 		//Restliche Kmere berechnen
-		for(int counter = kmerSize; counter < genom.length(); counter++) {
+		for(int counter = kmerSize; counter < seq.length; counter++) {
 			
 			kmerArray[index] = cycle(kmerArray[index-1], seq, kmerSize , index);
 			index++;

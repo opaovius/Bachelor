@@ -22,7 +22,7 @@ public class CheckGenes {
 		for(Gen gen: genList) {
 			
 			//Falls Gen kleiner als kmerSize, skip
-			if(gen.sequence().length() < kmerSize) {
+			if(gen.sequence().length < kmerSize) {
 				sb.append(gen.name() + "\n To small!\n");
 				continue;
 			}

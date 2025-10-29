@@ -17,7 +17,7 @@ public class CreateBloom {
 		//Erstellen der HashFunktion
 		HashFunction hashFc = CreateHashFunction.create(kmerSize);
 		
-		int cap = BoundedInteger.calculateCap(genom.sequence().length());
+		int cap = BoundedInteger.calculateCap(genom.sequence().length);
 		
 		int[] kmerInt = ToHash.hash(genom, hashFc,cap);
 		
@@ -29,7 +29,7 @@ public class CreateBloom {
 		}
 		
 		//Testen [T]
-		TestPipeline.test(kmerInt,genom.sequence(),kmerSize,hashFc,bitS);
+		//TestPipeline.test(kmerInt,genom.sequence(),kmerSize,hashFc,bitS);
 		
 		return new BitSetObject(genom.name(), bitS, cap);
 	}

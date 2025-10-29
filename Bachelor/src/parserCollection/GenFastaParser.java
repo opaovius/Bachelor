@@ -29,7 +29,7 @@ public class GenFastaParser implements IParser<ArrayList<Gen>>{
 					
 					//Altes Gen abspeichern
 					if(genName.length() > 0) {
-						genList.add(new Gen(genName,sb.toString()));
+						genList.add(new Gen(genName,sb.toString().toCharArray()));
 						sb.setLength(0);
 					}
 					
@@ -46,7 +46,7 @@ public class GenFastaParser implements IParser<ArrayList<Gen>>{
 			myScanner.close();
 			
 			//Letztes Gen sichern
-			genList.add(new Gen(genName,sb.toString()));
+			genList.add(new Gen(genName,sb.toString().toCharArray()));
 
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found!");

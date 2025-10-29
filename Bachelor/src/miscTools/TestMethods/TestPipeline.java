@@ -9,7 +9,9 @@ import miscTools.FileWriters.PlaceWriter;
 
 public class TestPipeline {
 	
-	public static void test(int[] kmersInt, String genom , int kmerSize, HashFunction hf, BitSet bitS) {
+	public static void test(int[] kmersInt, char[] seq , int kmerSize, HashFunction hf, BitSet bitS) {
+		
+		String genom = seq.toString();
 		
 		//PlaceWriter.writeInt(kmersInt);
 		
@@ -24,7 +26,7 @@ public class TestPipeline {
 		
 		
 		for(String s : UniqueKmers) {
-			longs = hf.output(s);
+			longs = hf.output(s.toCharArray());
 			longArr.add(longs[0]);
 		}
 		

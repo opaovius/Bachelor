@@ -31,7 +31,7 @@ public class GenPermutator {
 		StringBuilder sb = new StringBuilder();
 		
 		for(Gen g: genList) {
-			sb.append(">" + g.name() + "\n" + g.sequence() + "\n");
+			sb.append(">" + g.name() + "\n" + g.sequence().toString() + "\n");
 		}
 		
 		try (FileChannel channel = FileChannel.open(Paths.get("src/testFiles/GenDir/EColiGenePermutated.fa"),
@@ -49,10 +49,10 @@ public class GenPermutator {
 	}
 	
 	//Mischt eine neue Sequenze aus der alten zusammen
-	private static String mix(String seq) {
+	private static char[] mix(char[] seq) {
 		
-		StringBuilder sbNew = new StringBuilder(seq.length());
-		StringBuilder sbOld = new StringBuilder(seq);
+		StringBuilder sbNew = new StringBuilder(seq.length);
+		StringBuilder sbOld = new StringBuilder(seq.toString());
 		Random rand = new Random();
 		
 		while(sbOld.length() > 0) {
@@ -61,7 +61,7 @@ public class GenPermutator {
 			sbNew.append(currChar);
 			sbOld.deleteCharAt(index);
 		}
-		return sbNew.toString();
+		return sbNew.toString().toCharArray();
 	}
 
 }
