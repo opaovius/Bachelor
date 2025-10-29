@@ -11,7 +11,8 @@ public class TestPipeline {
 	
 	public static void test(int[] kmersInt, String genom , int kmerSize, HashFunction hf, BitSet bitS) {
 		
-		//PlaceWriter.writeInt(kmers);
+		//PlaceWriter.writeInt(kmersInt);
+		
 		
 		// Anaylse
 		int kmerCount = genom.length() - kmerSize + 1;

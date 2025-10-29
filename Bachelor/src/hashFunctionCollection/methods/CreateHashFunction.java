@@ -19,7 +19,7 @@ public class CreateHashFunction {
 		hashNtClassic.setHashFunction(new NtHashClassic(),kmerSize);
 		//hashNtTest.setHashFunction(new NtHash2Test(), kmerSize);
 		
-		return hashNt2;
+		return hashNtClassic;
 	}
 
 }

@@ -10,7 +10,7 @@ public class Main {
 		//DNARandomizer.createDNA(10_000_000,10,10000);
 		//DNARandomizer.createCustomGenes(10, 100, "src/testFiles/GenomRandom" + 10_000_000 + ".fa");
 		
-		int test = 100;
+		int test = 1;
 		
 		//IO.println("Vaccinia");
 		
