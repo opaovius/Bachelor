@@ -2,22 +2,28 @@ package hashFunctionCollection;
 
 import java.util.ArrayList;
 
+import hashFunctionCollection.methods.BoundedInteger;
 import hashFunctionCollection.methods.NtHash2LookupTable;
 
+/**
+ * Wird gerade nicht genutzt
+ */
 public class NtHash2Test implements IHashFunction{
 	
 	private ArrayList<Block> blocks = new ArrayList<>();
 	private ArrayList<Monomer> monos = new ArrayList<>();
 	private long[][] look;
+	private int kmerSize;
 	
-	public NtHash2Test() {
+	public NtHash2Test(int kmerSize) {
 		this.look = NtHash2LookupTable.load();
+		this.kmerSize = kmerSize;
 		parseSeed("1111110101101011100111011001111");
 	}
 	
-	public long[] toHash(char[] genomi, int kmerSize) {
+	public int[] toHash(char[] seq, int cap) {
 		
-		String genom = "";
+		String genom = new String(seq);
 		
 		long[] temp = baseHash(genom.substring(0,kmerSize),kmerSize);
 		
@@ -34,8 +40,7 @@ public class NtHash2Test implements IHashFunction{
 			i++;
 		}
 		
-		
-		return new long[2];
+		return BoundedInteger.boundToInt(kmerArray, cap);
 	}
 
 	//Erstellen der Bloecke und Monomere

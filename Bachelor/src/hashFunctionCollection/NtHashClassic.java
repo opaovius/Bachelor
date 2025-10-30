@@ -2,33 +2,37 @@ package hashFunctionCollection;
 
 import java.util.HashMap;
 
+import hashFunctionCollection.methods.BoundedInteger;
 import hashFunctionCollection.methods.SeedTable;
 
 public class NtHashClassic implements IHashFunction{
 	
 	private HashMap<Character,Long> seed;
+	private int kmerSize;
 	
-	public NtHashClassic() {
+	public NtHashClassic(int kmerSize) {
 		this.seed = SeedTable.load();
+		this.kmerSize = kmerSize;
 	}
 	
-	public long[] toHash(char[] seq, int kmerSize) {
+	public int[] toHash(char[] seq, int cap) {
 		
 		//Index fuer derzeitiges k-mer. 1, da init() kmer mit Index i =  0 erzeugt 
 		int index = 1;
 		
 		//ArrayList<Long> places = new ArrayList<>();
-		long[] kmerArray = new long[seq.length - kmerSize + 1];
+		int[] kmerArray = new int[seq.length - kmerSize + 1];
 		
 		//Erzeugen des ersten kmers
-		long kmer = init(seq,kmerSize);
-		kmerArray[0] = kmer;
+		long tempKmer = init(seq,kmerSize);
+		
+		kmerArray[0] = BoundedInteger.boundToInt(tempKmer, cap);
 		
 		//alle k-mere erzeugen
 		for(int counter = kmerSize; counter < seq.length; counter++) {
 			
-			kmer = cycle(kmer,seq,kmerSize,index);
-			kmerArray[index] = kmer; 
+			tempKmer = cycle(tempKmer,seq,kmerSize,index);
+			kmerArray[index] = BoundedInteger.boundToInt(tempKmer, cap); 
 			index++;
 		}
 		

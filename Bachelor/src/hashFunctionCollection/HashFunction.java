@@ -3,20 +3,18 @@ package hashFunctionCollection;
 public class HashFunction {
 
 	IHashFunction hash = null;
-	int kmerSize;
 	
-	public void setHashFunction(IHashFunction hash, int kmerSize) {
+	public void setHashFunction(IHashFunction hash) {
 		this.hash = hash;
-		this.kmerSize = kmerSize;
 	}
 	
 	public IHashFunction getHashFunction(){
 		return hash;
 	}
 	
-	public long[] output(char[] genom) {
+	public int[] output(char[] genom, int cap) {
 		
-		return hash.toHash(genom,kmerSize);
+		return hash.toHash(genom,cap);
 
 	}
 	

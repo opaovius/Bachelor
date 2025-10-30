@@ -13,6 +13,12 @@ public class BoundedInteger {
 		return ints;
 	}
 	
+	public static int boundToInt(long singleLong, int cap) {
+		
+		return (int) singleLong & ((1 << cap) - 1);
+		
+	}
+	
 	public static int calculateCap(int size) {
 		
 		int x = 0;

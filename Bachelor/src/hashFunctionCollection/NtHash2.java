@@ -2,6 +2,7 @@ package hashFunctionCollection;
 
 import java.util.HashMap;
 
+import hashFunctionCollection.methods.BoundedInteger;
 import hashFunctionCollection.methods.NtHash2LookupTable;
 import hashFunctionCollection.methods.SeedTable;
 
@@ -9,25 +10,30 @@ public class NtHash2 implements IHashFunction{
 	
 	HashMap<Character,Long> seed;
 	long[][] look;
+	int kmerSize;
 	
-	public NtHash2() {
+	public NtHash2(int kmerSize) {
 		this.seed = SeedTable.load();
 		this.look = NtHash2LookupTable.load();
+		this.kmerSize = kmerSize;
 	}
 	
-	public long[] toHash(char[] seq,int kmerSize) {
+	public int[] toHash(char[] seq, int cap) {
 		
-		long[] kmerArray = new long[seq.length - kmerSize + 1];
+		int[] kmerArray = new int[seq.length - kmerSize + 1];
 		
 		//Erstes Kmer berechnen
-		kmerArray[0] = init(seq,kmerSize);
+		long tempKmer = init(seq,kmerSize);
+		
+		kmerArray[0] = BoundedInteger.boundToInt(tempKmer, cap);
 		
 		int index = 1;
 		
 		//Restliche Kmere berechnen
 		for(int counter = kmerSize; counter < seq.length; counter++) {
-			
-			kmerArray[index] = cycle(kmerArray[index-1], seq, kmerSize , index);
+			 
+			tempKmer = cycle(tempKmer, seq, kmerSize , index);
+			kmerArray[index] = BoundedInteger.boundToInt(tempKmer, cap);
 			index++;
 		}
 		
