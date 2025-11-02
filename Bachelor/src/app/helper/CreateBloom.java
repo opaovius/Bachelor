@@ -29,7 +29,7 @@ public class CreateBloom {
 		}
 		
 		//Testen [T]
-		//TestPipeline.test(kmerInt,genom.sequence(),kmerSize,hashFc,bitS);
+		TestPipeline.test(kmerInt,genom.sequence(),kmerSize,hashFc,bitS);
 		
 		return new BitSetObject(genom.name(), bitS, cap);
 	}

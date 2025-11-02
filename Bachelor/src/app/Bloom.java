@@ -29,7 +29,7 @@ public class Bloom {
 		BitSetObject BSO = CreateBloom.create(genom,kmerSize);
 		
 		//Nachpruefen, ob Gene enthalten sind
-		//CheckGenes.check(BSO,genes,kmerSize);
+		CheckGenes.check(BSO,genes,kmerSize);
 		
 		//GenPermutator.permutate(genes);
 	}

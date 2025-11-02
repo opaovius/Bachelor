@@ -40,7 +40,7 @@ public class TestPipeline {
 			bit.set(i);
 		}
 		
-		PlaceWriter.writeInt(intArr);
+		//PlaceWriter.writeInt(intArr);
 		
 		
 		IO.println("Unique kmers: " + UniqueKmers.size());
