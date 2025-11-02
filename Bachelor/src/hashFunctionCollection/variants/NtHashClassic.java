@@ -1,7 +1,8 @@
-package hashFunctionCollection;
+package hashFunctionCollection.variants;
 
 import java.util.HashMap;
 
+import hashFunctionCollection.IHashFunction;
 import hashFunctionCollection.methods.BoundedInteger;
 import hashFunctionCollection.methods.SeedTable;
 
@@ -9,6 +10,12 @@ public class NtHashClassic implements IHashFunction{
 	
 	private HashMap<Character,Long> seed;
 	private int kmerSize;
+	
+	/**
+	 * Weisst den Basen 64 Bit werte zu, welche vorher zufaellig generiert wurden.
+	 * Mittels links shifts und XOR operationen werden Kmere in einem rolling Hash berechnet
+	 * @param kmerSize : Laenge der Kmere, idealerweise 30
+	 */
 	
 	public NtHashClassic(int kmerSize) {
 		this.seed = SeedTable.load();
@@ -24,14 +31,14 @@ public class NtHashClassic implements IHashFunction{
 		int[] kmerArray = new int[seq.length - kmerSize + 1];
 		
 		//Erzeugen des ersten kmers
-		long tempKmer = init(seq,kmerSize);
+		long tempKmer = init(seq);
 		
 		kmerArray[0] = BoundedInteger.boundToInt(tempKmer, cap);
 		
 		//alle k-mere erzeugen
 		for(int counter = kmerSize; counter < seq.length; counter++) {
 			
-			tempKmer = cycle(tempKmer,seq,kmerSize,index);
+			tempKmer = cycle(tempKmer,seq,index);
 			kmerArray[index] = BoundedInteger.boundToInt(tempKmer, cap); 
 			index++;
 		}
@@ -39,7 +46,7 @@ public class NtHashClassic implements IHashFunction{
 		return kmerArray;
 	}
 	
-	private long cycle(long kmer, char[] seq, int kmerSize, int i) {
+	private long cycle(long kmer, char[] seq, int i) {
 		
 		//Einmal links rotieren
 		kmer = Long.rotateLeft(kmer, 1);
@@ -63,7 +70,7 @@ public class NtHashClassic implements IHashFunction{
 		
 	}
 	
-	private long init(char[] seq, int kmerSize) {
+	private long init(char[] seq) {
 		
 		long tempKmer = 0L;
 		long endKmer = 0L;

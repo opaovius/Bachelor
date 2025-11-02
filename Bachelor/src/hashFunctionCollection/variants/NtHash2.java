@@ -1,7 +1,8 @@
-package hashFunctionCollection;
+package hashFunctionCollection.variants;
 
 import java.util.HashMap;
 
+import hashFunctionCollection.IHashFunction;
 import hashFunctionCollection.methods.BoundedInteger;
 import hashFunctionCollection.methods.NtHash2LookupTable;
 import hashFunctionCollection.methods.SeedTable;
@@ -11,6 +12,13 @@ public class NtHash2 implements IHashFunction{
 	HashMap<Character,Long> seed;
 	long[][] look;
 	int kmerSize;
+	
+	/**
+	 * Nutzt 64 Bitwerte wie NtHash, aber nutzt eine besondere srol() Bitrotation.
+	 * Bei dieser werden Bit 0 mit Bit 32 und Bit 33 mit 63 vertauscht und danach
+	 * eine links shift rotation angewendet 
+	 * @param kmerSize : idealerweise 30
+	 */
 	
 	public NtHash2(int kmerSize) {
 		this.seed = SeedTable.load();
@@ -23,7 +31,7 @@ public class NtHash2 implements IHashFunction{
 		int[] kmerArray = new int[seq.length - kmerSize + 1];
 		
 		//Erstes Kmer berechnen
-		long tempKmer = init(seq,kmerSize);
+		long tempKmer = init(seq);
 		
 		kmerArray[0] = BoundedInteger.boundToInt(tempKmer, cap);
 		
@@ -32,7 +40,7 @@ public class NtHash2 implements IHashFunction{
 		//Restliche Kmere berechnen
 		for(int counter = kmerSize; counter < seq.length; counter++) {
 			 
-			tempKmer = cycle(tempKmer, seq, kmerSize , index);
+			tempKmer = cycle(tempKmer, seq, index);
 			kmerArray[index] = BoundedInteger.boundToInt(tempKmer, cap);
 			index++;
 		}
@@ -40,7 +48,7 @@ public class NtHash2 implements IHashFunction{
 		return kmerArray;
 	}
 	
-	private long cycle(long kmer, char[] seq, int kmerSize, int i) {
+	private long cycle(long kmer, char[] seq, int i) {
 		
 		long endKmer = srol(kmer);
 		
@@ -78,7 +86,7 @@ public class NtHash2 implements IHashFunction{
 		return endKmer ^ tempKmer;
 	}
 	
-	private long init(char[] seq,int kmerSize) {
+	private long init(char[] seq) {
 		
 		long tempKmer = 0;
 		long endKmer = 0;

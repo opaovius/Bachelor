@@ -1,5 +1,8 @@
-package hashFunctionCollection;
+package hashFunctionCollection.variants;
 
+import java.util.ArrayList;
+
+import hashFunctionCollection.IHashFunction;
 import hashFunctionCollection.methods.BoundedInteger;
 
 public class RabinFingerprint implements IHashFunction{
@@ -15,13 +18,13 @@ public class RabinFingerprint implements IHashFunction{
 		RabinKarp rk = new RabinKarp(seq);
 		int[] kmerArr = new int[seq.length - kmerSize + 1];
 		
+		ArrayList<Long> test = new ArrayList<>();
 		
-		for(int pos = 0; pos < seq.length - kmerSize; pos++) {
+		for(int pos = 0; pos < seq.length - kmerSize + 1; pos++) {
 			long tempKmer =  rk.getSubHash(pos, pos + kmerSize);
+			test.add(tempKmer);
 			kmerArr[pos] = BoundedInteger.boundToInt(tempKmer,cap);
 		}
-
-		
 		
 		return kmerArr;
 	}
@@ -43,8 +46,8 @@ public class RabinFingerprint implements IHashFunction{
 			power[0] = 1;
 			
 			for(int pos = 1; pos < seq.length; pos++) {
-				hash[pos] = (((hash[pos-1] * base) % mod) + charToInt(seq[pos]) % mod);
-				power[pos] = (power[pos-1] * base) % mod;
+				 hash[pos] = add(mul(hash[pos - 1], base), charToInt(seq[pos]));
+		            power[pos] = mul(power[pos - 1], base);
 			}
 			
 		}
@@ -56,11 +59,28 @@ public class RabinFingerprint implements IHashFunction{
 		
 		//Sub hash ausrechnen
 	    public long getSubHash(int l, int r) {
-	        long h = hash[r];
+	        long h = hash[r-1];
 	        if (l > 0) {
-	        	h = (h - ((hash[l-1] * power[r - l - 1])%mod)% mod);
+	        	 h = sub(h, mul(hash[l - 1], power[r - l]));
 	        }
 	        return h;
+	    }
+	    
+	    //Operationen mit Mod
+	    private long add(long a, long b) {
+	        a += b;
+	        if (a >= mod) a -= mod;
+	        return a;
+	    }
+
+	    private long sub(long a, long b) {
+	        a -= b;
+	        if (a < 0) a += mod;
+	        return a;
+	    }
+
+	    private long mul(long a, long b) {
+	        return ((1L * a * b) % mod);
 	    }
 		
 	}

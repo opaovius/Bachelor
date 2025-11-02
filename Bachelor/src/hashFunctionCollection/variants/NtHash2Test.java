@@ -1,7 +1,8 @@
-package hashFunctionCollection;
+package hashFunctionCollection.variants;
 
 import java.util.ArrayList;
 
+import hashFunctionCollection.IHashFunction;
 import hashFunctionCollection.methods.BoundedInteger;
 import hashFunctionCollection.methods.NtHash2LookupTable;
 
