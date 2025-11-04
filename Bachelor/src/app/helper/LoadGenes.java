@@ -8,6 +8,14 @@ import parserCollection.Parser;
 
 public class LoadGenes {
 	
+	/**
+	 * Laedt die Gene aus einer Fa Date und speichert sie in einer 
+	 * ArrayList aus Gen Records. 
+	 * 
+	 * @param pathGenes : Pfad zu den Genen
+	 * @return : ArrayList mit den Genen
+	 */
+	
 	public static ArrayList<Gen> load(String pathGenes){
 		
 		Parser<ArrayList<Gen>> genParser = new Parser<>(pathGenes);

@@ -12,6 +12,14 @@ import miscTools.TestMethods.TestPipeline;
 
 public class CreateBloom {
 	
+	/**
+	 * Erstellt ein BitSetObject, welches ein Java BitSet nutzt und einen String zu identifizierung des Genoms.
+	 *  
+	 * @param genom : Genom, welches in eien BitSetObject umgewandelt wird.
+	 * @param kmerSize : Groesse der Kmere
+	 * @return BitSetObject
+	 */
+	
 	public static BitSetObject create(Genom genom, int kmerSize){
 		
 		//Erstellen der HashFunktion

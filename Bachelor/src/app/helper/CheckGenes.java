@@ -10,6 +10,14 @@ import hashFunctionCollection.methods.ToHash;
 import miscTools.FileWriters.GenCheckWriter;
 
 public class CheckGenes {
+	/**
+	 * Ueberprueft, ob die Gene im Genom vorkommen. Falls ein Gen nicht vorkommt wird das Komplement erzeugt.
+	 * Gene kleiner als die KmerSize werden ignoriert.
+	 * 
+	 * @param BSO : BitSet, welches ueberprueft wird.
+	 * @param genList : Liste, welche die Gene besitzt
+	 * @param kmerSize : Groesse der Kmere
+	 */
 	
 	public static void check(BitSetObject BSO, ArrayList<Gen> genList,int kmerSize) {
 		
@@ -78,12 +86,13 @@ public class CheckGenes {
 			}
 		}
 		
-		ratio(found,notFound);
+		//ratio(found,notFound);
 		
 		//GenCheckWriter.write(sb);
 		
 	}
 	
+	//Berechnet die Verteilung zwischen gefundenen und nicht gefundenen Genen
 	private static void ratio(int found, int notFound) {
 		
 		int sum = found + notFound;

@@ -12,7 +12,11 @@ import java.util.StringTokenizer;
 
 public class NtHash2LookupTable {
 	
-	//Erezeugen einer LookupTable
+	/**
+	 *  Erzeugt eine Lookup Table fuer NtHash2
+	 * @param kmerSize : Groesse der Kmere
+	 */
+	
 	public static void create(int kmerSize) {
 		
 		HashMap<Character,Long> seed = SeedTable.load();
@@ -36,7 +40,12 @@ public class NtHash2LookupTable {
 		
 	}
 	
-	//Laden der LookupTable
+	
+	/**
+	 * Laed die Lookup Table
+	 * @return long[][]
+	 */
+	
 	public static long[][] load(){
 		
 		//[5] ,da A,C,G,T,N und [30] ,da 30 mal srol(), basierend auf kmerSize

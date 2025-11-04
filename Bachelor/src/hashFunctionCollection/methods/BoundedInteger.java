@@ -2,6 +2,14 @@ package hashFunctionCollection.methods;
 
 public class BoundedInteger {
 	
+	/**
+	 * Begrenzt alle Longwerte in einem Array auf das Cap, welches im Integerbereich ist.
+	 * 
+	 * @param longs : Array mit den Longwerten
+	 * @param cap : Wert, auf welchen die Werte begrenzt werden
+	 * @return Integer Array
+	 */
+	
 	public static int[] boundToInt(long[] longs , int cap) {
 		
 		int[] ints = new int[longs.length];
@@ -13,11 +21,39 @@ public class BoundedInteger {
 		return ints;
 	}
 	
+	/**
+	 * Begrenz einen Long wert auf das Cap, welches im Integerbereich ist.
+	 * 
+	 * @param singleLong : Input Long
+	 * @param cap : Wert, auf welchen der Wert begrenzt wird
+	 * @return Integer Wert
+	 */
+	
 	public static int boundToInt(long singleLong, int cap) {
 		
 		return (int) singleLong & ((1 << cap) - 1);
 		
 	}
+	
+	/**
+	 *  Begrenzt einen Integer auf das Cap
+	 * @param i : Input Integer
+	 * @param cap : Wert, auf welchen der Wert begrenzt wird
+	 * @return Integer Wert
+	 */
+	
+	public static int bound(int i, int cap) {
+		
+		return i & ((1 << cap) - 1);
+		
+	}
+	
+	/**
+	 *  Berechnet die Obergrenze auf welche das BitSet begrenzt werden soll.
+	 * 
+	 * @param size : Groesse des Genoms
+	 * @return Integer Wert, welcher die Obergrenze beschreibt
+	 */
 	
 	public static int calculateCap(int size) {
 		

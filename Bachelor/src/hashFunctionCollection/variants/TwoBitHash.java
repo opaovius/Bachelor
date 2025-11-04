@@ -39,28 +39,21 @@ public class TwoBitHash implements IHashFunction{
 		
 		char c = seq[pos];
 		
-		switch(c) {
-		case 'A':
-			tempKmer = tempKmer << 2;
-			break;
-		case 'C':
-			tempKmer = tempKmer << 2;
-			tempKmer = tempKmer + 1;
-			break;
-		case 'G':
-			tempKmer = tempKmer << 2;
-			tempKmer = tempKmer + 2;
-			break;
-		case 'T':
-			tempKmer = tempKmer << 2;
-			tempKmer = tempKmer + 3;
-			break;
-		default:
-			tempKmer = tempKmer << 2;
-			break;
-		}
+		tempKmer = tempKmer << 2;
 		
-		return tempKmer & mask;
+		long curr = switch(c) {
+			case 'A' -> 0;
+		
+			case 'C' -> 1;
+		
+			case 'G' -> 2;
+			
+			case 'T' -> 3;
+		
+			default -> 0;
+		};
+		
+		return (tempKmer + curr) & mask;
 	}
 	
 	// Erstes Kmer erstellen
@@ -72,27 +65,21 @@ public class TwoBitHash implements IHashFunction{
 			
 			char c = seq[pos];
 			
-			switch(c) {
-			case 'A':
-				tempKmer = tempKmer << 2;
-				break;
-			case 'C':
-				tempKmer = tempKmer << 2;
-				tempKmer = tempKmer + 1;
-				break;
-			case 'G':
-				tempKmer = tempKmer << 2;
-				tempKmer = tempKmer + 2;
-				break;
-			case 'T':
-				tempKmer = tempKmer << 2;
-				tempKmer = tempKmer + 3;
-				break;
-			default:
-				tempKmer = tempKmer << 2;
-				break;
-			}
+			tempKmer = tempKmer << 2;
 			
+			long curr = switch(c) {
+				case 'A' -> 0;
+		
+				case 'C' -> 1;
+		
+				case 'G' -> 2;
+			
+				case 'T' -> 3;
+		
+				default -> 0;
+			};
+			
+		tempKmer = tempKmer + curr;
 			
 		}
 		

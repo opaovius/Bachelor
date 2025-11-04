@@ -14,11 +14,12 @@ import java.util.StringTokenizer;
 public class SeedTable {
 	
 	
-	/* Erstellt Seed Table
+	/** Erstellt Seed Table
 	 * ACHTUNG!!! 
 	 * Beeinflusst direkt den HashWert!
 	 * Genom und Gene muessen mit der selben SeedTable gehasht werden! 
 	 */
+	
 	public static void create() {
 
 		try {
@@ -54,7 +55,12 @@ public class SeedTable {
 		}
 	}
 	
-	//Laedt die seedTable.csv und packt sie in eine HashMap
+	/**
+	 * Laedt die seedTable.csv und packt sie in eine HashMap
+	 * 
+	 * @return HashMap
+	 */
+	
 	public static HashMap<Character,Long> load(){
 		
 		HashMap<Character,Long> seedTable = new HashMap<>();

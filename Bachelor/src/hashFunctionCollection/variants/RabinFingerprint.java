@@ -9,6 +9,12 @@ public class RabinFingerprint implements IHashFunction{
 	
 	int kmerSize;
 	
+	/**
+	 * Erstellt einen Hashwert nach dem Muster m_0 + m_1*x + ... + m_{n-1} x^{n-1}.
+	 * 
+	 * @param kmerSize : Groesse der Kmere
+	 */
+	
 	public RabinFingerprint(int kmerSize) {
 		this.kmerSize = kmerSize;
 	}
@@ -33,7 +39,7 @@ public class RabinFingerprint implements IHashFunction{
 	private class RabinKarp{
 		
 	    private final long base = 31;
-	    private final long mod = 1_000_000_007L;
+	    private final long mod = 100_000_000_007L;
 	    private long[] hash;
 	    private long[] power;
 		
@@ -41,7 +47,6 @@ public class RabinFingerprint implements IHashFunction{
 		
 			hash = new long[seq.length];
 			power = new long[seq.length];
-			
 			hash[0] = charToInt(seq[0]);
 			power[0] = 1;
 			
@@ -51,7 +56,7 @@ public class RabinFingerprint implements IHashFunction{
 			}
 			
 		}
-		
+			
 		//Char zu Int konversion
 		private long charToInt(char c) {
 	        return c - 'A' + 1;

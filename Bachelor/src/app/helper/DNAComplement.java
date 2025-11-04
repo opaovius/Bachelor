@@ -3,9 +3,10 @@ package app.helper;
 public class DNAComplement {
 	
 	/**
+	 * Wandelt eine Sequenz zum Komplement um
 	 * 
 	 * @param sequence Sequenze, welche zu ihrem Komplementaeren umgewandelt wird
-	 * @return
+	 * @return char[]
 	 */
 	
 	public static char[] complement(char[] sequence) {

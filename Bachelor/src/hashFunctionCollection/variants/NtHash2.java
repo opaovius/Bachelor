@@ -56,25 +56,17 @@ public class NtHash2 implements IHashFunction{
 		
 		//Wert aus der LookupTable auslesen
 		switch(seq[i-1]) {
-		case 'A': 
-			tempKmer = look[0][kmerSize-1];
-			break;
-		case 'C':
-			tempKmer = look[1][kmerSize-1];
-			break;
-		case 'G':
-			tempKmer = look[2][kmerSize-1];
-			break;
-		case 'T':
-			tempKmer = look[3][kmerSize-1];
-			break;
-		case 'N':
-			tempKmer = look[4][kmerSize-1];
-			break;
-		default:
-			IO.println("Fehler Bei NtHash2.cycle: Zeichen nicht im Lookup");
-			break;
-				
+			case 'A' -> tempKmer = look[0][kmerSize-1];
+		
+			case 'C' -> tempKmer = look[1][kmerSize-1];
+		
+			case 'G' -> tempKmer = look[2][kmerSize-1];
+			
+			case 'T' -> tempKmer = look[3][kmerSize-1];
+			
+			case 'N' -> tempKmer = look[4][kmerSize-1];
+			
+			default -> IO.println("Fehler Bei NtHash2.cycle: Zeichen nicht im Lookup");
 		}
 		
 		//XOR
@@ -100,25 +92,17 @@ public class NtHash2 implements IHashFunction{
 			if (index >= 0) {
 
 				switch (c) {
-				case 'A':
-					tempKmer = look[0][index];
-					break;
-				case 'C':
-					tempKmer = look[1][index];
-					break;
-				case 'G':
-					tempKmer = look[2][index];
-					break;
-				case 'T':
-					tempKmer = look[3][index];
-					break;
-				case 'N':
-					tempKmer = look[4][index];
-					break;
-				default:
-					IO.println("Fehler Bei NtHash2.srol: Zeichen nicht im Lookup");
-					break;
-
+					case 'A' -> tempKmer = look[0][kmerSize-1];
+				
+					case 'C' -> tempKmer = look[1][kmerSize-1];
+			
+					case 'G' -> tempKmer = look[2][kmerSize-1];
+				
+					case 'T' -> tempKmer = look[3][kmerSize-1];
+				
+					case 'N' -> tempKmer = look[4][kmerSize-1];
+				
+					default -> IO.println("Fehler Bei NtHash2.srol: Zeichen nicht im Lookup");
 				}
 			}
 			else {
