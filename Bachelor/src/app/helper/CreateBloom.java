@@ -1,5 +1,6 @@
 package app.helper;
 
+import java.util.ArrayList;
 import java.util.BitSet;
 
 import app.records.BitSetObject;
@@ -23,21 +24,26 @@ public class CreateBloom {
 	public static BitSetObject create(Genom genom, int kmerSize){
 		
 		//Erstellen der HashFunktion
-		HashFunction hashFc = CreateHashFunction.create(kmerSize);
+		ArrayList<HashFunction> hfList = CreateHashFunction.create(kmerSize);
+		ArrayList<int[]> intList = new ArrayList<>();
 		
 		int cap = BoundedInteger.calculateCap(genom.sequence().length);
 		
-		int[] kmerInt = ToHash.hash(genom, hashFc,cap);
+		for(HashFunction hashFc: hfList) {
 		
-		// Erstellen der BitSet Objekte
-		BitSet bitS = new BitSet();
-
-		for (int i : kmerInt) {
-			bitS.set(i);
+			intList.add(ToHash.hash(genom, hashFc,cap));
+			 
 		}
-		
+		// Erstellen der BitSet Objekte
+		BitSet bitS = new BitSet((1 << cap)-1);
+
+		for(int[] intArr: intList) {
+			for(int i : intArr) {
+				bitS.set(i);
+			}
+		}
 		//Testen [T]
-		TestPipeline.test(kmerInt,genom.sequence(),kmerSize,hashFc,bitS);
+		TestPipeline.test(intList,genom.sequence(),kmerSize,hfList,bitS);
 		
 		return new BitSetObject(genom.name(), bitS, cap);
 	}

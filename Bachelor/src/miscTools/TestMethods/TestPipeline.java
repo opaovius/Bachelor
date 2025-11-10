@@ -9,7 +9,14 @@ import miscTools.FileWriters.PlaceWriter;
 
 public class TestPipeline {
 	
-	public static void test(int[] kmersInt, char[] seq , int kmerSize, HashFunction hf, BitSet bitS) {
+	//Test fuer mehrere kombinierte Hashfunktionen
+	public static void test(ArrayList<int[]> intArr, char[] seq, int kmerSize, ArrayList<HashFunction> hfList, BitSet bitS) {
+		
+	}
+	
+	
+	//Test fuer einzelne Hashfunktion
+	public static void testOld(int[] kmersInt, char[] seq , int kmerSize, HashFunction hf, BitSet bitS) {
 		
 		String genom = new String(seq);
 		
@@ -34,7 +41,7 @@ public class TestPipeline {
 		
 		int intArrUnique = PlaceCounter.countInt(intArr);
 		
-		BitSet bit = new BitSet();
+		BitSet bit = new BitSet((1 << cap) - 1);
 		
 		for(int i : intArr) {
 			bit.set(i);

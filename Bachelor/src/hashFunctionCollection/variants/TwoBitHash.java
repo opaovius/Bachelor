@@ -6,7 +6,7 @@ import hashFunctionCollection.methods.BoundedInteger;
 public class TwoBitHash implements IHashFunction{
 	
 	private int kmerSize;
-	private long mask;
+	private int mask;
 	/**
 	 * Diese Variante weiﬂt den Basen A,C,G,T jeweils zwei Bit zu, zB C = 01.
 	 * Beim verarbeiten eines Kmers wird der 2 Bitwert der Base genommen und dann 2 mal nach
@@ -14,34 +14,34 @@ public class TwoBitHash implements IHashFunction{
 	 * @param kmerSize : laenge der Kmere (Sollte maximal 30 sein)
 	 */
 	public TwoBitHash(int kmerSize) {
-		this.kmerSize = kmerSize;
-		this.mask = (1L << (2*kmerSize))-1;
+		this.kmerSize = 15;
+		this.mask = (1 << (2*kmerSize))-1;
 	}
 	
 	public int[] toHash(char[] seq, int cap) {
 		
 		int[] kmerArr = new int[seq.length - kmerSize + 1];
 		
-		long tempKmer = init(seq);
+		int tempKmer = init(seq);
 
 		kmerArr[0] = BoundedInteger.boundToInt(tempKmer, cap);
 		
 		for(int pos = kmerSize; pos < seq.length; pos++) {
 			tempKmer = cycle(seq,tempKmer,pos);
-			kmerArr[pos-kmerSize] = BoundedInteger.boundToInt(tempKmer, cap);
+			kmerArr[pos-kmerSize+1] = BoundedInteger.boundToInt(tempKmer, cap);
 		}
 		
 		return kmerArr;
 	}
 	
 	//Restliche Kmer berechnen
-	private long cycle(char[] seq, long tempKmer, int pos) {
+	private int cycle(char[] seq, int tempKmer, int pos) {
 		
 		char c = seq[pos];
 		
 		tempKmer = tempKmer << 2;
 		
-		long curr = switch(c) {
+		int curr = switch(c) {
 			case 'A' -> 0;
 		
 			case 'C' -> 1;
@@ -57,9 +57,9 @@ public class TwoBitHash implements IHashFunction{
 	}
 	
 	// Erstes Kmer erstellen
-	private long init(char[] seq) {
+	private int init(char[] seq) {
 		
-		long tempKmer = 0L;
+		int tempKmer = 0;
 		
 		for(int pos = 0; pos < kmerSize; pos++) {
 			
@@ -67,7 +67,7 @@ public class TwoBitHash implements IHashFunction{
 			
 			tempKmer = tempKmer << 2;
 			
-			long curr = switch(c) {
+			int curr = switch(c) {
 				case 'A' -> 0;
 		
 				case 'C' -> 1;

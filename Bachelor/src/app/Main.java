@@ -10,6 +10,11 @@ public class Main {
 		//DNARandomizer.createDNA(10_000_000,10,10000);
 		//DNARandomizer.createCustomGenes(10, 100, "src/testFiles/GenomRandom" + 10_000_000 + ".fa");
 		
+		//besseres two bit
+		//2 hash kombinieren
+		//aa hash bzw proteine
+		// besseres cap bzw kleineres austesten
+		
 		int test = 1;
 		
 		//IO.println("Vaccinia");
