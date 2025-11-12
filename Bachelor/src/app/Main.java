@@ -11,7 +11,7 @@ public class Main {
 		//DNARandomizer.createCustomGenes(10, 100, "src/testFiles/GenomRandom" + 10_000_000 + ".fa");
 		
 		//besseres two bit
-		//2 hash kombinieren
+		//2 hash kombinieren       -JO
 		//aa hash bzw proteine
 		// besseres cap bzw kleineres austesten
 		

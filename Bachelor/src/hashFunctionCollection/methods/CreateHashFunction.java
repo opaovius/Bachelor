@@ -3,6 +3,8 @@ package hashFunctionCollection.methods;
 import java.util.ArrayList;
 
 import hashFunctionCollection.HashFunction;
+import hashFunctionCollection.variants.JavaHash;
+import hashFunctionCollection.variants.NtHash2;
 import hashFunctionCollection.variants.NtHashClassic;
 import hashFunctionCollection.variants.RabinFingerprint;
 import hashFunctionCollection.variants.TwoBitHash;
@@ -20,23 +22,24 @@ public class CreateHashFunction {
 		
 
 		// Erstellen der verschiedenen HashFunktionen
-		//HashFunction hashNt2 = new HashFunction();
+		HashFunction hashNt2 = new HashFunction();
 		HashFunction hashNtClassic = new HashFunction();
 		//HashFunction hashNtTest = new HashFunction();
 		HashFunction hashRabin = new HashFunction();
 		HashFunction hashTwoBit = new HashFunction();
-		//HashFunction hashJava = new HashFunction();
+		HashFunction hashJava = new HashFunction();
 
-		//hashNt2.setHashFunction(new NtHash2(kmerSize));
+		hashNt2.setHashFunction(new NtHash2(kmerSize));
 		hashNtClassic.setHashFunction(new NtHashClassic(kmerSize));
 		//hashNtTest.setHashFunction(new NtHash2Test(kmerSize));
 		hashRabin.setHashFunction(new RabinFingerprint(kmerSize));
 		hashTwoBit.setHashFunction(new TwoBitHash(kmerSize));
-		//hashJava.setHashFunction(new JavaHash(kmerSize));
+		hashJava.setHashFunction(new JavaHash(kmerSize));
 		
 		ArrayList<HashFunction> hfList = new ArrayList<>();
 		
 		hfList.add(hashNtClassic);
+		hfList.add(hashNt2);
 		
 		return hfList;
 	}

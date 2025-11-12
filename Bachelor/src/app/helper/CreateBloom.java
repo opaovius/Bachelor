@@ -21,10 +21,8 @@ public class CreateBloom {
 	 * @return BitSetObject
 	 */
 	
-	public static BitSetObject create(Genom genom, int kmerSize){
+	public static BitSetObject create(Genom genom, int kmerSize, ArrayList<HashFunction> hfList){
 		
-		//Erstellen der HashFunktion
-		ArrayList<HashFunction> hfList = CreateHashFunction.create(kmerSize);
 		ArrayList<int[]> intList = new ArrayList<>();
 		
 		int cap = BoundedInteger.calculateCap(genom.sequence().length);

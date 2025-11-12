@@ -9,6 +9,8 @@ import app.helper.LoadGenom;
 import app.records.BitSetObject;
 import app.records.Gen;
 import app.records.Genom;
+import hashFunctionCollection.HashFunction;
+import hashFunctionCollection.methods.CreateHashFunction;
 
 public class Bloom {
 	
@@ -36,11 +38,14 @@ public class Bloom {
 		
 		int kmerSize = 30;
 		
+		//Erstellen der HashFunktionen
+		ArrayList<HashFunction> hfList = CreateHashFunction.create(kmerSize);
+		
 		//Erstellen einer Liste aus BitSetObjekten
-		BitSetObject BSO = CreateBloom.create(genom,kmerSize);
+		BitSetObject BSO = CreateBloom.create(genom,kmerSize,hfList);
 		
 		//Nachpruefen, ob Gene enthalten sind
-		CheckGenes.check(BSO,genes,kmerSize);
+		CheckGenes.check(BSO,genes,kmerSize,hfList);
 		
 		//GenPermutator.permutate(genes);
 	}

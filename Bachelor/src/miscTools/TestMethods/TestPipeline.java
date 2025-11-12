@@ -10,7 +10,21 @@ import miscTools.FileWriters.PlaceWriter;
 public class TestPipeline {
 	
 	//Test fuer mehrere kombinierte Hashfunktionen
-	public static void test(ArrayList<int[]> intArr, char[] seq, int kmerSize, ArrayList<HashFunction> hfList, BitSet bitS) {
+	public static void test(ArrayList<int[]> intList, char[] seq, int kmerSize, ArrayList<HashFunction> hfList, BitSet bitS) {
+		
+		int[] k1 = intList.get(0);
+		
+		IO.println(seq.length - kmerSize + 1);
+		IO.println(k1.length);
+		
+		//PlaceWriter.writeInt(k1);
+		
+		int cap = BoundedInteger.calculateCap(seq.length);
+		
+		IO.println("cap size: " + ((1 << cap) - 1));
+		
+		IO.println("BitS Size: " + bitS.size());
+		IO.println("Rate BitS: " + (Math.round((100.0/bitS.size()*bitS.cardinality())* 100000.0) / 100000.0) + "%");
 		
 	}
 	

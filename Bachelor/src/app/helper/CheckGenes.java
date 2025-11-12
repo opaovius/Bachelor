@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import app.records.BitSetObject;
 import app.records.Gen;
 import hashFunctionCollection.HashFunction;
-import hashFunctionCollection.methods.CreateHashFunction;
 import hashFunctionCollection.methods.ToHash;
-import miscTools.FileWriters.GenCheckWriter;
 
 public class CheckGenes {
 	/**
@@ -19,9 +17,8 @@ public class CheckGenes {
 	 * @param kmerSize : Groesse der Kmere
 	 */
 	
-	public static void check(BitSetObject BSO, ArrayList<Gen> genList,int kmerSize) {
+	public static void check(BitSetObject BSO, ArrayList<Gen> genList,int kmerSize, ArrayList<HashFunction> hfList) {
 		
-		HashFunction hashFc = CreateHashFunction.create(kmerSize);
 		StringBuilder sb = new StringBuilder();
 		int found = 0;
 		int notFound = 0;
@@ -37,20 +34,24 @@ public class CheckGenes {
 			
 			boolean inside = true;
 			boolean insideCom = false;
+			ArrayList<int[]> intList = new ArrayList<>();
 			
 			//Gen hashen
-			int[] kmerInt = ToHash.hash(gen,hashFc,BSO.cap());
+			for(HashFunction hf: hfList) {
+				intList.add(ToHash.hash(gen,hf,BSO.cap()));
+			}
 			
 			//Nachgucken, ob die hashwerte des Gen im BitSet gesetzt sind
 			//Falls nein, dann abbruch
-			for(int index: kmerInt) {
-				
-				if(!BSO.vector().get(index)) {
-					inside = false;
-					break;
+			for (int[] kmerInt : intList) {
+				for (int index : kmerInt) {
+
+					if (!BSO.vector().get(index)) {
+						inside = false;
+						break;
+					}
 				}
 			}
-			
 			//Pruefen ,ob das Komplement enthalten ist
 			if(!inside) {
 				
@@ -59,16 +60,21 @@ public class CheckGenes {
 				Gen genComplement = new Gen(gen.name() + " complement"
 						,DNAComplement.complement(gen.sequence()));
 				
-				int[] kmerIntReverse = ToHash.hash(genComplement, hashFc, BSO.cap());
+				ArrayList<int[]> intListReverse = new ArrayList<>();
 				
-				for(int index: kmerIntReverse) {
-					
-					if(!BSO.vector().get(index)) {
-						insideCom = false;
-						break;
-					}
+				for(HashFunction hf: hfList) {
+					intListReverse.add(ToHash.hash(genComplement, hf, BSO.cap()));
 				}
 				
+				for (int[] kmerIntReverse : intListReverse) {
+					for (int index : kmerIntReverse) {
+
+						if (!BSO.vector().get(index)) {
+							insideCom = false;
+							break;
+						}
+					}
+				}
 				if(insideCom) {
 					sb.append(genComplement.name() + "\n Found!\n");
 					found++;

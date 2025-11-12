@@ -25,10 +25,13 @@ public class TwoBitHash implements IHashFunction{
 		int tempKmer = init(seq);
 
 		kmerArr[0] = BoundedInteger.boundToInt(tempKmer, cap);
+	
+		//kmerArr[0] = tempKmer;
 		
 		for(int pos = kmerSize; pos < seq.length; pos++) {
 			tempKmer = cycle(seq,tempKmer,pos);
 			kmerArr[pos-kmerSize+1] = BoundedInteger.boundToInt(tempKmer, cap);
+			//kmerArr[pos-kmerSize+1] = tempKmer;
 		}
 		
 		return kmerArr;
