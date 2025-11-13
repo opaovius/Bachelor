@@ -32,49 +32,20 @@ public class CheckGenes {
 				continue;
 			}
 			
-			boolean inside = true;
 			boolean insideCom = false;
-			ArrayList<int[]> intList = new ArrayList<>();
-			
-			//Gen hashen
-			for(HashFunction hf: hfList) {
-				intList.add(ToHash.hash(gen,hf,BSO.cap()));
-			}
 			
 			//Nachgucken, ob die hashwerte des Gen im BitSet gesetzt sind
 			//Falls nein, dann abbruch
-			for (int[] kmerInt : intList) {
-				for (int index : kmerInt) {
-
-					if (!BSO.vector().get(index)) {
-						inside = false;
-						break;
-					}
-				}
-			}
+			boolean inside = isInside(hfList, BSO, gen);
+					
 			//Pruefen ,ob das Komplement enthalten ist
 			if(!inside) {
-				
-				insideCom = true;
 				
 				Gen genComplement = new Gen(gen.name() + " complement"
 						,DNAComplement.complement(gen.sequence()));
 				
-				ArrayList<int[]> intListReverse = new ArrayList<>();
+				insideCom = isInside(hfList,BSO,genComplement);
 				
-				for(HashFunction hf: hfList) {
-					intListReverse.add(ToHash.hash(genComplement, hf, BSO.cap()));
-				}
-				
-				for (int[] kmerIntReverse : intListReverse) {
-					for (int index : kmerIntReverse) {
-
-						if (!BSO.vector().get(index)) {
-							insideCom = false;
-							break;
-						}
-					}
-				}
 				if(insideCom) {
 					sb.append(genComplement.name() + "\n Found!\n");
 					found++;
@@ -92,10 +63,50 @@ public class CheckGenes {
 			}
 		}
 		
-		//ratio(found,notFound);
+		ratio(found,notFound);
 		
 		//GenCheckWriter.write(sb);
 		
+	}
+	
+	private static boolean isInside(ArrayList<HashFunction> hfList, BitSetObject BSO, Gen gen) {
+		
+		boolean inside = true;
+		ArrayList<int[]> intList = new ArrayList<>();
+		double insideCap = 10.0;
+		int notInsideCounter = 0;
+		int kmerCount = 0;
+		
+		//Gen hashen
+		for(HashFunction hf: hfList) {
+			intList.add(ToHash.hash(gen,hf,BSO.cap()));
+		}
+		
+		for(int x = 0; x < intList.size(); x++) {
+			kmerCount = kmerCount + intList.get(x).length;
+		}
+		
+		
+		//Nachgucken, ob die hashwerte des Gen im BitSet gesetzt sind
+		//Falls 10% nein, dann abbruch
+		for (int[] kmerInt : intList) {
+			for (int index : kmerInt) {
+
+				if (!BSO.vector().get(index)) {
+					notInsideCounter++;
+				}
+				
+				double currPercent = (100.0/kmerCount*notInsideCounter);
+				
+				if(currPercent > insideCap) {
+					inside = false;
+					break;
+				}
+				
+			}
+		}
+		
+		return inside;
 	}
 	
 	//Berechnet die Verteilung zwischen gefundenen und nicht gefundenen Genen

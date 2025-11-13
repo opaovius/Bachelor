@@ -39,7 +39,7 @@ public class RabinFingerprint implements IHashFunction{
 	private class RabinKarp{
 		
 	    private final long base = 31;
-	    private final long mod = 100_000_000_007L;
+	    private final long mod = 1_000_000_007L;
 	    private long[] hash;
 	    private long[] power;
 		

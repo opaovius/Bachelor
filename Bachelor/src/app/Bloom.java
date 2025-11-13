@@ -11,6 +11,7 @@ import app.records.Gen;
 import app.records.Genom;
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.methods.CreateHashFunction;
+import miscTools.TestMethods.TestPipeline;
 
 public class Bloom {
 	
@@ -37,6 +38,8 @@ public class Bloom {
 	public void run() {
 		
 		int kmerSize = 30;
+		
+		//TestPipeline.bugTest();
 		
 		//Erstellen der HashFunktionen
 		ArrayList<HashFunction> hfList = CreateHashFunction.create(kmerSize);

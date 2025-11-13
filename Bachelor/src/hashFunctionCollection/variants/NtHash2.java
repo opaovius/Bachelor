@@ -72,7 +72,7 @@ public class NtHash2 implements IHashFunction{
 		//XOR
 		endKmer = endKmer ^ tempKmer;
 		
-		tempKmer = seed.get(seq[i - 1 + kmerSize]);
+		tempKmer = seed.get(seq[i + kmerSize - 1]);
 		
 		//return mit XOR
 		return endKmer ^ tempKmer;
@@ -88,19 +88,19 @@ public class NtHash2 implements IHashFunction{
 			char c = seq[counter];
 			
 			int index = kmerSize - 2 - counter;
-
+			
 			if (index >= 0) {
 
 				switch (c) {
-					case 'A' -> tempKmer = look[0][kmerSize-1];
+					case 'A' -> tempKmer = look[0][index];
 				
-					case 'C' -> tempKmer = look[1][kmerSize-1];
+					case 'C' -> tempKmer = look[1][index];
 			
-					case 'G' -> tempKmer = look[2][kmerSize-1];
+					case 'G' -> tempKmer = look[2][index];
 				
-					case 'T' -> tempKmer = look[3][kmerSize-1];
+					case 'T' -> tempKmer = look[3][index];
 				
-					case 'N' -> tempKmer = look[4][kmerSize-1];
+					case 'N' -> tempKmer = look[4][index];
 				
 					default -> IO.println("Fehler Bei NtHash2.srol: Zeichen nicht im Lookup");
 				}
