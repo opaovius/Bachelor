@@ -1,5 +1,6 @@
 package app;
 
+import app.helper.CheckArguments;
 import miscTools.FileWriters.TimeWriter;
 
 public class Main {
@@ -19,7 +20,7 @@ public class Main {
 		
 		//IO.println("Vaccinia");
 		
-		Bloom b = new Bloom("src/testFiles/GenomDir/VacciniaGenom.fa","src/testFiles/GenDir/VacciniaGene.fa");
+		Bloom b = CheckArguments.check(args);
 		
 		//b.run();
 		

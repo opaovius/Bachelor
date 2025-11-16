@@ -17,6 +17,8 @@ public class Bloom {
 	
 	Genom genom;
 	ArrayList<Gen> genes;
+	String hashOptionOne;
+	String hashOptionTwo;
 	
 	/**
 	 * Konstruktor fuer den Bloomfilter. Laedt das Genom und die Gene ein
@@ -26,9 +28,11 @@ public class Bloom {
 	 */
 
 	
-	public Bloom(String pathGenom, String pathGenes) {
+	public Bloom(String pathGenom, String pathGenes, String hashOptionOne, String hashOptionTwo) {
 		this.genom = LoadGenom.load(pathGenom);
 		this.genes = LoadGenes.load(pathGenes);
+		this.hashOptionOne = hashOptionOne;
+		this.hashOptionTwo = hashOptionTwo;
 	}
 	
 	/**
@@ -42,7 +46,7 @@ public class Bloom {
 		//TestPipeline.bugTest();
 		
 		//Erstellen der HashFunktionen
-		ArrayList<HashFunction> hfList = CreateHashFunction.create(kmerSize);
+		ArrayList<HashFunction> hfList = CreateHashFunction.create(kmerSize,hashOptionOne,hashOptionTwo);
 		
 		//Erstellen einer Liste aus BitSetObjekten
 		BitSetObject BSO = CreateBloom.create(genom,kmerSize,hfList);
@@ -71,6 +75,14 @@ public class Bloom {
 	
 	public void setGenes(String pathGenes) {
 		this.genes = LoadGenes.load(pathGenes);
+	}
+	
+	public void setHashOptionOne(String hashOptionOne) {
+		this.hashOptionOne = hashOptionOne;
+	}
+	
+	public void setHashOptionTwo(String hashOptionTwo) {
+		this.hashOptionTwo = hashOptionTwo;
 	}
 
 }

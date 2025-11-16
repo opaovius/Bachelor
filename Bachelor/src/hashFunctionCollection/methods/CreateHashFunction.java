@@ -15,8 +15,40 @@ public class CreateHashFunction {
 	 * Erstellt die verschiedenen Hashfunktionen
 	 * 
 	 * @param kmerSize
+	 * @param hashOptionOne : erste Hashfunktion
+	 * @param hashOptionTwo : zweite Hashfunktion, kann leer sein, damit nur eine erzeugt wird
 	 * @return HashFunction
 	 */
+	
+	public static ArrayList<HashFunction> create(int kmerSize, String hashOptionOne, String hashOptionTwo){
+		
+		ArrayList<HashFunction> hfList = new ArrayList<>();
+		
+		HashFunction hashFuncOne = new HashFunction();
+		HashFunction hashFuncTwo = new HashFunction();
+		
+		hfList.add(hashFuncOne);
+		
+		if(!hashOptionTwo.equals("")) {
+			hfList.add(hashFuncTwo);
+		}
+		
+		for(HashFunction hashFunc : hfList) {
+			switch (hashOptionOne) {
+			case "hashNt" -> hashFunc.setHashFunction(new NtHashClassic(kmerSize));
+
+			case "hashNt2" -> hashFunc.setHashFunction(new NtHash2(kmerSize));
+
+			case "hashRabin" -> hashFunc.setHashFunction(new RabinFingerprint(kmerSize));
+
+			case "hashTwoBit" -> hashFunc.setHashFunction(new TwoBitHash(kmerSize));
+
+			case "hashJava" -> hashFunc.setHashFunction(new JavaHash(kmerSize));
+			}
+		}
+		
+		return hfList;
+	}
 	
 	public static ArrayList<HashFunction> create(int kmerSize){
 		
