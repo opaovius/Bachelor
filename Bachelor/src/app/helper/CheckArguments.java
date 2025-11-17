@@ -24,6 +24,8 @@ public class CheckArguments {
 		case 3 -> b = new Bloom(args[0],args[1],args[2],"");
 		
 		case 4 -> b = new Bloom(args[0], args[1], args[3], args[4]);
+		
+		default -> IO.println("WARNUNG: Zu viele Argumente -> Default Modus");
 		}
 		
 		if(b != null) {
@@ -32,8 +34,8 @@ public class CheckArguments {
 		else {
 			return new Bloom("src/testFiles/GenomDir/VacciniaGenom.fa"
 					,"src/testFiles/GenDir/VacciniaGene.fa"
-					,"hashNt"
-					,"hashNt2");
+					,"hashMurmur"
+					,"");
 		}
 		
 	}

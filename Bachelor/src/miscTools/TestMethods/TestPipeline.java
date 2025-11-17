@@ -18,7 +18,7 @@ public class TestPipeline {
 		IO.println(seq.length - kmerSize + 1);
 		IO.println(k1.length);
 		
-		//PlaceWriter.writeInt(k1);
+		PlaceWriter.writeInt(k1);
 		
 		int cap = BoundedInteger.calculateCap(seq.length);
 		

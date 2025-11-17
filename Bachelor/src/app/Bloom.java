@@ -43,8 +43,6 @@ public class Bloom {
 		
 		int kmerSize = 30;
 		
-		//TestPipeline.bugTest();
-		
 		//Erstellen der HashFunktionen
 		ArrayList<HashFunction> hfList = CreateHashFunction.create(kmerSize,hashOptionOne,hashOptionTwo);
 		

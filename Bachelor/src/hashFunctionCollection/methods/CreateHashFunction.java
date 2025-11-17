@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.variants.JavaHash;
+import hashFunctionCollection.variants.MurmurHash;
 import hashFunctionCollection.variants.NtHash2;
 import hashFunctionCollection.variants.NtHashClassic;
 import hashFunctionCollection.variants.RabinFingerprint;
@@ -44,6 +45,8 @@ public class CreateHashFunction {
 			case "hashTwoBit" -> hashFunc.setHashFunction(new TwoBitHash(kmerSize));
 
 			case "hashJava" -> hashFunc.setHashFunction(new JavaHash(kmerSize));
+			
+			case "hashMurmur" -> hashFunc.setHashFunction(new MurmurHash(kmerSize));
 			}
 		}
 		
