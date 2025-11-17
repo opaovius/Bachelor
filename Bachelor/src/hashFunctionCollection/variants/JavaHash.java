@@ -20,14 +20,23 @@ public class JavaHash implements IHashFunction{
 		
 		int[] kmerArr = new int[seq.length - kmerSize + 1];
 		
-		for(int pos = 0; pos < seq.length - kmerSize + 1; pos++) {
+		for(int pos = 0; pos < seq.length - kmerSize + 1; pos++) { 
 			
-			String tempKmer = new String(seq,pos,kmerSize);
+			int currKmer = hashCode(1,seq,pos,kmerSize);
 			
-			kmerArr[pos] = BoundedInteger.bound((tempKmer.hashCode() & ((1 << 31)-1)),cap);
+			kmerArr[pos] = BoundedInteger.bound(currKmer, cap);
+
 		}
-		
 		return kmerArr;
 	}
+
+	//Standard Java Array.hashCode()
+	private static int hashCode(int result, char[] a, int fromIndex, int length) {
+        int end = fromIndex + length;
+        for (int i = fromIndex; i < end; i++) {
+            result = 31 * result + a[i];
+        }
+        return result;
+    }
 
 }

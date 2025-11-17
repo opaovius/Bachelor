@@ -16,7 +16,7 @@ public class Main {
 		//aa hash bzw proteine
 		// besseres cap bzw kleineres austesten
 		
-		int test = 1;
+		int test = 100;
 		
 		//IO.println("Vaccinia");
 		
