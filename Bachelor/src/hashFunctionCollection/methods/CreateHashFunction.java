@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.variants.JavaHash;
+import hashFunctionCollection.variants.JenkinsOneAtATimeHash;
 import hashFunctionCollection.variants.MurmurHash;
 import hashFunctionCollection.variants.NtHash2;
 import hashFunctionCollection.variants.NtHashClassic;
@@ -24,18 +25,22 @@ public class CreateHashFunction {
 	public static ArrayList<HashFunction> create(int kmerSize, String hashOptionOne, String hashOptionTwo){
 		
 		ArrayList<HashFunction> hfList = new ArrayList<>();
-		
+		ArrayList<String> optionList = new ArrayList<>();		
 		HashFunction hashFuncOne = new HashFunction();
 		HashFunction hashFuncTwo = new HashFunction();
 		
 		hfList.add(hashFuncOne);
+		optionList.add(hashOptionOne);
+		optionList.add(hashOptionTwo);
 		
 		if(!hashOptionTwo.equals("")) {
 			hfList.add(hashFuncTwo);
 		}
 		
+		int count = 0;
+		
 		for(HashFunction hashFunc : hfList) {
-			switch (hashOptionOne) {
+			switch (optionList.get(count)) {
 			case "hashNt" -> hashFunc.setHashFunction(new NtHashClassic(kmerSize));
 
 			case "hashNt2" -> hashFunc.setHashFunction(new NtHash2(kmerSize));
@@ -47,36 +52,16 @@ public class CreateHashFunction {
 			case "hashJava" -> hashFunc.setHashFunction(new JavaHash(kmerSize));
 			
 			case "hashMurmur" -> hashFunc.setHashFunction(new MurmurHash(kmerSize));
+			
+			case "hashJenkins" -> hashFunc.setHashFunction(new JenkinsOneAtATimeHash(kmerSize));
+			
+			default -> {IO.println("WARNUNG: Hashfunktion nicht gefunden!!! -> NtHash wird angewandt");
+				hashFunc.setHashFunction(new NtHashClassic(kmerSize));
+				}
 			}
+			count++;
 		}
 		
 		return hfList;
 	}
-	
-	public static ArrayList<HashFunction> create(int kmerSize){
-		
-
-		// Erstellen der verschiedenen HashFunktionen
-		HashFunction hashNt2 = new HashFunction();
-		HashFunction hashNtClassic = new HashFunction();
-		//HashFunction hashNtTest = new HashFunction();
-		HashFunction hashRabin = new HashFunction();
-		HashFunction hashTwoBit = new HashFunction();
-		HashFunction hashJava = new HashFunction();
-
-		hashNt2.setHashFunction(new NtHash2(kmerSize));
-		hashNtClassic.setHashFunction(new NtHashClassic(kmerSize));
-		//hashNtTest.setHashFunction(new NtHash2Test(kmerSize));
-		hashRabin.setHashFunction(new RabinFingerprint(kmerSize));
-		hashTwoBit.setHashFunction(new TwoBitHash(kmerSize));
-		hashJava.setHashFunction(new JavaHash(kmerSize));
-		
-		ArrayList<HashFunction> hfList = new ArrayList<>();
-		
-		hfList.add(hashNtClassic);
-		hfList.add(hashNt2);
-		
-		return hfList;
-	}
-
 }

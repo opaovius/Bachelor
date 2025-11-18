@@ -38,8 +38,10 @@ public class CreateBloom {
 		for(int[] intArr: intList) {
 			for(int i : intArr) {
 				bitS.set(i);
+				
 			}
 		}
+		
 		//Testen [T]
 		//TestPipeline.test(intList,genom.sequence(),kmerSize,hfList,bitS);
 		

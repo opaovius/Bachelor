@@ -64,5 +64,4 @@ public class MurmurHash implements IHashFunction{
 		
 		return hash;
 	}
-
 }

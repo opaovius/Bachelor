@@ -34,7 +34,7 @@ public class CheckArguments {
 		else {
 			return new Bloom("src/testFiles/GenomDir/VacciniaGenom.fa"
 					,"src/testFiles/GenDir/VacciniaGene.fa"
-					,"hashMurmur"
+					,"hashJenkins"
 					,"");
 		}
 		

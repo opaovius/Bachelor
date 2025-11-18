@@ -24,7 +24,9 @@ public class TestPipeline {
 		
 		IO.println("cap size: " + ((1 << cap) - 1));
 		
+		IO.println(intList.size());
 		IO.println("BitS Size: " + bitS.size());
+		IO.println("BitS Card: " + bitS.cardinality());
 		IO.println("Rate BitS: " + (Math.round((100.0/bitS.size()*bitS.cardinality())* 100000.0) / 100000.0) + "%");
 		
 	}
