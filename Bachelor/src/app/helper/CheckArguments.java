@@ -1,6 +1,7 @@
 package app.helper;
 
 import app.Bloom;
+import app.records.Alphabet;
 
 public class CheckArguments {
 	
@@ -13,6 +14,16 @@ public class CheckArguments {
 	public static Bloom check(String[] args) {
 		
 		Bloom b = null;
+		Alphabet alphabet = Alphabet.DNA;
+		
+		
+		switch(args[2]) {
+		case "DNA" -> alphabet = Alphabet.DNA;
+		
+		case "Protein" -> alphabet = Alphabet.Protein;
+		
+		default -> IO.println("Default Alphabet: DNA");
+		}
 		
 		switch(args.length) {
 		case 0 -> IO.println("Default Modus");
@@ -21,9 +32,11 @@ public class CheckArguments {
 		
 		case 2 -> IO.println("WARNUNG: Zu wenig Argument -> Default Modus");
 		
-		case 3 -> b = new Bloom(args[0],args[1],args[2],"");
+		case 3 -> IO.println("WARNUNG: Zu wenig Argument -> Default Modus");
 		
-		case 4 -> b = new Bloom(args[0], args[1], args[3], args[4]);
+		case 4 -> b = new Bloom(args[0],args[1],alphabet,args[3],"");
+		
+		case 5 -> b = new Bloom(args[0], args[1],alphabet, args[3], args[4]);
 		
 		default -> IO.println("WARNUNG: Zu viele Argumente -> Default Modus");
 		}
@@ -34,6 +47,7 @@ public class CheckArguments {
 		else {
 			return new Bloom("src/testFiles/GenomDir/VacciniaGenom.fa"
 					,"src/testFiles/GenDir/VacciniaGene.fa"
+					,alphabet
 					,"hashNt"
 					,"");
 		}

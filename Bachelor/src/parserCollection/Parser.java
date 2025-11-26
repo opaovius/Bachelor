@@ -1,12 +1,16 @@
 package parserCollection;
 
+import app.records.Alphabet;
+
 public class Parser<T> {
 	
 	String path;
 	IParser<T> parser = null;
+	Alphabet alphabet;
 	
-	public Parser(String path) {
+	public Parser(String path, Alphabet alphabet) {
 		this.path = path;
+		this.alphabet = alphabet;
 	}
 	
 	public void setParser(IParser<T> parser) {
@@ -19,7 +23,7 @@ public class Parser<T> {
 	
 	public T output() {
 		
-		T out = parser.readFile(path);
+		T out = parser.readFile(path,alphabet);
 		
 		return out;
 	}

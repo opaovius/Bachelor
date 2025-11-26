@@ -6,13 +6,13 @@ import app.helper.CheckGenes;
 import app.helper.CreateBloom;
 import app.helper.LoadGenes;
 import app.helper.LoadGenom;
+import app.records.Alphabet;
 import app.records.BitSetObject;
 import app.records.Gen;
 import app.records.Genom;
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.methods.CreateHashFunction;
 import miscTools.Generator.ProteinGenerator;
-import miscTools.TestMethods.TestPipeline;
 
 public class Bloom {
 	
@@ -20,6 +20,7 @@ public class Bloom {
 	ArrayList<Gen> genes;
 	String hashOptionOne;
 	String hashOptionTwo;
+	Alphabet alphabet;
 	
 	/**
 	 * Konstruktor fuer den Bloomfilter. Laedt das Genom und die Gene ein
@@ -29,11 +30,12 @@ public class Bloom {
 	 */
 
 	
-	public Bloom(String pathGenom, String pathGenes, String hashOptionOne, String hashOptionTwo) {
+	public Bloom(String pathGenom, String pathGenes,Alphabet alphabet, String hashOptionOne, String hashOptionTwo) {
 		this.genom = LoadGenom.load(pathGenom);
 		this.genes = LoadGenes.load(pathGenes);
 		this.hashOptionOne = hashOptionOne;
 		this.hashOptionTwo = hashOptionTwo;
+		this.alphabet = alphabet;
 	}
 	
 	/**
@@ -83,6 +85,10 @@ public class Bloom {
 	
 	public void setHashOptionTwo(String hashOptionTwo) {
 		this.hashOptionTwo = hashOptionTwo;
+	}
+	
+	public void setAlphabet(Alphabet alphabet) {
+		this.alphabet = alphabet;
 	}
 
 }

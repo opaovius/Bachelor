@@ -5,12 +5,13 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import app.records.Alphabet;
 import app.records.Gen;
 
 public class GenFastaParser implements IParser<ArrayList<Gen>>{
 
 	// Einlesen einer FASTA-Datei, welche die Gene enthaelt
-	public ArrayList<Gen> readFile(String path) {
+	public ArrayList<Gen> readFile(String path,Alphabet alphabet) {
 
 		ArrayList<Gen> genList = new ArrayList<>();
 
@@ -29,7 +30,7 @@ public class GenFastaParser implements IParser<ArrayList<Gen>>{
 					
 					//Altes Gen abspeichern
 					if(genName.length() > 0) {
-						genList.add(new Gen(genName,sb.toString().toCharArray()));
+						genList.add(new Gen(genName,sb.toString().toCharArray(),alphabet));
 						sb.setLength(0);
 					}
 					
