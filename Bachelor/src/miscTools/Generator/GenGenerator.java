@@ -11,7 +11,7 @@ import java.util.Random;
 import app.records.Alphabet;
 import app.records.Gen;
 
-public class GenPermutator {
+public class GenGenerator {
 	
 	//Permutiert neue Gene aus den alten
 	public static void permutate(ArrayList<Gen> oldGenList,Alphabet alphabet) {

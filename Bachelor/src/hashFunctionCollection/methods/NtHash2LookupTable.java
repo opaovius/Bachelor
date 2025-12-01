@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+import app.records.Alphabet;
+
 public class NtHash2LookupTable {
 	
 	/**
@@ -17,9 +19,9 @@ public class NtHash2LookupTable {
 	 * @param kmerSize : Groesse der Kmere
 	 */
 	
-	public static void create(int kmerSize) {
+	public static void create(int kmerSize, Alphabet alphabet) {
 		
-		HashMap<Character,Long> seed = SeedTable.load();
+		HashMap<Character,Long> seed = SeedTable.load(alphabet);
 		StringBuilder sb = new StringBuilder();
 		char[] chars = {'A','C','G','T','N'};
 		

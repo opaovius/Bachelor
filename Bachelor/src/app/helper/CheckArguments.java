@@ -16,6 +16,12 @@ public class CheckArguments {
 		Bloom b = null;
 		Alphabet alphabet = Alphabet.DNA;
 		
+		if(args.length == 0) return new Bloom("src/testFiles/GenomDir/VacciniaGenom.fa"
+				,"src/testFiles/GenDir/VacciniaGene.fa"
+				,alphabet
+				,"hashNt"
+				,"");
+		
 		
 		switch(args[2]) {
 		case "DNA" -> alphabet = Alphabet.DNA;
@@ -23,6 +29,8 @@ public class CheckArguments {
 		case "Protein" -> alphabet = Alphabet.PROTEIN;
 		
 		case "Generic" -> alphabet = Alphabet.GENERIC;
+		
+		case "Latin" -> alphabet = Alphabet.LATIN;
 		
 		default -> IO.println("Default Alphabet: DNA");
 		}

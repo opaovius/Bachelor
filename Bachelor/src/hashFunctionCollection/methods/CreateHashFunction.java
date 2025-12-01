@@ -44,7 +44,7 @@ public class CreateHashFunction {
 			switch (optionList.get(count)) {
 			case "hashNt" -> hashFunc.setHashFunction(new NtHashClassic(kmerSize,alphabet));
 
-			case "hashNt2" -> hashFunc.setHashFunction(new NtHash2(kmerSize));
+			case "hashNt2" -> hashFunc.setHashFunction(new NtHash2(kmerSize,alphabet));
 
 			case "hashRabin" -> hashFunc.setHashFunction(new RabinFingerprint(kmerSize));
 

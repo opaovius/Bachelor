@@ -20,7 +20,7 @@ public class NtHashClassic implements IHashFunction{
 	 */
 	
 	public NtHashClassic(int kmerSize,Alphabet alphabet) {
-		this.seed = SeedTable.load();
+		this.seed = SeedTable.load(alphabet);
 		this.kmerSize = kmerSize;
 		this.alphabet = alphabet;
 	}

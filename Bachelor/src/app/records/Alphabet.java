@@ -1,5 +1,5 @@
 package app.records;
 
 public enum Alphabet {
-	DNA,PROTEIN,GENERIC
+	DNA,PROTEIN,GENERIC,LATIN
 }

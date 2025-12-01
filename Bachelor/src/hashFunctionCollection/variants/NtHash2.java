@@ -2,6 +2,7 @@ package hashFunctionCollection.variants;
 
 import java.util.HashMap;
 
+import app.records.Alphabet;
 import hashFunctionCollection.IHashFunction;
 import hashFunctionCollection.methods.BoundedInteger;
 import hashFunctionCollection.methods.NtHash2LookupTable;
@@ -20,8 +21,8 @@ public class NtHash2 implements IHashFunction{
 	 * @param kmerSize : idealerweise 30
 	 */
 	
-	public NtHash2(int kmerSize) {
-		this.seed = SeedTable.load();
+	public NtHash2(int kmerSize, Alphabet alphabet) {
+		this.seed = SeedTable.load(alphabet);
 		this.look = NtHash2LookupTable.load();
 		this.kmerSize = kmerSize;
 	}
