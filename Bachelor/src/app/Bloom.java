@@ -31,8 +31,8 @@ public class Bloom {
 
 	
 	public Bloom(String pathGenom, String pathGenes,Alphabet alphabet, String hashOptionOne, String hashOptionTwo) {
-		this.genom = LoadGenom.load(pathGenom);
-		this.genes = LoadGenes.load(pathGenes);
+		this.genom = LoadGenom.load(pathGenom,alphabet);
+		this.genes = LoadGenes.load(pathGenes,alphabet);
 		this.hashOptionOne = hashOptionOne;
 		this.hashOptionTwo = hashOptionTwo;
 		this.alphabet = alphabet;
@@ -47,7 +47,7 @@ public class Bloom {
 		int kmerSize = 30;
 		
 		//Erstellen der HashFunktionen
-		ArrayList<HashFunction> hfList = CreateHashFunction.create(kmerSize,hashOptionOne,hashOptionTwo);
+		ArrayList<HashFunction> hfList = CreateHashFunction.create(kmerSize,hashOptionOne,hashOptionTwo,alphabet);
 		
 		//Erstellen einer Liste aus BitSetObjekten
 		BitSetObject BSO = CreateBloom.create(genom,kmerSize,hfList);
@@ -66,7 +66,7 @@ public class Bloom {
 	 */
 	
 	public void setGenom(String pathGenom) {
-		this.genom = LoadGenom.load(pathGenom);
+		this.genom = LoadGenom.load(pathGenom,alphabet);
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public class Bloom {
 	 */
 	
 	public void setGenes(String pathGenes) {
-		this.genes = LoadGenes.load(pathGenes);
+		this.genes = LoadGenes.load(pathGenes,alphabet);
 	}
 	
 	public void setHashOptionOne(String hashOptionOne) {

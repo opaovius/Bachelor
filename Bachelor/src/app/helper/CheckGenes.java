@@ -2,6 +2,7 @@ package app.helper;
 
 import java.util.ArrayList;
 
+import app.records.Alphabet;
 import app.records.BitSetObject;
 import app.records.Gen;
 import hashFunctionCollection.HashFunction;
@@ -22,6 +23,7 @@ public class CheckGenes {
 		StringBuilder sb = new StringBuilder();
 		int found = 0;
 		int notFound = 0;
+		Alphabet alphabet = genList.get(0).alphabet();
 		
 		
 		for(Gen gen: genList) {
@@ -42,7 +44,7 @@ public class CheckGenes {
 			if(!inside) {
 				
 				Gen genComplement = new Gen(gen.name() + " complement"
-						,DNAComplement.complement(gen.sequence()));
+						,DNAComplement.complement(gen.sequence()),alphabet);
 				
 				insideCom = isInside(hfList,BSO,genComplement);
 				

@@ -20,7 +20,9 @@ public class CheckArguments {
 		switch(args[2]) {
 		case "DNA" -> alphabet = Alphabet.DNA;
 		
-		case "Protein" -> alphabet = Alphabet.Protein;
+		case "Protein" -> alphabet = Alphabet.PROTEIN;
+		
+		case "Generic" -> alphabet = Alphabet.GENERIC;
 		
 		default -> IO.println("Default Alphabet: DNA");
 		}

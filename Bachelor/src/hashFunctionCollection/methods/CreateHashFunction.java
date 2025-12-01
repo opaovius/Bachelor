@@ -2,6 +2,7 @@ package hashFunctionCollection.methods;
 
 import java.util.ArrayList;
 
+import app.records.Alphabet;
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.variants.JavaHash;
 import hashFunctionCollection.variants.JenkinsOneAtATimeHash;
@@ -22,7 +23,7 @@ public class CreateHashFunction {
 	 * @return HashFunction
 	 */
 	
-	public static ArrayList<HashFunction> create(int kmerSize, String hashOptionOne, String hashOptionTwo){
+	public static ArrayList<HashFunction> create(int kmerSize, String hashOptionOne, String hashOptionTwo, Alphabet alphabet){
 		
 		ArrayList<HashFunction> hfList = new ArrayList<>();
 		ArrayList<String> optionList = new ArrayList<>();		
@@ -41,7 +42,7 @@ public class CreateHashFunction {
 		
 		for(HashFunction hashFunc : hfList) {
 			switch (optionList.get(count)) {
-			case "hashNt" -> hashFunc.setHashFunction(new NtHashClassic(kmerSize));
+			case "hashNt" -> hashFunc.setHashFunction(new NtHashClassic(kmerSize,alphabet));
 
 			case "hashNt2" -> hashFunc.setHashFunction(new NtHash2(kmerSize));
 
@@ -56,7 +57,7 @@ public class CreateHashFunction {
 			case "hashJenkins" -> hashFunc.setHashFunction(new JenkinsOneAtATimeHash(kmerSize));
 			
 			default -> {IO.println("WARNUNG: Hashfunktion nicht gefunden!!! -> NtHash wird angewandt");
-				hashFunc.setHashFunction(new NtHashClassic(kmerSize));
+				hashFunc.setHashFunction(new NtHashClassic(kmerSize,alphabet));
 				}
 			}
 			count++;

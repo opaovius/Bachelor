@@ -8,17 +8,18 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Random;
 
+import app.records.Alphabet;
 import app.records.Gen;
 
 public class GenPermutator {
 	
 	//Permutiert neue Gene aus den alten
-	public static void permutate(ArrayList<Gen> oldGenList) {
+	public static void permutate(ArrayList<Gen> oldGenList,Alphabet alphabet) {
 		
 		ArrayList<Gen> newGenList = new ArrayList<>();
 		
 		for(Gen oldGen: oldGenList) {
-			newGenList.add(new Gen(oldGen.name() + " Permutated", mix(oldGen.sequence())));
+			newGenList.add(new Gen(oldGen.name() + " Permutated", mix(oldGen.sequence()),alphabet));
 		}
 		
 		write(newGenList);

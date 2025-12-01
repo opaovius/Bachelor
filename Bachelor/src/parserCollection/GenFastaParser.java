@@ -47,7 +47,7 @@ public class GenFastaParser implements IParser<ArrayList<Gen>>{
 			myScanner.close();
 			
 			//Letztes Gen sichern
-			genList.add(new Gen(genName,sb.toString().toCharArray()));
+			genList.add(new Gen(genName,sb.toString().toCharArray(),alphabet));
 
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found!");
