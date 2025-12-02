@@ -11,7 +11,7 @@ import hashFunctionCollection.methods.SeedTable;
 public class NtHash2 implements IHashFunction{
 	
 	HashMap<Character,Long> seed;
-	long[][] look;
+	HashMap<String,HashMap<Integer,Long>> look;
 	int kmerSize;
 	
 	/**
@@ -23,7 +23,7 @@ public class NtHash2 implements IHashFunction{
 	
 	public NtHash2(int kmerSize, Alphabet alphabet) {
 		this.seed = SeedTable.load(alphabet);
-		this.look = NtHash2LookupTable.load();
+		this.look = NtHash2LookupTable.load(alphabet,kmerSize);
 		this.kmerSize = kmerSize;
 	}
 	
@@ -56,19 +56,22 @@ public class NtHash2 implements IHashFunction{
 		long tempKmer = 0L;
 		
 		//Wert aus der LookupTable auslesen
+		
 		switch(seq[i-1]) {
-			case 'A' -> tempKmer = look[0][kmerSize-1];
+		case 'A' -> tempKmer = look.get("A").get(kmerSize-1);
+	
+		case 'C' -> tempKmer = look.get("C").get(kmerSize-1);
+	
+		case 'G' -> tempKmer = look.get("G").get(kmerSize-1);
 		
-			case 'C' -> tempKmer = look[1][kmerSize-1];
+		case 'T' -> tempKmer = look.get("T").get(kmerSize-1);
 		
-			case 'G' -> tempKmer = look[2][kmerSize-1];
-			
-			case 'T' -> tempKmer = look[3][kmerSize-1];
-			
-			case 'N' -> tempKmer = look[4][kmerSize-1];
-			
-			default -> IO.println("Fehler Bei NtHash2.cycle: Zeichen nicht im Lookup");
-		}
+		case 'N' -> tempKmer = look.get("N").get(kmerSize-1);
+		
+		default -> IO.println("Fehler Bei NtHash2.cycle: Zeichen nicht im Lookup");
+	}
+		
+		
 		
 		//XOR
 		endKmer = endKmer ^ tempKmer;
@@ -92,19 +95,20 @@ public class NtHash2 implements IHashFunction{
 			
 			if (index >= 0) {
 
-				switch (c) {
-					case 'A' -> tempKmer = look[0][index];
-				
-					case 'C' -> tempKmer = look[1][index];
+				switch(c) {
+				case 'A' -> tempKmer = look.get("A").get(index);
 			
-					case 'G' -> tempKmer = look[2][index];
+				case 'C' -> tempKmer = look.get("C").get(index);
+			
+				case 'G' -> tempKmer = look.get("G").get(index);
 				
-					case 'T' -> tempKmer = look[3][index];
+				case 'T' -> tempKmer = look.get("T").get(index);
 				
-					case 'N' -> tempKmer = look[4][index];
+				case 'N' -> tempKmer = look.get("N").get(index);
 				
-					default -> IO.println("Fehler Bei NtHash2.srol: Zeichen nicht im Lookup");
-				}
+				default -> IO.println("Fehler Bei NtHash2.srol: Zeichen nicht im Lookup");
+			}
+				
 			}
 			else {
 				tempKmer = seed.get(c);

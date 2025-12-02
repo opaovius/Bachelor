@@ -23,7 +23,7 @@ public class SeedTable {
 	public static void create() {
 
 		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter("src/testFiles/SeedTable.csv"));
+			BufferedWriter writer = new BufferedWriter(new FileWriter("src/testFiles/SeedTableDir/SeedTable.csv"));
 			StringBuilder sb = new StringBuilder();
 			HashSet<Long> duplicate = new HashSet<>();
 
@@ -64,23 +64,8 @@ public class SeedTable {
 
 		HashMap<Character, Long> seedTable = new HashMap<>();
 
-		seedTable = switch (alphabet) {
-
-		case Alphabet.DNA -> getFile("src/testFiles/SeedTableDir/SeedTableDNA.csv");
-
-		case Alphabet.PROTEIN -> getFile("src/testFiles/SeedTableDir/SeedTableProtein.csv");
+		String pathToFile = "src/testFiles/SeedTableDir/SeedTable" + alphabet.toString() + ".csv";
 		
-		case Alphabet.LATIN -> getFile("src/testFiles/SeedTableDir/SeedTableLatin.csv");
-		
-		default -> new HashMap<>();
-		};
-
-		return seedTable;
-	}
-
-	private static HashMap<Character, Long> getFile(String pathToFile) {
-		HashMap<Character, Long> seedTable = new HashMap<>();
-
 		try {
 			File f = new File(pathToFile);
 			Scanner sc = new Scanner(f);

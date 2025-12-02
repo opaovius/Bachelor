@@ -19,7 +19,7 @@ public class CheckArguments {
 		if(args.length == 0) return new Bloom("src/testFiles/GenomDir/VacciniaGenom.fa"
 				,"src/testFiles/GenDir/VacciniaGene.fa"
 				,alphabet
-				,"hashNt"
+				,"hashNt2"
 				,"");
 		
 		
