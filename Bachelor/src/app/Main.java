@@ -49,7 +49,7 @@ public class Main {
 			IO.print("Fortschritt: " + x + "%\r");
 		}
 		
-		TimeWriter.writeTime(time, 100);
+		//TimeWriter.writeTime(time, 100);
 		
 		
 		/*
