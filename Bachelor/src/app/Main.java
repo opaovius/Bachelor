@@ -2,6 +2,7 @@ package app;
 
 import app.helper.CheckArguments;
 import miscTools.FileWriters.TimeWriter;
+import miscTools.TestMethods.AllKmers;
 
 public class Main {
 
@@ -21,6 +22,8 @@ public class Main {
 		//IO.println("Vaccinia");
 		
 		Bloom b = CheckArguments.check(args);
+		
+		AllKmers.create();
 		
 		//b.run();
 		
