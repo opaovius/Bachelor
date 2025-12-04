@@ -56,7 +56,7 @@ public class Bloom {
 		CheckGenes.check(BSO,genes,kmerSize,hfList);
 		
 		//GenPermutator.permutate(genes);
-		ProteinGenerator.generate(genom);
+		//ProteinGenerator.generate(genom);
 	}
 	
 	/**

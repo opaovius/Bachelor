@@ -11,7 +11,7 @@ public class AllKmers {
 		nl2.add(new Node(3));
 		nl2.add(new Node(1));
 		
-		for(int x = 0; x < 3; x++) {
+		for(int x = 0; x < 30; x++) {
 			nl.add(new Node(0));
 		}
 		
@@ -19,15 +19,37 @@ public class AllKmers {
 		
 		IO.println(nl.size());
 		
-		for(int x = 0; x < 30; x++) {
+		while(nl.sum() != 3) {
 			nl.calc();
 		}
 		
 		IO.println("NodeListTest:");
-		for(int x = 0; x < 3; x++) {
+		for(int x = 0; x < nl.size(); x++) {
 			IO.println(nl.get(x));
 		}
+		
+		IO.println("sum: " + nl.sum());
+		
+		//generateAllKMers(30);
 	}
+	
+	static final char[] BASES = {'A', 'C', 'G', 'T'};
+
+	public static void generateAllKMers(int k) {
+	    long total = (long) Math.pow(4, k);
+
+	    char[] buf = new char[k];
+
+	    for (long n = 0; n < total; n++) {
+	        long x = n;
+	        for (int i = k - 1; i >= 0; i--) {
+	            buf[i] = BASES[(int)(x & 3)]; // x % 4
+	            x >>= 2; // x = x / 4
+	        }
+	        System.out.println(new String(buf));
+	    }
+	}
+
 	
 	private static class NodeList{
 		
@@ -91,6 +113,23 @@ public class AllKmers {
 			}
 			
 			return curr.getValue();
+		}
+		
+		public int sum() {
+			if(head == null) return 0;
+			
+			if(head.getNext() == null) return head.getValue();
+			
+			Node curr = head.getNext();
+			
+			int sum = curr.getValue() + head.getValue();
+			
+			while(curr.getNext() != null) {
+				curr = curr.getNext();
+				sum = sum + curr.getValue();
+			}
+			
+			return sum;
 		}
 		
 	}
