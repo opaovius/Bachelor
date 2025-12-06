@@ -1,12 +1,15 @@
 package app;
 
+import java.io.IOException;
+
 import app.helper.CheckArguments;
 import miscTools.FileWriters.TimeWriter;
 import miscTools.TestMethods.AllKmers;
+import miscTools.TestMethods.TestPipeline;
 
 public class Main {
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, IOException {
 		
 		//Hier neue Gen Datei erstellen fuer Einzellauf
 		//DNARandomizer.createDNA(10_000_000,10,10000);
@@ -19,11 +22,11 @@ public class Main {
 		
 		int test = 1;
 		
+		TestPipeline.testTwoBit();
+		
 		//IO.println("Vaccinia");
 		
 		Bloom b = CheckArguments.check(args);
-		
-		AllKmers.create();
 		
 		//b.run();
 		
@@ -31,7 +34,7 @@ public class Main {
 		
 		
 		IO.println("EColi");
-		
+		/*
 		
 		b.setGenom("src/testFiles/GenomDir/EColiGenom.fa");
 		b.setGenes("src/testFiles/GenDir/EColiGene.fa");
@@ -48,7 +51,7 @@ public class Main {
 			
 			IO.print("Fortschritt: " + x + "%\r");
 		}
-		
+		*/
 		//TimeWriter.writeTime(time, 100);
 		
 		

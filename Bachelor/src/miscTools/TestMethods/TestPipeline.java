@@ -1,11 +1,20 @@
 package miscTools.TestMethods;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.BitSet;
 
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.methods.BoundedInteger;
 import hashFunctionCollection.variants.RabinFingerprint;
+import hashFunctionCollection.variants.TwoBitHashTest;
 import miscTools.FileWriters.PlaceWriter;
 
 public class TestPipeline {
@@ -29,6 +38,68 @@ public class TestPipeline {
 		IO.println("BitS Card: " + bitS.cardinality());
 		IO.println("Rate BitS: " + (Math.round((100.0/bitS.size()*bitS.cardinality())* 100000.0) / 100000.0) + "%");
 		
+	}
+	
+	public static void testTwoBit() {
+		
+		HashFunction testHF = new HashFunction();
+		
+		testHF.setHashFunction(new TwoBitHashTest(15));
+		
+		BufferedReader br;
+		try {
+			br = new BufferedReader(new FileReader("src/testFiles/AnalyseDir/AllKmer.fa"));
+		
+
+		
+		StringBuilder sb = new StringBuilder("");
+		sb.append("Number\n");
+		
+		String gen;
+		
+		while((gen = br.readLine()) != null) {
+					
+			if(gen.charAt(0) == '>' || gen.charAt(0) == '<') continue;
+			
+			int[] i = testHF.output(gen.toCharArray(), 0);
+			
+			sb.append(i[0] + "\n");
+			
+			if(i.length > 1) {
+				IO.println("falsch");
+			}
+			
+			if(sb.length() > Integer.MAX_VALUE/4) {
+				write(sb);
+				sb.setLength(0);
+			}
+		}
+		
+		br.close();
+		
+		if(sb.length() != 0) {
+			write(sb);
+		}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			IO.println("File not Found");
+		}
+	}
+	
+	private static void write(StringBuilder sb) {
+
+		try (FileChannel channel = FileChannel.open(Paths.get("src/testFiles/AnalyseDir/Places.csv"),
+				StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND)) {
+
+			ByteBuffer buffer = ByteBuffer.wrap(sb.toString().getBytes());
+			channel.write(buffer);
+			channel.force(true);
+			channel.close();
+
+		} catch (IOException e) {
+			System.out.println("IO-Error");
+		}
+
 	}
 	
 	public static void bugTest() {
