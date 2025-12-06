@@ -22,8 +22,6 @@ public class Main {
 		
 		int test = 1;
 		
-		TestPipeline.testTwoBit();
-		
 		//IO.println("Vaccinia");
 		
 		Bloom b = CheckArguments.check(args);
@@ -34,7 +32,7 @@ public class Main {
 		
 		
 		IO.println("EColi");
-		/*
+		
 		
 		b.setGenom("src/testFiles/GenomDir/EColiGenom.fa");
 		b.setGenes("src/testFiles/GenDir/EColiGene.fa");
@@ -51,7 +49,7 @@ public class Main {
 			
 			IO.print("Fortschritt: " + x + "%\r");
 		}
-		*/
+		
 		//TimeWriter.writeTime(time, 100);
 		
 		

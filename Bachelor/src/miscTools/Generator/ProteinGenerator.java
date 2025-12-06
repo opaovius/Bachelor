@@ -5,7 +5,9 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 
+import app.records.Gen;
 import app.records.Genom;
 
 public class ProteinGenerator {
@@ -42,11 +44,40 @@ public class ProteinGenerator {
 		}
 
 	}
+	
+	public static void generate(ArrayList<Gen> genes) {
+		
+		for(Gen g: genes) {
+			toProtein(g);
+		}
+		
+	}
+	
+	private static void toProtein(Gen g) {
+		
+		char[] seq = g.sequence();
+		StringBuilder tripplet = new StringBuilder("");
+		StringBuilder protein = new StringBuilder(seq.length/2);
+		
+		protein.append(g.name() + "\n");
+		
+		for(int x = 0; x < seq.length - 2; x = x +3) {
+			tripplet.append(seq[x]);
+			tripplet.append(seq[x+1]);
+			tripplet.append(seq[x+2]);
+			
+			protein.append(convertTripplet(tripplet.toString()));
+			tripplet.setLength(0);
+		}
+		
+		protein.append("\n");
+		
+		write(protein);
+	}
 
 	private static void toProtein(Genom genom, int start, boolean complement) {
 
 		char[] seq = genom.sequence();
-
 		StringBuilder tripplet = new StringBuilder("");
 		StringBuilder protein = new StringBuilder(seq.length / 2);
 		StringBuilder tempID = new StringBuilder("");
@@ -147,6 +178,22 @@ public class ProteinGenerator {
 
 		try (FileChannel channel = FileChannel.open(Paths.get("src/testFiles/GenomDir/" + id + ".fa"),
 				StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
+
+			ByteBuffer buffer = ByteBuffer.wrap(sb.toString().getBytes());
+			channel.write(buffer);
+			channel.force(true);
+			channel.close();
+
+		} catch (IOException e) {
+			System.out.println("IO-Error");
+		}
+
+	}
+	
+	private static void write(StringBuilder sb) {
+
+		try (FileChannel channel = FileChannel.open(Paths.get("src/testFiles/GenDir/EColiGenePROTEIN.fa"),
+				StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND)) {
 
 			ByteBuffer buffer = ByteBuffer.wrap(sb.toString().getBytes());
 			channel.write(buffer);
