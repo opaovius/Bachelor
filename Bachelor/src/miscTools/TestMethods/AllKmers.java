@@ -1,53 +1,60 @@
 package miscTools.TestMethods;
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
 public class AllKmers {
 	
 	public static void create() {
 		
 		NodeList nl = new NodeList();
-		NodeList nl2 = new NodeList();
+		StringBuilder sb = new StringBuilder("");
+		int count = 0;
 		
-		nl2.add(new Node(2));
-		nl2.add(new Node(3));
-		nl2.add(new Node(1));
-		
-		for(int x = 0; x < 30; x++) {
+		for(int x = 0; x < 15; x++) {
 			nl.add(new Node(0));
 		}
 		
 		
 		
-		IO.println(nl.size());
+		sb.append(">kmer" + count + "\n" + nl.toString() + "\n");
+		count++;
 		
-		while(nl.sum() != 3) {
+		while(count != Math.powExact(4, 15)) {
 			nl.calc();
+			sb.append(">kmer" + count + "\n" + nl.toString() + "\n");
+			count++;
+			
+			if(sb.length() > Integer.MAX_VALUE/4) {
+				write(sb);
+				sb.setLength(0);
+			}
 		}
 		
-		IO.println("NodeListTest:");
-		for(int x = 0; x < nl.size(); x++) {
-			IO.println(nl.get(x));
+		if(sb.length() > 0) {
+			write(sb);
 		}
 		
-		IO.println("sum: " + nl.sum());
 		
-		//generateAllKMers(30);
 	}
 	
-	static final char[] BASES = {'A', 'C', 'G', 'T'};
+	private static void write(StringBuilder sb) {
 
-	public static void generateAllKMers(int k) {
-	    long total = (long) Math.pow(4, k);
+		try (FileChannel channel = FileChannel.open(Paths.get("src/testFiles/AnalyseDir/AllKmer.fa"),
+				StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND)) {
 
-	    char[] buf = new char[k];
+			ByteBuffer buffer = ByteBuffer.wrap(sb.toString().getBytes());
+			channel.write(buffer);
+			channel.force(true);
+			channel.close();
 
-	    for (long n = 0; n < total; n++) {
-	        long x = n;
-	        for (int i = k - 1; i >= 0; i--) {
-	            buf[i] = BASES[(int)(x & 3)]; // x % 4
-	            x >>= 2; // x = x / 4
-	        }
-	        System.out.println(new String(buf));
-	    }
+		} catch (IOException e) {
+			System.out.println("IO-Error");
+		}
+
 	}
 
 	
@@ -130,6 +137,22 @@ public class AllKmers {
 			}
 			
 			return sum;
+		}
+		
+		public String toString() {
+			if(head == null) return "";
+			
+			if(head.getNext() == null) return head.getNext().getValue() + "";
+			
+			Node curr = head.getNext();
+			StringBuilder result = new StringBuilder(head.getValue() + "" + curr.getValue());
+			
+			while(curr.getNext() != null) {
+				curr = curr.getNext();
+				result.append(curr.getValue() + "");
+			}
+			
+			return result.toString();
 		}
 		
 	}
