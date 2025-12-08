@@ -40,6 +40,12 @@ public class TestPipeline {
 		
 	}
 	
+	public static void bitTest(BitSet bitS) {
+		IO.println("BitS Size: " + bitS.size());
+		IO.println("BitS Card: " + bitS.cardinality());
+		IO.println("Rate BitS: " + (Math.round((100.0/bitS.size()*bitS.cardinality())* 100000.0) / 100000.0) + "%");
+	}
+	
 	public static void testTwoBit() {
 		
 		HashFunction testHF = new HashFunction();
@@ -81,8 +87,7 @@ public class TestPipeline {
 			write(sb);
 		}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			IO.println("File not Found");
+			IO.println("IOError: testPipeline");
 		}
 	}
 	

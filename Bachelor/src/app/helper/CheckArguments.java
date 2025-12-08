@@ -14,12 +14,12 @@ public class CheckArguments {
 	public static Bloom check(String[] args) {
 		
 		Bloom b = null;
-		Alphabet alphabet = Alphabet.DNA;
+		Alphabet alphabet = Alphabet.PROTEIN;
 		
 		if(args.length == 0) return new Bloom("src/testFiles/GenomDir/VacciniaGenom.fa"
 				,"src/testFiles/GenDir/VacciniaGene.fa"
 				,alphabet
-				,"hashNt2"
+				,"hashNt"
 				,"");
 		
 		

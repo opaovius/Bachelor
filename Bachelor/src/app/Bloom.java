@@ -16,7 +16,7 @@ import miscTools.Generator.ProteinGenerator;
 
 public class Bloom {
 	
-	Genom genom;
+	ArrayList<Genom> genom;
 	ArrayList<Gen> genes;
 	String hashOptionOne;
 	String hashOptionTwo;

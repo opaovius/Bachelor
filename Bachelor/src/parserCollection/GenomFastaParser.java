@@ -32,7 +32,7 @@ public class GenomFastaParser implements IParser<Genom>{
 				myScanner.close();
 
 			} catch (FileNotFoundException e) {
-				System.out.println("File not found!");
+				System.out.println("GenomDatei nicht gefunden: " + path);
 			}
 
 			return new Genom(name,builder.toString().toCharArray(),alphabet);
