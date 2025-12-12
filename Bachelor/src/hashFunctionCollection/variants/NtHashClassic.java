@@ -11,7 +11,6 @@ public class NtHashClassic implements IHashFunction{
 	
 	private HashMap<Character,Long> seed;
 	private int kmerSize;
-	private Alphabet alphabet;
 	
 	/**
 	 * Weisst den Basen 64 Bit werte zu, welche vorher zufaellig generiert wurden.
@@ -22,7 +21,6 @@ public class NtHashClassic implements IHashFunction{
 	public NtHashClassic(int kmerSize,Alphabet alphabet) {
 		this.seed = SeedTable.load(alphabet);
 		this.kmerSize = kmerSize;
-		this.alphabet = alphabet;
 	}
 	
 	public int[] toHash(char[] seq, int cap) {

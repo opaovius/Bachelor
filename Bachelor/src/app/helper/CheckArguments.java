@@ -14,23 +14,25 @@ public class CheckArguments {
 	public static Bloom check(String[] args) {
 		
 		Bloom b = null;
-		Alphabet alphabet = Alphabet.PROTEIN;
+		Alphabet alphabet = Alphabet.TALES;
 		
-		if(args.length == 0) return new Bloom("src/testFiles/GenomDir/VacciniaGenom.fa"
-				,"src/testFiles/GenDir/VacciniaGene.fa"
+		if(args.length == 0) return new Bloom("src/testFiles/Tales/List_of_TALEs_incl_length_RVDs.tsv"
+				,"src/testFiles/GenDir/EcoliGene.fa"
 				,alphabet
 				,"hashNt"
 				,"");
 		
 		
-		switch(args[2]) {
-		case "DNA" -> alphabet = Alphabet.DNA;
+		switch(args[2].toLowerCase()) {
+		case "dna" -> alphabet = Alphabet.DNA;
 		
-		case "Protein" -> alphabet = Alphabet.PROTEIN;
+		case "protein" -> alphabet = Alphabet.PROTEIN;
 		
-		case "Generic" -> alphabet = Alphabet.GENERIC;
+		case "generic" -> alphabet = Alphabet.GENERIC;
 		
-		case "Latin" -> alphabet = Alphabet.LATIN;
+		case "latin" -> alphabet = Alphabet.LATIN;
+		
+		case "tales" -> alphabet = Alphabet.TALES;
 		
 		default -> IO.println("Default Alphabet: DNA");
 		}

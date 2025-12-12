@@ -1,17 +1,65 @@
 package parserCollection;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import app.records.Alphabet;
 import app.records.Genom;
+import miscTools.TestMethods.ScanTales;
 
-public class GenomFastaParser implements IParser<Genom>{
+public class GenomFastaParser implements IParser<ArrayList<Genom>>{
 	
 	// Einlesen einer FASTA-Datei, welche das Genom enthaelt
-		public Genom readFile(String path,Alphabet alphabet) {
+		public ArrayList<Genom> readFile(String path,Alphabet alphabet) {
 			
+			return switch(alphabet) {
+			
+			case Alphabet.TALES -> readTales(path,alphabet);
+			
+			default -> {
+				ArrayList<Genom> genomes = new ArrayList<>();
+				genomes.add(readFasta(path,alphabet));
+				yield genomes;
+				}
+			};	
+		}
+		
+		private ArrayList<Genom> readTales(String path, Alphabet alphabet) {
+			
+			ArrayList<Genom> genomes = new ArrayList<>();
+			
+			try {
+				BufferedReader br = new BufferedReader(new FileReader(path));
+				
+				//skip header
+				String curr = br.readLine();
+				curr = br.readLine();
+				
+				while(curr != null) {
+					
+					String[] arr = curr.split("\t");
+					
+					genomes.add(new Genom(arr[0], arr[arr.length-1].toCharArray(), alphabet));
+					
+					curr = br.readLine();
+				}
+				br.close();
+			}
+			catch(IOException e) {
+				IO.println("IOException: GenomFastaParser.readTales()");
+			}
+			
+			ScanTales.scan(genomes);
+			
+			return genomes;
+		}
+		
+		private Genom readFasta(String path,Alphabet alphabet) {
 			StringBuilder builder = new StringBuilder();
 			String name = "PH";
 			

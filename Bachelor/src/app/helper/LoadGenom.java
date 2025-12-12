@@ -20,33 +20,20 @@ public class LoadGenom {
 	public static ArrayList<Genom> load(String pathGenom, Alphabet alphabet) {
 
 		ArrayList<Genom> genom = new ArrayList<>();
-		Parser<Genom> genomParser = new Parser<>(pathGenom, alphabet);
+		Parser<ArrayList<Genom>> genomParser = new Parser<>(pathGenom, alphabet);
 		genomParser.setParser(new GenomFastaParser());
 		
 		StringBuilder sb = new StringBuilder("src/testFiles/GenomDir/EColi");
 
 		switch (alphabet) {
-		case Alphabet.DNA -> genom.add(genomParser.output());
+		case Alphabet.DNA -> genom = genomParser.output();
 		
 		case Alphabet.PROTEIN -> {
-		 	genomParser.setPath(sb.append("_COMP_LR_0.fa").toString());
-		 	genom.add(genomParser.output());
-		 	sb = new StringBuilder("src/testFiles/GenomDir/EColi");
-		 	genomParser.setPath(sb.append("_COMP_LR_1.fa").toString());
-		 	genom.add(genomParser.output());
-		 	sb = new StringBuilder("src/testFiles/GenomDir/EColi");
-		 	genomParser.setPath(sb.append("_COMP_LR_2.fa").toString());
-		 	genom.add(genomParser.output());
-		 	sb = new StringBuilder("src/testFiles/GenomDir/EColi");
-		 	genomParser.setPath(sb.append("_LR_0.fa").toString());
-		 	genom.add(genomParser.output());
-		 	sb = new StringBuilder("src/testFiles/GenomDir/EColi");
-		 	genomParser.setPath(sb.append("_LR_1.fa").toString());
-		 	genom.add(genomParser.output());
-		 	sb = new StringBuilder("src/testFiles/GenomDir/EColi");
-		 	genomParser.setPath(sb.append("_LR_2.fa").toString());
-		 	genom.add(genomParser.output());
+		 	IO.println("under const");
 		}
+		
+		case Alphabet.TALES -> genom = genomParser.output();
+		
 		default -> IO.println("Nicht Implementiert: LoadGenom()");
 		}
 

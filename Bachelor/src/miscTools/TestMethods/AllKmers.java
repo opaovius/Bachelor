@@ -84,6 +84,7 @@ public class AllKmers {
 			}
 		}
 		
+		@SuppressWarnings("unused")
 		public int  size() {
 			return size;
 		}
@@ -107,6 +108,7 @@ public class AllKmers {
 			}
 		}
 		
+		@SuppressWarnings("unused")
 		public int get(int pos) {
 			if(pos == 0) return head.getValue();
 			
@@ -122,6 +124,7 @@ public class AllKmers {
 			return curr.getValue();
 		}
 		
+		@SuppressWarnings("unused")
 		public int sum() {
 			if(head == null) return 0;
 			

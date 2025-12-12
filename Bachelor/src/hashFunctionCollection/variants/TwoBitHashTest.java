@@ -1,7 +1,6 @@
 package hashFunctionCollection.variants;
 
 import hashFunctionCollection.IHashFunction;
-import hashFunctionCollection.methods.BoundedInteger;
 
 public class TwoBitHashTest implements IHashFunction{
 	

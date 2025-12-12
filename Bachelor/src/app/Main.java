@@ -3,9 +3,6 @@ package app;
 import java.io.IOException;
 
 import app.helper.CheckArguments;
-import miscTools.FileWriters.TimeWriter;
-import miscTools.TestMethods.AllKmers;
-import miscTools.TestMethods.TestPipeline;
 
 public class Main {
 
@@ -32,10 +29,6 @@ public class Main {
 		
 		
 		IO.println("EColi");
-		
-		
-		b.setGenom("src/testFiles/GenomDir/EColiGenom.fa");
-		b.setGenes("src/testFiles/GenDir/EColiGene.fa");
 		
 		long[] time = new long[100];
 		

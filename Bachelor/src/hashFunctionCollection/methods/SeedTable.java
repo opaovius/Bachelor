@@ -1,9 +1,12 @@
 package hashFunctionCollection.methods;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -54,6 +57,43 @@ public class SeedTable {
 		}
 	}
 
+	public static void createTales() {
+
+		ArrayList<String> tokens = new ArrayList<>();
+		
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("src/testFiles/SeedTableDir/TalesCharsConv.tsv"));
+			
+			String curr = br.readLine();
+			
+			while(curr != null) {
+				String[] arr = curr.split("\t");
+				tokens.add(arr[1]);
+				curr = br.readLine();
+			}
+			
+			br.close();
+		} catch (IOException e) {
+			IO.println("IOException: SeedTable.createTales.Reader");
+		}
+		
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter("src/testFiles/SeedTableDir/SeedTableTALES.tsv"));
+			StringBuilder sb = new StringBuilder("");
+			
+			for(String s: tokens) {
+				sb.append(s + "\t" + random() + "\n");
+			}
+			
+			bw.write(sb.toString());
+			
+			bw.close();
+		}
+		catch(IOException e) {
+			IO.println("IOException: SeedTable.createTable.Writer");
+		}
+	}
+
 	/**
 	 * Laedt die seedTable.csv und packt sie in eine HashMap
 	 * 
@@ -65,7 +105,7 @@ public class SeedTable {
 		HashMap<Character, Long> seedTable = new HashMap<>();
 
 		String pathToFile = "src/testFiles/SeedTableDir/SeedTable" + alphabet.toString() + ".csv";
-		
+
 		try {
 			File f = new File(pathToFile);
 			Scanner sc = new Scanner(f);
