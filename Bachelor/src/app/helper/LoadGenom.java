@@ -17,10 +17,10 @@ public class LoadGenom {
 	 * @return Genom Record
 	 */
 
-	public static ArrayList<Genom> load(String pathGenom, Alphabet alphabet) {
+	public static ArrayList<ArrayList<Genom>> load(String pathGenom, Alphabet alphabet) {
 
-		ArrayList<Genom> genom = new ArrayList<>();
-		Parser<ArrayList<Genom>> genomParser = new Parser<>(pathGenom, alphabet);
+		ArrayList<ArrayList<Genom>> genom = new ArrayList<>();
+		Parser<ArrayList<ArrayList<Genom>>> genomParser = new Parser<>(pathGenom, alphabet);
 		genomParser.setParser(new GenomFastaParser());
 		
 		StringBuilder sb = new StringBuilder("src/testFiles/GenomDir/EColi");

@@ -15,7 +15,8 @@ public class BoundedInteger {
 		int[] ints = new int[longs.length];
 		
 		for(int x = 0; x < longs.length; x++) {
-			ints[x] = (int) longs[x] & ((1 << cap) - 1);
+			int temp = (int) longs[x] % cap;
+			ints[x] = Math.abs(temp);
 		}
 		
 		return ints;
@@ -31,7 +32,7 @@ public class BoundedInteger {
 	
 	public static int boundToInt(long singleLong, int cap) {
 		
-		return (int) singleLong & ((1 << cap) - 1);
+		return Math.abs((int) singleLong % cap);
 		
 	}
 	
@@ -44,7 +45,7 @@ public class BoundedInteger {
 	
 	public static int bound(int i, int cap) {
 		
-		return i & ((1 << cap) - 1);
+		return Math.abs(i % cap);
 		
 	}
 	
@@ -63,8 +64,10 @@ public class BoundedInteger {
 			x++;
 		}
 		
+		x = x + 2;
+		
 		// +2 und nicht +1, damit weniger Ueberschneidungen da sind
-		return x+2;
+		return Math.powExact(2, x);
 	}
 
 }

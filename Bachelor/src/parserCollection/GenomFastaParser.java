@@ -10,28 +10,28 @@ import java.util.Scanner;
 
 import app.records.Alphabet;
 import app.records.Genom;
-import hashFunctionCollection.methods.NtHash2LookupTable;
-import miscTools.TestMethods.ScanTales;
 import miscTools.TestMethods.TalesToCharConverter;
 
-public class GenomFastaParser implements IParser<ArrayList<Genom>>{
+public class GenomFastaParser implements IParser<ArrayList<ArrayList<Genom>>>{
 	
 	// Einlesen einer FASTA-Datei, welche das Genom enthaelt
-		public ArrayList<Genom> readFile(String path,Alphabet alphabet) {
+		public ArrayList<ArrayList<Genom>> readFile(String path,Alphabet alphabet) {
 			
 			return switch(alphabet) {
 			
 			case Alphabet.TALES -> readTales(path,alphabet);
 			
 			default -> {
+				ArrayList<ArrayList<Genom>> superGenoms = new ArrayList<>();
 				ArrayList<Genom> genomes = new ArrayList<>();
 				genomes.add(readFasta(path,alphabet));
-				yield genomes;
+				superGenoms.add(genomes);
+				yield superGenoms;
 				}
 			};	
 		}
 		
-		private ArrayList<Genom> readTales(String path, Alphabet alphabet) {
+		private ArrayList<ArrayList<Genom>> readTales(String path, Alphabet alphabet) {
 			
 			ArrayList<Genom> genomes = new ArrayList<>();
 			
@@ -47,11 +47,12 @@ public class GenomFastaParser implements IParser<ArrayList<Genom>>{
 					TalesToCharConverter TC = new TalesToCharConverter();
 					String[] arr = curr.split("\t");
 					String[] seq = arr[arr.length-1].split(" ");
+					String[] name = arr[0].split(" ");
 					
 					
 					char[] conv = TC.convertArray(seq);
 					
-					genomes.add(new Genom(arr[0], conv, alphabet));
+					genomes.add(new Genom(name[0], conv, alphabet));
 					
 					curr = br.readLine();
 				}
@@ -60,7 +61,7 @@ public class GenomFastaParser implements IParser<ArrayList<Genom>>{
 			catch(IOException e) {
 				IO.println("IOException: GenomFastaParser.readTales()");
 			}
-			return genomes;
+			return filter(genomes);
 		}
 		
 		private Genom readFasta(String path,Alphabet alphabet) {
@@ -88,6 +89,47 @@ public class GenomFastaParser implements IParser<ArrayList<Genom>>{
 			}
 
 			return new Genom(name,builder.toString().toCharArray(),alphabet);
+		}
+		
+		private static ArrayList<ArrayList<Genom>> filter(ArrayList<Genom> genoms){
+			
+			ArrayList<ArrayList<Genom>> filteredGenoms = new ArrayList<>();
+			ArrayList<Genom> tempList = new ArrayList<>();
+			
+			
+			for(int x = 0; x < genoms.size(); x++) {
+				Genom currGenom = genoms.get(x);
+				
+				if(x+1 < genoms.size()) {
+					
+					Genom tempGenom = genoms.get(x+1);
+					
+					//Checken, ob TALXX == TALXX
+					if(currGenom.name().substring(3, 4).equals(tempGenom.name().substring(3,4))) {
+						tempList.add(currGenom);
+					}
+					else {
+						//Ab 20 werden Genome in die filterListe uebergeben
+						if(tempList.size() >= 20) {
+							filteredGenoms.add(tempList);
+							tempList = new ArrayList<>();
+						}
+						else {
+							tempList = new ArrayList<>();
+						}
+					}
+				}
+				else {
+					//Ab 20 werden Genome in die filterListe uebergeben
+					if(tempList.size() >= 20) {
+						filteredGenoms.add(tempList);
+						tempList = new ArrayList<>();
+					}
+				}
+				
+			}
+			
+			return filteredGenoms;
 		}
 
 }

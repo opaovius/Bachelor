@@ -15,7 +15,7 @@ import hashFunctionCollection.methods.CreateHashFunction;
 
 public class Bloom {
 	
-	ArrayList<Genom> genom;
+	ArrayList<ArrayList<Genom>> genom;
 	ArrayList<Gen> genes;
 	String hashOptionOne;
 	String hashOptionTwo;
@@ -49,8 +49,9 @@ public class Bloom {
 		ArrayList<HashFunction> hfList = CreateHashFunction.create(kmerSize,hashOptionOne,hashOptionTwo,alphabet);
 		
 		//Erstellen einer Liste aus BitSetObjekten
-		BitSetObject BSO = CreateBloom.create(genom,kmerSize,hfList);
-		
+		for(ArrayList<Genom> g : genom) {
+			BitSetObject BSO = CreateBloom.create(g,kmerSize,hfList);
+		}
 		//Nachpruefen, ob Gene enthalten sind
 		//CheckGenes.check(BSO,genes,kmerSize,hfList);
 		

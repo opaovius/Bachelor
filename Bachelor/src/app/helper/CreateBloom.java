@@ -31,6 +31,8 @@ public class CreateBloom {
 		}
 
 		int cap = getMax(capList);
+		
+		cap = cap * genom.size();
 
 		for (Genom g : genom) {
 			for (HashFunction hashFc : hfList) {
