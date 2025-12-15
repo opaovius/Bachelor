@@ -20,10 +20,13 @@ public class NtHashClassic implements IHashFunction{
 	
 	public NtHashClassic(int kmerSize,Alphabet alphabet) {
 		this.seed = SeedTable.load(alphabet);
-		this.kmerSize = kmerSize;
+		this.kmerSize = 5;
 	}
 	
 	public int[] toHash(char[] seq, int cap) {
+		
+		//TODO
+		if(seq.length < 5) return new int[0];
 		
 		//Index fuer derzeitiges k-mer. 1, da init() kmer mit Index i =  0 erzeugt 
 		int index = 1;

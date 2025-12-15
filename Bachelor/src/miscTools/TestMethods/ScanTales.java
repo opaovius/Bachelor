@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import app.records.Genom;
-import hashFunctionCollection.methods.SeedTable;
 
 public class ScanTales {
 
-	public static void scan(ArrayList<Genom> gs){
+	public static void scan(ArrayList<Genom> gs, int i){
 		
 		HashMap<String,Integer> tokens = new HashMap<>();
 		StringBuilder sb = new StringBuilder("");
@@ -36,7 +35,7 @@ public class ScanTales {
 		for(String s : tokens.keySet()) {
 			stringList.add(s);
 		}
-		SeedTable.createTales();
+		
 		//TalesToCharConverter.convert(stringList);
 	}
 }

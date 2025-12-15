@@ -60,36 +60,45 @@ public class SeedTable {
 	public static void createTales() {
 
 		ArrayList<String> tokens = new ArrayList<>();
-		
+
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("src/testFiles/SeedTableDir/TalesCharsConv.tsv"));
-			
+
 			String curr = br.readLine();
-			
-			while(curr != null) {
+
+			while (curr != null) {
 				String[] arr = curr.split("\t");
 				tokens.add(arr[1]);
 				curr = br.readLine();
 			}
-			
+
 			br.close();
 		} catch (IOException e) {
 			IO.println("IOException: SeedTable.createTales.Reader");
 		}
-		
+
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter("src/testFiles/SeedTableDir/SeedTableTALES.tsv"));
 			StringBuilder sb = new StringBuilder("");
-			
-			for(String s: tokens) {
-				sb.append(s + "\t" + random() + "\n");
+			HashSet<Long> numbs = new HashSet<>();
+
+			for (String s : tokens) {
+
+				long temp = random();
+
+				while (numbs.contains(temp)) {
+					temp = random();
+				}
+
+				numbs.add(temp);
+
+				sb.append(s + "\t" + temp + "\n");
 			}
-			
+
 			bw.write(sb.toString());
-			
+
 			bw.close();
-		}
-		catch(IOException e) {
+		} catch (IOException e) {
 			IO.println("IOException: SeedTable.createTable.Writer");
 		}
 	}
@@ -104,25 +113,42 @@ public class SeedTable {
 
 		HashMap<Character, Long> seedTable = new HashMap<>();
 
-		String pathToFile = "src/testFiles/SeedTableDir/SeedTable" + alphabet.toString() + ".csv";
+		String pathToFile = "";
 
-		try {
-			File f = new File(pathToFile);
-			Scanner sc = new Scanner(f);
+		switch (alphabet) {
 
-			while (sc.hasNext()) {
+		case Alphabet.TALES -> pathToFile = "src/testFiles/SeedTableDir/SeedTable" + alphabet.toString() + ".tsv";
 
-				StringTokenizer token = new StringTokenizer(sc.next(), ",");
-				String Zeichen = token.nextToken();
-				String Zahl = token.nextToken();
-				seedTable.put(Zeichen.charAt(0), Long.parseLong(Zahl));
-			}
+		default -> pathToFile = "src/testFiles/SeedTableDir/SeedTable" + alphabet.toString() + ".csv";
 
-			sc.close();
-		} catch (IOException e) {
-			IO.println("SeedTable konnte nicht geladen werden");
 		}
 
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(pathToFile));
+			String curr = br.readLine();
+			
+			while (curr != null) {
+
+				switch (alphabet) {
+
+				case Alphabet.TALES -> {
+					String[] arr = curr.split("\t");
+					seedTable.put(arr[0].charAt(0), Long.parseLong(arr[1]));
+				}
+
+				default -> {
+					String[] arr = curr.split(",");
+					seedTable.put(arr[0].charAt(0), Long.parseLong(arr[1]));
+				}
+
+				}
+				curr = br.readLine();
+			}
+
+			br.close();
+		} catch (IOException e) {
+			IO.println("SeedTable.load() -> SeedTable konnte nicht geladen werden");
+		}
 		return seedTable;
 	}
 

@@ -1,11 +1,11 @@
 package hashFunctionCollection.methods;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -35,13 +35,26 @@ public class NtHash2LookupTable {
 
 			// k mal rollen um die einzelnen Long Werte zu erzeugen
 			for (int x = 0; x < kmerSize; x++) {
-				curr = srol(curr);
-				sb.append(s + "," + x + "," + curr + "\n");
+
+				switch (alphabet) {
+
+				case Alphabet.TALES -> {
+					curr = srol(curr);
+					sb.append(s + "\t" + x + "\t" + curr + "\n");
+				}
+
+				default -> {
+					curr = srol(curr);
+					sb.append(s + "," + x + "," + curr + "\n");
+				}
+
+				}
+
 			}
 		}
 
 		// Speichern in Datei
-		write(sb,alphabet);
+		write(sb, alphabet);
 
 	}
 
@@ -51,35 +64,69 @@ public class NtHash2LookupTable {
 	 * @return long[][]
 	 */
 
-	public static HashMap<String,HashMap<Integer,Long>> load(Alphabet alphabet,int kmerSize) {
-		
-		HashMap<String,HashMap<Integer,Long>> look = new HashMap<>();
-		HashMap<Integer,Long> temp = new HashMap<>();
-		
+	public static HashMap<String, HashMap<Integer, Long>> load(Alphabet alphabet, int kmerSize) {
+
+		HashMap<String, HashMap<Integer, Long>> look = new HashMap<>();
+		HashMap<Integer, Long> temp = new HashMap<>();
+
 		try {
-			File f = new File("src/testFiles/LookUpTableDir/LookupTable" + alphabet.toString() + ".csv");
-			Scanner sc = new Scanner(f);
-
-			while (sc.hasNext()) {
-
-				StringTokenizer token = new StringTokenizer(sc.next(), ",");
-				String Zeichen = token.nextToken();
-				int Pos = Integer.parseInt(token.nextToken());
-				long Zahl = Long.parseLong(token.nextToken());
-				
-				if(Pos == 29) {
-					temp.put(Pos,Zahl);
-					look.put(Zeichen, temp);
-					temp = new HashMap<>();
-				}
-				else {
-					temp.put(Pos,Zahl);
-				}
+			
+			String path = "";
+			
+			switch(alphabet) {
+			
+			case Alphabet.TALES -> path = "src/testFiles/LookUpTableDir/LookupTable" + alphabet.toString() + ".tsv";
+			
+			default -> path = "src/testFiles/LookUpTableDir/LookupTable" + alphabet.toString() + ".csv";
 			}
-
-			sc.close();
+			
+			BufferedReader br = new BufferedReader(new FileReader(path));
+			
+			String curr = br.readLine();
+			
+			while(curr != null) {
+				
+				switch(alphabet) {
+				
+				case Alphabet.TALES -> {
+					String[] arr = curr.split("\t");
+					String Zeichen = arr[0];
+					int Pos = Integer.parseInt(arr[1]);
+					long Zahl = Long.parseLong(arr[2]);
+					
+					if (Pos == 29) {
+						temp.put(Pos, Zahl);
+						look.put(Zeichen, temp);
+						temp = new HashMap<>();
+					} else {
+						temp.put(Pos, Zahl);
+					}
+				}
+				
+				default -> {
+					String[] arr = curr.split(",");
+					String Zeichen = arr[0];
+					int Pos = Integer.parseInt(arr[1]);
+					long Zahl = Long.parseLong(arr[2]);
+					
+					if (Pos == 29) {
+						temp.put(Pos, Zahl);
+						look.put(Zeichen, temp);
+						temp = new HashMap<>();
+					} else {
+						temp.put(Pos, Zahl);
+					}
+				}
+				
+				}
+			
+				
+				curr = br.readLine();
+			}
+			
+			br.close();
 		} catch (IOException e) {
-			IO.println("LookupTable konnte nicht geladen werden");
+			IO.println("LookupTable konnte nicht geladen werden: NtHash2LookUp.load()");
 		}
 
 		return look;
@@ -95,39 +142,65 @@ public class NtHash2LookupTable {
 
 	private static void write(StringBuilder sb, Alphabet alphabet) {
 
-		try (FileChannel channel = FileChannel.open(Paths.get("src/testFiles/LookUpTableDir/LookupTable" + alphabet.toString() +".csv"),
-				StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
+		try {
+			
+			String path = "";
+			
+			switch(alphabet) {
+			
+			case Alphabet.TALES -> path = "src/testFiles/LookUpTableDir/LookupTable" + alphabet.toString() + ".tsv";
+			
+			default -> path = "src/testFiles/LookUpTableDir/LookupTable" + alphabet.toString() + ".csv";
+			
+			}
+			
+			BufferedWriter bw = new BufferedWriter(new FileWriter(path));
 
-			ByteBuffer buffer = ByteBuffer.wrap(sb.toString().getBytes());
-			channel.write(buffer);
-			channel.force(true);
-			channel.close();
-
+			bw.write(sb.toString());
+			
+			bw.close();
 		} catch (IOException e) {
-			System.out.println("IO-Error");
+			System.out.println("IO-Error: NtHash2LookUpTable.write()");
 		}
 
 	}
 
 	private static ArrayList<String> getChars(Alphabet alphabet) {
-		
+
 		ArrayList<String> letters = new ArrayList<>();
+		String path = "";
 
-		String path = "src/testFiles/SeedTableDir/SeedTable" + alphabet.toString() + ".csv";
-		
+		switch (alphabet) {
+
+		case Alphabet.TALES -> path = "src/testFiles/SeedTableDir/SeedTable" + alphabet.toString() + ".tsv";
+
+		default -> path = "src/testFiles/SeedTableDir/SeedTable" + alphabet.toString() + ".csv";
+
+		}
+
 		try {
-			File f = new File(path);
-			Scanner sc = new Scanner(f);
 
-			while (sc.hasNext()) {
-				StringTokenizer token = new StringTokenizer(sc.next(), ",");
-				String Zeichen = token.nextToken();
-				letters.add(Zeichen);
+			BufferedReader br = new BufferedReader(new FileReader(path));
+
+			String curr = br.readLine();
+
+			while (curr != null) {
+
+				switch (alphabet) {
+				case Alphabet.TALES -> {
+					String[] arr = curr.split("\t");
+					letters.add(arr[0]);
+				}
+				default -> {
+					String[] arr = curr.split(",");
+					letters.add(arr[0]);
+				}
+				}
+				curr = br.readLine();
 			}
-
-			sc.close();
+			br.close();
 		} catch (IOException e) {
-			IO.println("SeedTable konnte nicht geladen werden");
+			IO.println("SeedTable konnt nicht geladen werden: NtHash2LookUpTable.getChars()");
 		}
 
 		if (letters.size() < 1)

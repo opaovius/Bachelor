@@ -46,10 +46,10 @@ public class Bloom {
 		int kmerSize = 30;
 		
 		//Erstellen der HashFunktionen
-		//ArrayList<HashFunction> hfList = CreateHashFunction.create(kmerSize,hashOptionOne,hashOptionTwo,alphabet);
+		ArrayList<HashFunction> hfList = CreateHashFunction.create(kmerSize,hashOptionOne,hashOptionTwo,alphabet);
 		
 		//Erstellen einer Liste aus BitSetObjekten
-		//BitSetObject BSO = CreateBloom.create(genom,kmerSize,hfList);
+		BitSetObject BSO = CreateBloom.create(genom,kmerSize,hfList);
 		
 		//Nachpruefen, ob Gene enthalten sind
 		//CheckGenes.check(BSO,genes,kmerSize,hfList);

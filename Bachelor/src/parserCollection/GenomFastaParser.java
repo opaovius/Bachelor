@@ -10,7 +10,9 @@ import java.util.Scanner;
 
 import app.records.Alphabet;
 import app.records.Genom;
+import hashFunctionCollection.methods.NtHash2LookupTable;
 import miscTools.TestMethods.ScanTales;
+import miscTools.TestMethods.TalesToCharConverter;
 
 public class GenomFastaParser implements IParser<ArrayList<Genom>>{
 	
@@ -42,9 +44,14 @@ public class GenomFastaParser implements IParser<ArrayList<Genom>>{
 				
 				while(curr != null) {
 					
+					TalesToCharConverter TC = new TalesToCharConverter();
 					String[] arr = curr.split("\t");
+					String[] seq = arr[arr.length-1].split(" ");
 					
-					genomes.add(new Genom(arr[0], arr[arr.length-1].toCharArray(), alphabet));
+					
+					char[] conv = TC.convertArray(seq);
+					
+					genomes.add(new Genom(arr[0], conv, alphabet));
 					
 					curr = br.readLine();
 				}
@@ -53,9 +60,6 @@ public class GenomFastaParser implements IParser<ArrayList<Genom>>{
 			catch(IOException e) {
 				IO.println("IOException: GenomFastaParser.readTales()");
 			}
-			
-			ScanTales.scan(genomes);
-			
 			return genomes;
 		}
 		
