@@ -53,7 +53,7 @@ public class CreateBloom {
 
 		// Testen [T]
 		//TestPipeline.test(intList,genom.sequence(),kmerSize,hfList,bitS);
-		TestPipeline.bitTest(bitS);
+		//TestPipeline.bitTest(bitS);
 		
 		return new BitSetObject(genom.get(0).name(), bitS, cap);
 	}
