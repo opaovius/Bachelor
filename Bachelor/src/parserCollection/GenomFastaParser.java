@@ -35,7 +35,7 @@ public class GenomFastaParser implements IParser<ArrayList<ArrayList<Genom>>>{
 		private ArrayList<ArrayList<Genom>> readTales(String path, Alphabet alphabet) {
 			
 			ArrayList<Genom> genomes = new ArrayList<>();
-			ArrayList<Genom> toGenGenoms = new ArrayList<>();
+			//ArrayList<Genom> toGenGenoms = new ArrayList<>();
 			
 			try {
 				BufferedReader br = new BufferedReader(new FileReader(path));
@@ -54,7 +54,7 @@ public class GenomFastaParser implements IParser<ArrayList<ArrayList<Genom>>>{
 					
 					char[] conv = TC.convertArray(seq);
 					
-					toGenGenoms.add(new Genom(name[0],arr[arr.length-1].toCharArray(),alphabet));
+					//toGenGenoms.add(new Genom(name[0],arr[arr.length-1].toCharArray(),alphabet));
 					genomes.add(new Genom(name[0], conv, alphabet));
 					
 					curr = br.readLine();
@@ -64,6 +64,9 @@ public class GenomFastaParser implements IParser<ArrayList<ArrayList<Genom>>>{
 			catch(IOException e) {
 				IO.println("IOException: GenomFastaParser.readTales()");
 			}
+			
+			//GenGenerator.generateTales(toGenGenoms);
+			
 			return filter(genomes);
 		}
 		

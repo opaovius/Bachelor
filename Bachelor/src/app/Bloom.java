@@ -44,16 +44,17 @@ public class Bloom {
 	public void run() {
 		
 		int kmerSize = 30;
+		ArrayList<BitSetObject> BSOList = new ArrayList<>();
 		
 		//Erstellen der HashFunktionen
 		ArrayList<HashFunction> hfList = CreateHashFunction.create(kmerSize,hashOptionOne,hashOptionTwo,alphabet);
 		
 		//Erstellen einer Liste aus BitSetObjekten
 		for(ArrayList<Genom> g : genom) {
-			BitSetObject BSO = CreateBloom.create(g,kmerSize,hfList);
+			BSOList.add(CreateBloom.create(g,kmerSize,hfList));
 		}
 		//Nachpruefen, ob Gene enthalten sind
-		//CheckGenes.check(BSO,genes,kmerSize,hfList);
+		CheckGenes.check(BSOList,genes,kmerSize,hfList,alphabet);
 		
 		//GenPermutator.permutate(genes);
 		//ProteinGenerator.generate(genom);

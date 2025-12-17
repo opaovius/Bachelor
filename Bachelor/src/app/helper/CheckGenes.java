@@ -1,5 +1,8 @@
 package app.helper;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import app.records.Alphabet;
@@ -18,7 +21,50 @@ public class CheckGenes {
 	 * @param kmerSize : Groesse der Kmere
 	 */
 	
-	public static void check(BitSetObject BSO, ArrayList<Gen> genList,int kmerSize, ArrayList<HashFunction> hfList) {
+	public static void check(ArrayList<BitSetObject> BSOList, ArrayList<Gen> genList,int kmerSize, ArrayList<HashFunction> hfList,Alphabet alphabet) {
+		
+		switch(alphabet) {
+		
+		case Alphabet.DNA -> {
+			for(BitSetObject BSO: BSOList) {
+				checkDNA(BSO,genList,kmerSize,hfList);
+			}
+		}
+		
+		default -> {
+			checkDefault(BSOList,genList,kmerSize,hfList);
+		}
+		
+		}
+		
+	}
+	
+	private static void checkDefault(ArrayList<BitSetObject> BSOList, ArrayList<Gen> genList,int kmerSize, ArrayList<HashFunction> hfList) {
+		
+		StringBuilder sb = new StringBuilder();
+		int found = 0;
+		int count = 0;
+		
+		for(Gen g: genList) {
+			
+			for(BitSetObject BSO: BSOList) {
+				boolean inside = isInside(hfList,BSO,g);
+				
+				if(inside) {
+					sb.append("GenNr: " + count + " found in" + BSO.name() + "\n");
+					found++;
+				}
+			}
+			count++;
+		}
+		
+		IO.println("FoundNR:" + found);
+		write(sb.toString());
+		
+		
+	}
+	
+	private static void checkDNA(BitSetObject BSO, ArrayList<Gen> genList,int kmerSize, ArrayList<HashFunction> hfList) {
 		
 		StringBuilder sb = new StringBuilder();
 		int found = 0;
@@ -120,6 +166,18 @@ public class CheckGenes {
 		IO.println(found + "|" + notFound);
 		IO.println("Rate:" + Math.round((100.0/sum*found)* 100000.0 / 100000.0) + "%");
 		
+	}
+	
+	private static void write(String s) {
+		try {
+			BufferedWriter br = new BufferedWriter(new FileWriter("src/testFiles/AnalyseDir/TalesResult.txt"));
+			
+			br.write(s);
+			br.close();
+		}
+		catch(IOException e) {
+			IO.println("IOException: CheckGenes.write()");
+		}
 	}
 
 }

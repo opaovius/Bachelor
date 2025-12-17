@@ -41,25 +41,25 @@ public class GenGenerator {
 		
 		HashSet<Integer> rolledGenoms = new HashSet<>();
 		int min = 0;
-		int max = genoms.size()-1;
+		int max = genoms.size();
 		StringBuilder sb = new StringBuilder("");
 		
 		for(int x = 0; x < 500; x++) {
 		
 			int randomGenom = RandomGenerator.getDefault().nextInt(min, max);
 		
-			while(rolledGenoms.contains(randomGenom)) {
+			while(rolledGenoms.contains(randomGenom) || genoms.get(randomGenom).sequence().length < 30) {
 				randomGenom = RandomGenerator.getDefault().nextInt(min, max);
 			}
 			
 			rolledGenoms.add(randomGenom);
 			
-			int start = randomGenom = RandomGenerator.getDefault().nextInt(0, 5);
+			int start = RandomGenerator.getDefault().nextInt(0, 5);
 			
 			start = start*3;
 			
 			while(start + 30 > genoms.get(randomGenom).sequence().length) {
-				start = randomGenom = RandomGenerator.getDefault().nextInt(min, max);
+				start = RandomGenerator.getDefault().nextInt(0, 5);
 				start = start*3;
 			}
 			
@@ -70,12 +70,11 @@ public class GenGenerator {
 				newSeq[y] = oldSeq[start+y];
 			}
 			
-			
 			sb.append("TALPH1\t" + (new String(newSeq)) + "\n");
+			IO.println(x);
 		}
 		
 		writeTales(sb.toString());
-		
 	}
 	
 	private static void writeTales(String s) {
