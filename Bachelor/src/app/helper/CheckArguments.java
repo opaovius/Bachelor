@@ -16,12 +16,21 @@ public class CheckArguments {
 		Bloom b = null;
 		Alphabet alphabet = Alphabet.TALES;
 		
+		
 		if(args.length == 0) return new Bloom("src/testFiles/Tales/List_of_TALEs_incl_length_RVDs.tsv"
 				,"src/testFiles/GenDir/TalesPermutated.tsv"
 				,alphabet
-				,"hashNt2"
+				,"hashNt"
 				,"");
 		
+		
+		/*
+		if(args.length == 0) return new Bloom("src/testFiles/GenomDir/EColiGenom.fa"
+				,"src/testFiles/GenDir/EColiGene.fa"
+				,alphabet
+				,"hashNt"
+				,"");
+		*/
 		
 		switch(args[2].toLowerCase()) {
 		case "dna" -> alphabet = Alphabet.DNA;

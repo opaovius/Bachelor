@@ -50,12 +50,22 @@ public class GenomFastaParser implements IParser<ArrayList<ArrayList<Genom>>>{
 					String[] arr = curr.split("\t");
 					String[] seq = arr[arr.length-1].split(" ");
 					String[] name = arr[0].split(" ");
+					String id = name[0].substring(3, name[0].length());
+					int firstNumber = id.length();
 					
+					for(int x = 0; x < id.length(); x++) {
+						if(Character.isDigit(id.charAt(x))) {
+							firstNumber = x;
+							break;
+						}
+					}
+					
+					id = id.substring(0, firstNumber);
 					
 					char[] conv = TC.convertArray(seq);
 					
-					//toGenGenoms.add(new Genom(name[0],arr[arr.length-1].toCharArray(),alphabet));
-					genomes.add(new Genom(name[0], conv, alphabet));
+					//toGenGenoms.add(new Genom(id,arr[arr.length-1].toCharArray(),alphabet));
+					genomes.add(new Genom(id, conv, alphabet));
 					
 					curr = br.readLine();
 				}
@@ -111,7 +121,7 @@ public class GenomFastaParser implements IParser<ArrayList<ArrayList<Genom>>>{
 					Genom tempGenom = genoms.get(x+1);
 					
 					//Checken, ob TALXX == TALXX
-					if(currGenom.name().substring(3, 4).equals(tempGenom.name().substring(3,4))) {
+					if(currGenom.name().equals(tempGenom.name())) {
 						tempList.add(currGenom);
 					}
 					else {

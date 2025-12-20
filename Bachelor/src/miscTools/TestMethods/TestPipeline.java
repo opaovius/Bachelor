@@ -22,11 +22,12 @@ public class TestPipeline {
 	public static void test(ArrayList<int[]> intList, char[] seq, int kmerSize, ArrayList<HashFunction> hfList, BitSet bitS) {
 		
 		int[] k1 = intList.get(0);
+		String path = "src/testFiles/AnalyseDir/PlacesAnalyse.csv";
 		
 		IO.println(seq.length - kmerSize + 1);
 		IO.println(k1.length);
 		
-		PlaceWriter.writeInt(k1);
+		PlaceWriter.writeInt(k1,path);
 		
 		int cap = BoundedInteger.calculateCap(seq.length);
 		
@@ -109,6 +110,7 @@ public class TestPipeline {
 	public static void bugTest() {
 		
 		HashFunction hf = new HashFunction();
+		String path = "src/testFiles/AnalyseDir/PlacesAnalyse.csv";
 		
 		hf.setHashFunction(new RabinFingerprint(30));
 		
@@ -132,7 +134,7 @@ public class TestPipeline {
 				break;
 			}
 		}
-		PlaceWriter.writeInt(intGen);
+		PlaceWriter.writeInt(intGen,path);
 		
 		IO.println(getTestGenom().length-30+1);
 		IO.println(intGenom.length);
@@ -145,6 +147,7 @@ public class TestPipeline {
 	public static void testOld(int[] kmersInt, char[] seq , int kmerSize, HashFunction hf, BitSet bitS) {
 		
 		String genom = new String(seq);
+		String path = "src/testFiles/AnalyseDir/PlacesAnalyse.csv";
 		
 		//PlaceWriter.writeInt(kmersInt);
 		
@@ -173,7 +176,7 @@ public class TestPipeline {
 			bit.set(i);
 		}
 		
-		PlaceWriter.writeInt(intArr);
+		PlaceWriter.writeInt(intArr,path);
 		
 		
 		IO.println("Unique kmers: " + UniqueKmers.size());

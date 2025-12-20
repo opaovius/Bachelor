@@ -142,7 +142,7 @@ public class GenGenerator {
 				Genom tempGenom = genoms.get(x + 1);
 
 				// Checken, ob TALXX == TALXX
-				if (currGenom.name().substring(3, 4).equals(tempGenom.name().substring(3, 4))) {
+				if (currGenom.name().equals(tempGenom.name())) {
 					tempList.add(currGenom);
 				} else {
 					// Ab 20 werden Genome in die filterListe uebergeben

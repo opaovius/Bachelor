@@ -36,7 +36,7 @@ public class PlaceWriter {
 		
 	}
 	
-	public static void writeInt(ArrayList<Integer> places) {
+	public static void writeInt(ArrayList<Integer> places,String path) {
 		
 		System.out.println("writing...");
 		
@@ -48,7 +48,7 @@ public class PlaceWriter {
 			sb.append(i + "\n");
 		}
 		
-		try(FileChannel channel = FileChannel.open(Paths.get("src/testFiles/AnalyseDir/PlacesAnalyse.csv"),
+		try(FileChannel channel = FileChannel.open(Paths.get(path),
 													StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)){
 			
 			ByteBuffer buffer = ByteBuffer.wrap(sb.toString().getBytes());
@@ -62,7 +62,7 @@ public class PlaceWriter {
 		
 	}
 	
-	public static void writeInt(int[] places) {
+	public static void writeInt(int[] places, String path) {
 		
 		System.out.println("writing...");
 		
@@ -74,7 +74,7 @@ public class PlaceWriter {
 			sb.append(i + "\n");
 		}
 		
-		try(FileChannel channel = FileChannel.open(Paths.get("src/testFiles/AnalyseDir/PlacesAnalyse.csv"),
+		try(FileChannel channel = FileChannel.open(Paths.get(path),
 													StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)){
 			
 			ByteBuffer buffer = ByteBuffer.wrap(sb.toString().getBytes());
@@ -85,6 +85,20 @@ public class PlaceWriter {
 		}catch(IOException e) {
 			System.out.println("IO-Error");
 		}
+		
+	}
+	
+	public static void fusionWriteInt(ArrayList<int[]> placesList, String path) {
+		
+		ArrayList<Integer> curr = new ArrayList<>();
+		
+		for(int[] arr : placesList) {
+			for(int i : arr) {
+				curr.add(i);
+			}
+		}
+		
+		writeInt(curr,path);
 		
 	}
 

@@ -9,6 +9,7 @@ import app.records.Genom;
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.methods.BoundedInteger;
 import hashFunctionCollection.methods.ToHash;
+import miscTools.FileWriters.PlaceWriter;
 import miscTools.TestMethods.TestPipeline;
 
 public class CreateBloom {
@@ -26,15 +27,25 @@ public class CreateBloom {
 			Alphabet alphabet) {
 
 		ArrayList<int[]> intList = new ArrayList<>();
-		ArrayList<Integer> capList = new ArrayList<>();
+		//ArrayList<Integer> capList = new ArrayList<>();
 
+		/*
 		for (Genom g : genom) {
 			capList.add(BoundedInteger.calculateCap(g.sequence().length));
 		}
+		
+		*/
+		int n = 0;
+		
+		for(Genom g: genom) {
+			n = n + g.sequence().length - kmerSize + 1;
+		}
 
-		int cap = getMax(capList);
+		int cap = BoundedInteger.newCap(n);
+		
+		//int cap = getMax(capList);
 
-		cap = cap * genom.size();
+		//cap = cap * genom.size();
 
 		for (Genom g : genom) {
 
@@ -54,19 +65,19 @@ public class CreateBloom {
 			}
 		}
 		// Erstellen der BitSet Objekte
-		BitSet bitS = new BitSet((1 << cap) - 1);
+		BitSet bitS = new BitSet(cap);
 
 		for (int[] intArr : intList) {
 			for (int i : intArr) {
 				bitS.set(i);
-
 			}
 		}
 
 		// Testen [T]
 		// TestPipeline.test(intList,genom.sequence(),kmerSize,hfList,bitS);
 		TestPipeline.bitTest(bitS);
-
+		PlaceWriter.fusionWriteInt(intList, "src/testFiles/AnalyseDir/Places/PlacesAnalyseTest" + genom.get(0).name() + ".csv");
+		
 		return new BitSetObject(genom.get(0).name(), bitS, cap);
 	}
 
