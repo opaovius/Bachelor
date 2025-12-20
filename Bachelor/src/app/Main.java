@@ -8,14 +8,13 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 		
-		//Hier neue Gen Datei erstellen fuer Einzellauf
-		//DNARandomizer.createDNA(10_000_000,10,10000);
-		//DNARandomizer.createCustomGenes(10, 100, "src/testFiles/GenomRandom" + 10_000_000 + ".fa");
-		
-		//besseres two bit -uff
-		//2 hash kombinieren       -JO
-		//aa hash bzw proteine
-		// besseres cap bzw kleineres austesten
+		/*
+		 * 
+		 * Was tun bei Sequenzen kleiner 5?
+		 * 
+		 * 
+		 * 
+		 */
 		
 		int test = 1;
 		

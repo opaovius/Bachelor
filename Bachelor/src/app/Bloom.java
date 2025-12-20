@@ -43,7 +43,8 @@ public class Bloom {
 	
 	public void run() {
 		
-		int kmerSize = 30;
+		int kmerSize = switchKmerSize(alphabet);
+		
 		ArrayList<BitSetObject> BSOList = new ArrayList<>();
 		
 		//Erstellen der HashFunktionen
@@ -51,7 +52,7 @@ public class Bloom {
 		
 		//Erstellen einer Liste aus BitSetObjekten
 		for(ArrayList<Genom> g : genom) {
-			BSOList.add(CreateBloom.create(g,kmerSize,hfList));
+			BSOList.add(CreateBloom.create(g,kmerSize,hfList,alphabet));
 		}
 		//Nachpruefen, ob Gene enthalten sind
 		CheckGenes.check(BSOList,genes,kmerSize,hfList,alphabet);
@@ -90,6 +91,16 @@ public class Bloom {
 	
 	public void setAlphabet(Alphabet alphabet) {
 		this.alphabet = alphabet;
+	}
+	
+	private int switchKmerSize(Alphabet alphabet) {
+		
+		return switch(alphabet) {
+		
+		case Alphabet.DNA -> 30;
+		
+		default -> 5;
+		};
 	}
 
 }

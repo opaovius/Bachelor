@@ -3,6 +3,7 @@ package app.helper;
 import java.util.ArrayList;
 import java.util.BitSet;
 
+import app.records.Alphabet;
 import app.records.BitSetObject;
 import app.records.Genom;
 import hashFunctionCollection.HashFunction;
@@ -21,7 +22,8 @@ public class CreateBloom {
 	 * @return BitSetObject
 	 */
 
-	public static BitSetObject create(ArrayList<Genom> genom, int kmerSize, ArrayList<HashFunction> hfList) {
+	public static BitSetObject create(ArrayList<Genom> genom, int kmerSize, ArrayList<HashFunction> hfList,
+			Alphabet alphabet) {
 
 		ArrayList<int[]> intList = new ArrayList<>();
 		ArrayList<Integer> capList = new ArrayList<>();
@@ -31,10 +33,20 @@ public class CreateBloom {
 		}
 
 		int cap = getMax(capList);
-		
+
 		cap = cap * genom.size();
 
 		for (Genom g : genom) {
+
+			switch (alphabet) {
+			case Alphabet.DNA -> {
+				if (g.sequence().length < 30)	continue;
+			}
+			default -> {
+				if (g.sequence().length < 5)	continue;
+			}
+			}
+
 			for (HashFunction hashFc : hfList) {
 
 				intList.add(ToHash.hash(g, hashFc, cap));
@@ -52,9 +64,9 @@ public class CreateBloom {
 		}
 
 		// Testen [T]
-		//TestPipeline.test(intList,genom.sequence(),kmerSize,hfList,bitS);
-		//TestPipeline.bitTest(bitS);
-		
+		// TestPipeline.test(intList,genom.sequence(),kmerSize,hfList,bitS);
+		TestPipeline.bitTest(bitS);
+
 		return new BitSetObject(genom.get(0).name(), bitS, cap);
 	}
 

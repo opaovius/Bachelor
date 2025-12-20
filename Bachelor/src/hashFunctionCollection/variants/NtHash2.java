@@ -11,7 +11,7 @@ import hashFunctionCollection.methods.SeedTable;
 public class NtHash2 implements IHashFunction{
 	
 	HashMap<Character,Long> seed;
-	HashMap<String,HashMap<Integer,Long>> look;
+	HashMap<Character,HashMap<Integer,Long>> look;
 	int kmerSize;
 	
 	/**
@@ -57,21 +57,10 @@ public class NtHash2 implements IHashFunction{
 		
 		//Wert aus der LookupTable auslesen
 		
-		switch(seq[i-1]) {
-		case 'A' -> tempKmer = look.get("A").get(kmerSize-1);
-	
-		case 'C' -> tempKmer = look.get("C").get(kmerSize-1);
-	
-		case 'G' -> tempKmer = look.get("G").get(kmerSize-1);
 		
-		case 'T' -> tempKmer = look.get("T").get(kmerSize-1);
+		char curr = seq[i-1];
 		
-		case 'N' -> tempKmer = look.get("N").get(kmerSize-1);
-		
-		default -> IO.println("Fehler Bei NtHash2.cycle: Zeichen nicht im Lookup");
-	}
-		
-		
+		tempKmer = look.get(curr).get(kmerSize-1);
 		
 		//XOR
 		endKmer = endKmer ^ tempKmer;
@@ -88,26 +77,15 @@ public class NtHash2 implements IHashFunction{
 		long endKmer = 0;
 		
 		for(int counter = 0; counter < kmerSize; counter++) {
-					
+			
 			char c = seq[counter];
 			
 			int index = kmerSize - 2 - counter;
 			
+			
 			if (index >= 0) {
 
-				switch(c) {
-				case 'A' -> tempKmer = look.get("A").get(index);
-			
-				case 'C' -> tempKmer = look.get("C").get(index);
-			
-				case 'G' -> tempKmer = look.get("G").get(index);
-				
-				case 'T' -> tempKmer = look.get("T").get(index);
-				
-				case 'N' -> tempKmer = look.get("N").get(index);
-				
-				default -> IO.println("Fehler Bei NtHash2.srol: Zeichen nicht im Lookup");
-			}
+				tempKmer = look.get(c).get(index);
 				
 			}
 			else {

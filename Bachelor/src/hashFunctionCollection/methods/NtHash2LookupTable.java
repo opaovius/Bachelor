@@ -64,9 +64,9 @@ public class NtHash2LookupTable {
 	 * @return long[][]
 	 */
 
-	public static HashMap<String, HashMap<Integer, Long>> load(Alphabet alphabet, int kmerSize) {
+	public static HashMap<Character, HashMap<Integer, Long>> load(Alphabet alphabet, int kmerSize) {
 
-		HashMap<String, HashMap<Integer, Long>> look = new HashMap<>();
+		HashMap<Character, HashMap<Integer, Long>> look = new HashMap<>();
 		HashMap<Integer, Long> temp = new HashMap<>();
 
 		try {
@@ -90,7 +90,7 @@ public class NtHash2LookupTable {
 				
 				case Alphabet.TALES -> {
 					String[] arr = curr.split("\t");
-					String Zeichen = arr[0];
+					Character Zeichen = arr[0].charAt(0);
 					int Pos = Integer.parseInt(arr[1]);
 					long Zahl = Long.parseLong(arr[2]);
 					
@@ -105,7 +105,7 @@ public class NtHash2LookupTable {
 				
 				default -> {
 					String[] arr = curr.split(",");
-					String Zeichen = arr[0];
+					Character Zeichen = arr[0].charAt(0);
 					int Pos = Integer.parseInt(arr[1]);
 					long Zahl = Long.parseLong(arr[2]);
 					

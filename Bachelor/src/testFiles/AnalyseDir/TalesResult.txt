@@ -17,6 +17,7 @@ GenNr: 14 found inTalMA1
 GenNr: 15 found inTalAA38
 GenNr: 15 found inTalDA13
 GenNr: 15 found inTalHA12
+GenNr: 15 found inTalLA2
 GenNr: 16 found inTalBA33
 GenNr: 17 found inTalCA9
 GenNr: 18 found inTalAA38
@@ -79,6 +80,7 @@ GenNr: 59 found inTalDA13
 GenNr: 60 found inTalAA38
 GenNr: 61 found inTalAA38
 GenNr: 62 found inTalAA38
+GenNr: 62 found inTalLA2
 GenNr: 63 found inTalAA38
 GenNr: 64 found inTalCA9
 GenNr: 65 found inTalAA38
@@ -123,6 +125,7 @@ GenNr: 95 found inTalHA12
 GenNr: 96 found inTalAA38
 GenNr: 96 found inTalDA13
 GenNr: 96 found inTalHA12
+GenNr: 96 found inTalLA2
 GenNr: 97 found inTalGA2
 GenNr: 98 found inTalAA38
 GenNr: 99 found inTalAA38
@@ -172,10 +175,12 @@ GenNr: 136 found inTalBA33
 GenNr: 137 found inTalAA38
 GenNr: 137 found inTalDA13
 GenNr: 137 found inTalHA12
+GenNr: 137 found inTalLA2
 GenNr: 138 found inTalAA38
 GenNr: 139 found inTalBA33
 GenNr: 140 found inTalEA7
 GenNr: 140 found inTalHA12
+GenNr: 140 found inTalNA1
 GenNr: 141 found inTalHA12
 GenNr: 142 found inTalBA33
 GenNr: 143 found inTalDA13
@@ -376,7 +381,6 @@ GenNr: 292 found inTalAA38
 GenNr: 293 found inTalAA38
 GenNr: 293 found inTalHA12
 GenNr: 293 found inTalLA2
-GenNr: 293 found inTalNA1
 GenNr: 293 found inTalOA1
 GenNr: 294 found inTalGA2
 GenNr: 295 found inTalAA38
@@ -590,7 +594,6 @@ GenNr: 467 found inTalAA38
 GenNr: 467 found inTalHA12
 GenNr: 468 found inTalAA38
 GenNr: 469 found inTalAA38
-GenNr: 470 found inTalHA12
 GenNr: 470 found inTalKA1
 GenNr: 471 found inTalCA9
 GenNr: 472 found inTalAA38
