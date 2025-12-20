@@ -43,6 +43,13 @@ public class CreateBloom {
 
 		int cap = BoundedInteger.newCap(n);
 		
+		//Wie viele hash Funktionen
+		/*
+		int kHash = (int) ((cap/n) * Math.log(2));
+		
+		IO.println(kHash);
+		*/
+		
 		//int cap = getMax(capList);
 
 		//cap = cap * genom.size();
@@ -75,8 +82,8 @@ public class CreateBloom {
 
 		// Testen [T]
 		// TestPipeline.test(intList,genom.sequence(),kmerSize,hfList,bitS);
-		TestPipeline.bitTest(bitS);
-		PlaceWriter.fusionWriteInt(intList, "src/testFiles/AnalyseDir/Places/PlacesAnalyseTest" + genom.get(0).name() + ".csv");
+		TestPipeline.bitTest(bitS,genom.get(0).name());
+		//PlaceWriter.fusionWriteInt(intList, "src/testFiles/AnalyseDir/Places/PlacesAnalyseTest" + genom.get(0).name() + ".csv");
 		
 		return new BitSetObject(genom.get(0).name(), bitS, cap);
 	}

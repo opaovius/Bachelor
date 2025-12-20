@@ -10,7 +10,7 @@ public class Main {
 		
 		/*
 		 * 
-		 * Was tun bei Sequenzen kleiner 5?
+		 * Was tun bei Sequenzen kleiner 5 (kmerSize)?
 		 * 
 		 * 
 		 * 
@@ -25,9 +25,6 @@ public class Main {
 		//b.run();
 		
 		//TimeUnit.SECONDS.sleep(10);
-		
-		
-		IO.println("EColi");
 		
 		long[] time = new long[100];
 		

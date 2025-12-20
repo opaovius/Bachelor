@@ -40,7 +40,10 @@ public class TestPipeline {
 		
 	}
 	
-	public static void bitTest(BitSet bitS) {
+	public static void bitTest(BitSet bitS, String name) {
+		
+		IO.println(name);
+		
 		IO.println("BitS Size: " + bitS.size());
 		IO.println("BitS Card: " + bitS.cardinality());
 		IO.println("Rate BitS: " + (Math.round((100.0/bitS.size()*bitS.cardinality())* 100000.0) / 100000.0) + "%");

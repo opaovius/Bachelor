@@ -21,15 +21,14 @@ public class CheckArguments {
 				,"src/testFiles/GenDir/TalesPermutated.tsv"
 				,alphabet
 				,"hashNt"
-				,"");
-		
+				,"hashNt2");
 		
 		/*
 		if(args.length == 0) return new Bloom("src/testFiles/GenomDir/EColiGenom.fa"
 				,"src/testFiles/GenDir/EColiGene.fa"
 				,alphabet
 				,"hashNt"
-				,"");
+				,"hashNt2");
 		*/
 		
 		switch(args[2].toLowerCase()) {
