@@ -6,11 +6,13 @@ import app.records.Alphabet;
 import hashFunctionCollection.IHashFunction;
 import hashFunctionCollection.methods.BoundedInteger;
 import hashFunctionCollection.methods.SeedTable;
+import hashFunctionCollection.methods.VerifyTable;
 
 public class NtHashClassic implements IHashFunction{
 	
 	private HashMap<Character,Long> seed;
 	private int kmerSize;
+	Alphabet alphabet;
 	
 	/**
 	 * Weisst den Basen 64 Bit werte zu, welche vorher zufaellig generiert wurden.
@@ -21,6 +23,7 @@ public class NtHashClassic implements IHashFunction{
 	public NtHashClassic(int kmerSize,Alphabet alphabet) {
 		this.seed = SeedTable.load(alphabet);
 		this.kmerSize = kmerSize;
+		this.alphabet = alphabet;
 	}
 	
 	public int[] toHash(char[] seq, int cap) {
@@ -55,7 +58,7 @@ public class NtHashClassic implements IHashFunction{
 		long tempKmer = 0L;
 		
 		//Long Wert aus seedTable nehmen, basierend auf Zeichen in Genom bei i - 1
-		tempKmer = seed.get(seq[i - 1]);
+		tempKmer = VerifyTable.verifySeed(seed, seq[i-1], alphabet);
 		
 		//Links rotation um kmer-groesse
 		tempKmer = Long.rotateLeft(tempKmer, kmerSize);
@@ -64,7 +67,7 @@ public class NtHashClassic implements IHashFunction{
 		kmer = kmer ^ tempKmer;
 		
 		//Long Wert aus seedTable nehmen, basierend auf Zeichen in Genom bei i + kmerSize - 1
-		tempKmer = seed.get(seq[i + kmerSize - 1]);
+		tempKmer = VerifyTable.verifySeed(seed, seq[i+kmerSize-1], alphabet);
 		
 		//XOR
 		return kmer ^ tempKmer;

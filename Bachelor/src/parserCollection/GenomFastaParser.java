@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 import app.records.Alphabet;
 import app.records.Genom;
-import miscTools.Generator.GenGenerator;
 import miscTools.TestMethods.TalesToCharConverter;
 
 public class GenomFastaParser implements IParser<ArrayList<ArrayList<Genom>>>{
@@ -22,14 +21,42 @@ public class GenomFastaParser implements IParser<ArrayList<ArrayList<Genom>>>{
 			
 			case Alphabet.TALES -> readTales(path,alphabet);
 			
-			default -> {
+			case Alphabet.DNA -> {
 				ArrayList<ArrayList<Genom>> superGenoms = new ArrayList<>();
 				ArrayList<Genom> genomes = new ArrayList<>();
 				genomes.add(readFasta(path,alphabet));
 				superGenoms.add(genomes);
 				yield superGenoms;
 				}
+			
+			case Alphabet.PROTEIN -> {
+				ArrayList<ArrayList<Genom>> superGenoms = new ArrayList<>();
+				superGenoms.add(readProtein(path,alphabet));
+				yield superGenoms;
+			}
+			
+			default -> {
+				IO.println("Alphabet nicht implementiert: GenomFastaParser.readFile()");
+				ArrayList<ArrayList<Genom>> superGenoms = new ArrayList<>();
+				yield superGenoms;
+			}
 			};	
+		}
+		
+		private ArrayList<Genom> readProtein(String path, Alphabet alphabet){
+			
+			ArrayList<Genom> genomes = new ArrayList<>();
+			
+			String[] split = path.split("_"); 
+			
+			genomes.add(readFasta(split[0] + "_COMP_LR_0.fa",alphabet));
+			genomes.add(readFasta(split[0] + "_COMP_LR_1.fa",alphabet));
+			genomes.add(readFasta(split[0] + "_COMP_LR_2.fa",alphabet));
+			genomes.add(readFasta(split[0] + "_LR_0.fa",alphabet));
+			genomes.add(readFasta(split[0] + "_LR_1.fa",alphabet));
+			genomes.add(readFasta(split[0] + "_LR_2.fa",alphabet));
+			
+			return genomes;
 		}
 		
 		private ArrayList<ArrayList<Genom>> readTales(String path, Alphabet alphabet) {

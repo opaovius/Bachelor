@@ -51,7 +51,7 @@ public class BoundedInteger {
 	
 	public static int newCap(int n) {
 		
-		double p = 0.20;
+		double p = 0.10;
 		int m = 0;
 		double m1 = n * Math.log(p);
 		double m2 = Math.pow(Math.log(2),2);

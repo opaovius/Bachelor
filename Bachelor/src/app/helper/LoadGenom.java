@@ -19,26 +19,10 @@ public class LoadGenom {
 
 	public static ArrayList<ArrayList<Genom>> load(String pathGenom, Alphabet alphabet) {
 
-		ArrayList<ArrayList<Genom>> genom = new ArrayList<>();
 		Parser<ArrayList<ArrayList<Genom>>> genomParser = new Parser<>(pathGenom, alphabet);
 		genomParser.setParser(new GenomFastaParser());
 		
-		StringBuilder sb = new StringBuilder("src/testFiles/GenomDir/EColi");
-
-		switch (alphabet) {
-		case Alphabet.DNA -> genom = genomParser.output();
-		
-		case Alphabet.PROTEIN -> {
-		 	IO.println("under const");
-		}
-		
-		case Alphabet.TALES -> genom = genomParser.output();
-		
-		default -> IO.println("Nicht Implementiert: LoadGenom()");
-		}
-
-		return genom;
+		return genomParser.output();
 
 	}
-
 }

@@ -7,12 +7,14 @@ import hashFunctionCollection.IHashFunction;
 import hashFunctionCollection.methods.BoundedInteger;
 import hashFunctionCollection.methods.NtHash2LookupTable;
 import hashFunctionCollection.methods.SeedTable;
+import hashFunctionCollection.methods.VerifyTable;
 
 public class NtHash2 implements IHashFunction{
 	
 	HashMap<Character,Long> seed;
 	HashMap<Character,HashMap<Integer,Long>> look;
 	int kmerSize;
+	Alphabet alphabet;
 	
 	/**
 	 * Nutzt 64 Bitwerte wie NtHash, aber nutzt eine besondere srol() Bitrotation.
@@ -25,6 +27,7 @@ public class NtHash2 implements IHashFunction{
 		this.seed = SeedTable.load(alphabet);
 		this.look = NtHash2LookupTable.load(alphabet,kmerSize);
 		this.kmerSize = kmerSize;
+		this.alphabet = alphabet;
 	}
 	
 	public int[] toHash(char[] seq, int cap) {
@@ -60,12 +63,16 @@ public class NtHash2 implements IHashFunction{
 		
 		char curr = seq[i-1];
 		
-		tempKmer = look.get(curr).get(kmerSize-1);
+		tempKmer = VerifyTable.verifyLook(look, curr, kmerSize-1, alphabet);
+		
+		//tempKmer = look.get(curr).get(kmerSize-1);
 		
 		//XOR
 		endKmer = endKmer ^ tempKmer;
 		
-		tempKmer = seed.get(seq[i + kmerSize - 1]);
+		tempKmer = VerifyTable.verifySeed(seed, seq[i+kmerSize-1], alphabet);
+		
+		//tempKmer = seed.get(seq[i + kmerSize - 1]);
 		
 		//return mit XOR
 		return endKmer ^ tempKmer;
@@ -85,11 +92,13 @@ public class NtHash2 implements IHashFunction{
 			
 			if (index >= 0) {
 
-				tempKmer = look.get(c).get(index);
+				tempKmer = VerifyTable.verifyLook(look, c, index, alphabet);
+				//tempKmer = look.get(c).get(index);
 				
 			}
 			else {
-				tempKmer = seed.get(c);
+				tempKmer = VerifyTable.verifySeed(seed, c, alphabet);
+				//tempKmer = seed.get(c);
 			}
 			
 			

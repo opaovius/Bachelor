@@ -44,34 +44,34 @@ public class ProteinGenerator {
 		}
 
 	}
-	
+
 	public static void generate(ArrayList<Gen> genes) {
-		
-		for(Gen g: genes) {
+
+		for (Gen g : genes) {
 			toProtein(g);
 		}
-		
+
 	}
-	
+
 	private static void toProtein(Gen g) {
-		
+
 		char[] seq = g.sequence();
 		StringBuilder tripplet = new StringBuilder("");
-		StringBuilder protein = new StringBuilder(seq.length/2);
-		
+		StringBuilder protein = new StringBuilder(seq.length / 2);
+
 		protein.append(g.name() + "\n");
-		
-		for(int x = 0; x < seq.length - 2; x = x +3) {
+
+		for (int x = 0; x < seq.length - 2; x = x + 3) {
 			tripplet.append(seq[x]);
-			tripplet.append(seq[x+1]);
-			tripplet.append(seq[x+2]);
-			
+			tripplet.append(seq[x + 1]);
+			tripplet.append(seq[x + 2]);
+
 			protein.append(convertTripplet(tripplet.toString()));
 			tripplet.setLength(0);
 		}
-		
+
 		protein.append("\n");
-		
+
 		write(protein);
 	}
 
@@ -97,11 +97,12 @@ public class ProteinGenerator {
 		String id = tempID.toString();
 
 		if (complement) {
-			for (int x = seq.length - start - 1; x >= 2; x = x - 3) {
-				tripplet.append(seq[x]);
-				tripplet.append(seq[x - 1]);
-				tripplet.append(seq[x - 2]);
-				
+			for (int x = seq.length - start - 1; x >= 2; x -= 3) {
+
+				tripplet.append(convertBase(seq[x]));
+				tripplet.append(convertBase(seq[x - 1]));
+				tripplet.append(convertBase(seq[x - 2]));
+
 				protein.append(convertTripplet(tripplet.toString()));
 				tripplet.setLength(0);
 			}
@@ -111,7 +112,7 @@ public class ProteinGenerator {
 				tripplet.append(seq[x]);
 				tripplet.append(seq[x + 1]);
 				tripplet.append(seq[x + 2]);
-				
+
 				protein.append(convertTripplet(tripplet.toString()));
 				tripplet.setLength(0);
 			}
@@ -128,7 +129,7 @@ public class ProteinGenerator {
 
 		case "AAA", "AAG" -> protein.append('K');
 
-		case "AAC", "AAU" -> protein.append('N');
+		case "AAC", "AAT" -> protein.append('N');
 
 		case "ACG", "ACA", "ACT", "ACC" -> protein.append('T');
 
@@ -189,7 +190,7 @@ public class ProteinGenerator {
 		}
 
 	}
-	
+
 	private static void write(StringBuilder sb) {
 
 		try (FileChannel channel = FileChannel.open(Paths.get("src/testFiles/GenDir/EColiGenePROTEIN.fa"),
@@ -204,6 +205,16 @@ public class ProteinGenerator {
 			System.out.println("IO-Error");
 		}
 
+	}
+
+	private static char convertBase(char c) {
+		return switch (c) {
+		case 'A' -> 'T';
+		case 'T' -> 'A';
+		case 'C' -> 'G';
+		case 'G' -> 'C';
+		default -> 'N';
+		};
 	}
 
 }

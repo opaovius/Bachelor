@@ -14,22 +14,22 @@ public class CheckArguments {
 	public static Bloom check(String[] args) {
 		
 		Bloom b = null;
-		Alphabet alphabet = Alphabet.TALES;
+		Alphabet alphabet = Alphabet.PROTEIN;
 		
-		
+		/*
 		if(args.length == 0) return new Bloom("src/testFiles/Tales/List_of_TALEs_incl_length_RVDs.tsv"
 				,"src/testFiles/GenDir/TalesPermutated.tsv"
 				,alphabet
 				,"hashNt"
 				,"hashNt2");
+		*/
 		
-		/*
-		if(args.length == 0) return new Bloom("src/testFiles/GenomDir/EColiGenom.fa"
-				,"src/testFiles/GenDir/EColiGene.fa"
+		if(args.length == 0) return new Bloom("src/testFiles/GenomDir/EColi_Genom.fa"
+				,"src/testFiles/GenDir/EColiGeneProtein.fa"
 				,alphabet
 				,"hashNt"
 				,"hashNt2");
-		*/
+		
 		
 		switch(args[2].toLowerCase()) {
 		case "dna" -> alphabet = Alphabet.DNA;
@@ -65,7 +65,7 @@ public class CheckArguments {
 			return b;
 		}
 		else {
-			return new Bloom("src/testFiles/GenomDir/VacciniaGenom.fa"
+			return new Bloom("src/testFiles/GenomDir/Vaccinia_Genom.fa"
 					,"src/testFiles/GenDir/VacciniaGene.fa"
 					,alphabet
 					,"hashNt"

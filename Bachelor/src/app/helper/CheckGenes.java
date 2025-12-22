@@ -52,14 +52,20 @@ public class CheckGenes {
 				
 				if(inside) {
 					sb.append("GenNr: " + count + " found in" + BSO.name() + "\n");
+					sb.append(new String(g.sequence()) + "\n");
 					found++;
+				}
+				else {
+					IO.println("Fehler: " + g.name());
+					//IO.println(new String(g.sequence()));
 				}
 			}
 			count++;
 		}
 		
-		IO.println("FoundNR:" + found);
-		write(sb.toString());
+		IO.println("Gene Anzahl: " + genList.size());
+		IO.println("Fundstellen: " + found);
+		//write(sb.toString());
 		
 		
 	}
