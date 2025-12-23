@@ -10,6 +10,7 @@ import app.records.BitSetObject;
 import app.records.Gen;
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.methods.ToHash;
+import miscTools.FileWriters.GenCheckWriter;
 
 public class CheckGenes {
 	/**
@@ -47,6 +48,9 @@ public class CheckGenes {
 		
 		for(Gen g: genList) {
 			
+			if(g.sequence().length < kmerSize) continue;
+			
+			
 			for(BitSetObject BSO: BSOList) {
 				boolean inside = isInside(hfList,BSO,g);
 				
@@ -54,10 +58,6 @@ public class CheckGenes {
 					sb.append("GenNr: " + count + " found in" + BSO.name() + "\n");
 					sb.append(new String(g.sequence()) + "\n");
 					found++;
-				}
-				else {
-					IO.println("Fehler: " + g.name());
-					//IO.println(new String(g.sequence()));
 				}
 			}
 			count++;

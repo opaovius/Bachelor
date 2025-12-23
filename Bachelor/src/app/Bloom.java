@@ -12,6 +12,7 @@ import app.records.Gen;
 import app.records.Genom;
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.methods.CreateHashFunction;
+import miscTools.Generator.GenGenerator;
 import miscTools.Generator.ProteinGenerator;
 
 public class Bloom {
@@ -58,6 +59,8 @@ public class Bloom {
 		//Nachpruefen, ob Gene enthalten sind
 		CheckGenes.check(BSOList,genes,kmerSize,hfList,alphabet);
 		
+		
+		//GenGenerator.takeTales(genom);
 		//GenPermutator.permutate(genes);
 		//ProteinGenerator.generate(genom.getFirst().getFirst());
 	}

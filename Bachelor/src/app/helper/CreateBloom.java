@@ -82,7 +82,7 @@ public class CreateBloom {
 
 		// Testen [T]
 		// TestPipeline.test(intList,genom.sequence(),kmerSize,hfList,bitS);
-		TestPipeline.bitTest(bitS,genom.get(0).name());
+		//TestPipeline.bitTest(bitS,genom.get(0).name());
 		//PlaceWriter.fusionWriteInt(intList, "src/testFiles/AnalyseDir/Places/PlacesAnalyseTest" + genom.get(0).name() + ".csv");
 		
 		return new BitSetObject(genom.get(0).name(), bitS, cap);

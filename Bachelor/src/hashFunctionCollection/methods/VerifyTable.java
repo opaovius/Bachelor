@@ -11,17 +11,17 @@ public class VerifyTable {
 		if(seed.containsKey(c)) {
 			return seed.get(c);
 		}
-		else if(seed.containsKey('W') && alphabet == Alphabet.TALES) {
+		else if(alphabet == Alphabet.TALES) {
 			return seed.get('W');
 		}
-		else if(seed.containsKey('X') && alphabet == Alphabet.PROTEIN) {
+		else if(alphabet == Alphabet.PROTEIN) {
 			return seed.get('X');
 		}
-		else if(seed.containsKey('T') && alphabet == Alphabet.DNA) {
+		else if(alphabet == Alphabet.DNA) {
 			return seed.get('T');
 		}
 		else {
-			IO.println("Unbekanntes Zeichen: " + c + " bei NtHashClassic.cycle(i-1)");
+			IO.println("Unbekanntes Zeichen: " + c + " bei VerifyTable.verifySeed()");
 			return 0;
 		}
 		
@@ -32,17 +32,17 @@ public class VerifyTable {
 		if(look.containsKey(c)) {
 			return look.get(c).get(i);
 		}
-		else if(look.containsKey('W') && alphabet == Alphabet.TALES) {
+		else if(alphabet == Alphabet.TALES) {
 			return look.get('W').get(i);
 		}
-		else if(look.containsKey('X') && alphabet == Alphabet.PROTEIN) {
+		else if(alphabet == Alphabet.PROTEIN) {
 			return look.get('X').get(i);
 		}
-		else if(look.containsKey('T') && alphabet == Alphabet.DNA) {
+		else if(alphabet == Alphabet.DNA) {
 			return look.get('T').get(i);
 		}
 		else {
-			IO.println("Unbekanntes Zeichen: " + c + " bei NtHashClassic.cycle(i-1)");
+			IO.println("Unbekanntes Zeichen: " + c + " bei VerifyTable.verifyLook()");
 			return 0;
 		}
 	}

@@ -1,6 +1,8 @@
 package miscTools.Generator;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -8,6 +10,7 @@ import java.nio.channels.FileChannel;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.random.RandomGenerator;
@@ -77,10 +80,73 @@ public class GenGenerator {
 		writeTales(sb.toString());
 	}
 	
+	//Nimmt aus der Tales-Liste einen Prozentualenanteil der RVDs raus zum testen
+	public static void takeTales(ArrayList<ArrayList<Genom>> genomsList) {
+		
+		double p = 0.2;
+		StringBuilder sb = new StringBuilder("");
+		
+		for(ArrayList<Genom> genoms: genomsList) {
+			int target = (int) (genoms.size() * p);
+			HashSet<Integer> rolled = new HashSet<>();
+			
+			while(rolled.size() < target) {
+				
+				int index = RandomGenerator.getDefault().nextInt(0, genoms.size());
+				
+				while(rolled.contains(index)) {
+					index = RandomGenerator.getDefault().nextInt(0, genoms.size());
+				}
+				
+				rolled.add(index);
+				sb.append(genoms.get(index).name() + "\t" + reverseConvertTales(genoms.get(index).sequence()) + "\n");
+				
+			}
+		}
+		
+		//writeTales(sb.toString());
+
+	}
+	
+	private static String reverseConvertTales(char[] c) {
+		
+		HashMap<Character,String> alpha = loadTalesAlphabet();
+		StringBuilder sb = new StringBuilder("");
+		
+		for(char curr: c) {
+			sb.append(alpha.get(curr));
+		}
+		
+		return sb.toString();
+	}
+	
+	private static HashMap<Character,String> loadTalesAlphabet(){
+		
+		HashMap<Character,String> alpha = new HashMap<>();
+		
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("src/testFiles/SeedTableDir/TalesCharsConv.tsv"));
+			
+			String curr = br.readLine();
+			
+			while(curr != null) {
+				
+				String[] arr = curr.split("\t");
+				alpha.put(arr[1].charAt(0), arr[0] + " ");
+				curr = br.readLine();
+			}
+			br.close();
+		}
+		catch(IOException e) {
+			IO.println("IOException: GenGenerator.loadTalesAlphabet()");
+		}
+		return alpha;
+	}
+	
 	private static void writeTales(String s) {
 		
 		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter("src/testFiles/GenDir/TalesPermutated.tsv"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("src/testFiles/GenDir/Tales20Percent.tsv"));
 			bw.write(s);
 			bw.close();
 		}
