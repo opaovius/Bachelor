@@ -2,6 +2,8 @@ package app;
 
 import java.io.IOException;
 
+import com.clearspring.analytics.stream.cardinality.HyperLogLog;
+
 import app.helper.CheckArguments;
 
 public class Main {
@@ -49,6 +51,17 @@ public class Main {
 		
 		b.run();
 		*/
+		
+		IO.println("HLL TEST");
+		
+		HyperLogLog t = new HyperLogLog(14);
+		
+		t.offer("alice");
+		t.offer("bob");
+		t.offer("alice");
+		
+		IO.println(t.cardinality());
+		
 		System.out.print("done!                                \r");
 		
 	}

@@ -6,10 +6,10 @@ import java.util.BitSet;
 import app.records.Alphabet;
 import app.records.BitSetObject;
 import app.records.Genom;
+import app.records.IBFObject;
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.methods.BoundedInteger;
 import hashFunctionCollection.methods.ToHash;
-import miscTools.FileWriters.PlaceWriter;
 import miscTools.TestMethods.TestPipeline;
 
 public class CreateBloom {
@@ -23,7 +23,7 @@ public class CreateBloom {
 	 * @return BitSetObject
 	 */
 	
-	public static BitSetObject createIBF(ArrayList<ArrayList<Genom>> genomList, int kmerSize
+	public static IBFObject createIBF(ArrayList<ArrayList<Genom>> genomList, int kmerSize
 			, ArrayList<HashFunction> hfList,Alphabet alphabet) {
 		
 		ArrayList<Integer> capList = new ArrayList<>();
@@ -72,6 +72,7 @@ public class CreateBloom {
 				}
 			}
 			BSOList.add(new BitSetObject(genom.get(0).name(), bitS, cap));
+			intList = new ArrayList<>();
 		}
 		
 		return fuseIBF(BSOList);
@@ -124,7 +125,7 @@ public class CreateBloom {
 		return new BitSetObject(genom.get(0).name(), bitS, cap);
 	}
 	
-	private static BitSetObject fuseIBF(ArrayList<BitSetObject> BSOList) {
+	private static IBFObject fuseIBF(ArrayList<BitSetObject> BSOList) {
 		
 		//Neues BitSet : Anzahl Genome * Laenge derer BitSets
 		BitSet bitS = new BitSet(BSOList.size() * BSOList.get(0).vector().size());
@@ -150,7 +151,7 @@ public class CreateBloom {
 		TestPipeline.bitTest(bitS,"Test");
 		IO.println("Vergleich card: " + card);
 		
-		return BSOList.get(0);
+		return new IBFObject("IBF",bitS,BSOList.get(0).cap(),new ArrayList<String>(),BSOList.size());
 	}
 
 	private static int getMax(ArrayList<Integer> l) {

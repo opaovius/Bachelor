@@ -2,11 +2,12 @@ package app;
 
 import java.util.ArrayList;
 
+import app.helper.CheckGenesIBF;
 import app.helper.CreateBloom;
 import app.records.Alphabet;
-import app.records.BitSetObject;
 import app.records.Gen;
 import app.records.Genom;
+import app.records.IBFObject;
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.methods.CreateHashFunction;
 
@@ -18,7 +19,10 @@ public class IBF {
 		// Erstellen der HashFunktionen
 		ArrayList<HashFunction> hfList = CreateHashFunction.create(kmerSize, hashOptionOne, hashOptionTwo, alphabet);
 		
-		BitSetObject BSO = CreateBloom.createIBF(genom, kmerSize, hfList, alphabet);
+		IBFObject IBF = CreateBloom.createIBF(genom, kmerSize, hfList, alphabet);
+		
+		// Nachpruefen, ob Gene enthalten sind
+		CheckGenesIBF.check(IBF, genes, kmerSize, hfList, alphabet);
 		
 	}
 

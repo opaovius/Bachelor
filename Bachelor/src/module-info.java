@@ -5,4 +5,5 @@
  * 
  */
 module Bachelor {
+	requires stream;
 }
