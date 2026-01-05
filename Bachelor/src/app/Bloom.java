@@ -2,6 +2,9 @@ package app;
 
 import java.util.ArrayList;
 
+import app.DefaultBFDir.DefaultBF;
+import app.HIBFDir.HIBF;
+import app.IBFDir.IBF;
 import app.helper.LoadGenes;
 import app.helper.LoadGenom;
 import app.records.Alphabet;
@@ -37,12 +40,17 @@ public class Bloom {
 
 	public void run() {
 
-		boolean IBFBool = true;
+		boolean IBFBool = false;
+		boolean HIBFBool = true;
+		
 		int kmerSize = switchKmerSize();
 
 		if (IBFBool) {
 			IBF.filter(genom, genes, hashOptionOne, hashOptionTwo, alphabet, kmerSize);
 		} 
+		else if(HIBFBool) {
+			HIBF.filter(genom, genes, hashOptionOne, hashOptionTwo, alphabet, kmerSize);
+		}
 		else {
 			DefaultBF.filter(genom, genes, hashOptionOne, hashOptionTwo, alphabet, kmerSize);
 		}

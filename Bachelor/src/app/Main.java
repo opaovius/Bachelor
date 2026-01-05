@@ -52,16 +52,6 @@ public class Main {
 		b.run();
 		*/
 		
-		IO.println("HLL TEST");
-		
-		HyperLogLog t = new HyperLogLog(14);
-		
-		t.offer("alice");
-		t.offer("bob");
-		t.offer("alice");
-		
-		IO.println(t.cardinality());
-		
 		System.out.print("done!                                \r");
 		
 	}

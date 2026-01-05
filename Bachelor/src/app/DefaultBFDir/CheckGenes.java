@@ -1,10 +1,11 @@
-package app.helper;
+package app.DefaultBFDir;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import app.helper.DNAComplement;
 import app.records.Alphabet;
 import app.records.BitSetObject;
 import app.records.Gen;

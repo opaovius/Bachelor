@@ -1,4 +1,4 @@
-package app.helper;
+package app.IBFDir;
 
 import java.util.ArrayList;
 import java.util.BitSet;
@@ -61,6 +61,7 @@ public class CheckGenesIBF {
 				if (hitCount[f] >= cutoff) {
 					//IO.println("Gen " + g.name() + " vlt. in Filter " + f);
 					hit++;
+					//break;
 				}
 			}
 
