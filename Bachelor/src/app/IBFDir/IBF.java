@@ -9,6 +9,7 @@ import app.records.Genom;
 import app.records.IBFObject;
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.methods.CreateHashFunction;
+import miscTools.TestMethods.TestPipeline;
 
 public class IBF {
 	
@@ -19,6 +20,8 @@ public class IBF {
 		ArrayList<HashFunction> hfList = CreateHashFunction.create(kmerSize, hashOptionOne, hashOptionTwo, alphabet);
 		
 		IBFObject IBF = CreateBloom.createIBF(genom, kmerSize, hfList, alphabet);
+		
+		TestPipeline.IBFPlaces(IBF);
 		
 		// Nachpruefen, ob Gene enthalten sind
 		CheckGenesIBF.check(IBF, genes, kmerSize, hfList, alphabet);

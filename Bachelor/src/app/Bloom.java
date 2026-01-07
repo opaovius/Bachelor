@@ -40,8 +40,8 @@ public class Bloom {
 
 	public void run() {
 
-		boolean IBFBool = false;
-		boolean HIBFBool = true;
+		boolean IBFBool = true;
+		boolean HIBFBool = false;
 		
 		int kmerSize = switchKmerSize();
 

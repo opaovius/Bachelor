@@ -18,7 +18,7 @@ public class CheckArguments {
 		
 		
 		if(args.length == 0) return new Bloom("src/testFiles/Tales/List_of_TALEs_incl_length_RVDs.tsv"
-				,"src/testFiles/GenDir/Tales20Percent.tsv"
+				,"src/testFiles/GenDir/TalesPermutated.tsv"
 				,alphabet
 				,"hashNt"
 				,"hashNt2");

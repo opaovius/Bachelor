@@ -10,6 +10,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.BitSet;
 
+import app.records.IBFObject;
 import hashFunctionCollection.HashFunction;
 import hashFunctionCollection.methods.BoundedInteger;
 import hashFunctionCollection.variants.RabinFingerprint;
@@ -47,6 +48,21 @@ public class TestPipeline {
 		IO.println("BitS Size: " + bitS.size());
 		IO.println("BitS Card: " + bitS.cardinality());
 		IO.println("Rate BitS: " + (Math.round((100.0/bitS.size()*bitS.cardinality())* 100000.0) / 100000.0) + "%");
+	}
+	
+	public static void IBFPlaces(IBFObject IBF ) {
+		
+		BitSet bs = IBF.vector();
+		StringBuilder sb = new StringBuilder("");
+		
+		for(int x = 0; x < bs.size(); x++) {
+			if(bs.get(x)) {
+				sb.append(x + "\n");
+			}
+		}
+		
+		write(sb);
+		
 	}
 	
 	public static void testTwoBit() {
