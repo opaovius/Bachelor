@@ -21,7 +21,7 @@ public class IBF {
 		
 		IBFObject IBF = CreateBloom.createIBF(genom, kmerSize, hfList, alphabet);
 		
-		TestPipeline.IBFPlaces(IBF);
+		//TestPipeline.IBFPlaces(IBF);
 		
 		// Nachpruefen, ob Gene enthalten sind
 		CheckGenesIBF.check(IBF, genes, kmerSize, hfList, alphabet);

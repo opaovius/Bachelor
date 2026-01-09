@@ -9,8 +9,23 @@ import app.records.IBFObject;
 import hashFunctionCollection.HashFunction;
 
 public class CheckGenesIBF {
-
+	
 	public static void check(IBFObject IBF, ArrayList<Gen> genes, int kmerSize, ArrayList<HashFunction> hfList,
+			Alphabet alphabet) {
+		
+		switch(alphabet) {
+		case Alphabet.DNA -> checkDNA(IBF, genes, kmerSize, hfList, alphabet);
+		default -> checkDefault(IBF, genes, kmerSize, hfList, alphabet);
+		}
+		
+	}
+	
+	public static void checkDNA(IBFObject IBF, ArrayList<Gen> genes, int kmerSize, ArrayList<HashFunction> hfList,
+			Alphabet alphabet) {
+		
+	}
+
+	public static void checkDefault(IBFObject IBF, ArrayList<Gen> genes, int kmerSize, ArrayList<HashFunction> hfList,
 			Alphabet alphabet) {
 
 		ArrayList<int[]> intList = new ArrayList<>();
